@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dwcdc8syxj61x"]
+
+[ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="1_weeoi"]
+[ext_resource type="Texture2D" uid="uid://dbm8m2ao2vl51" path="res://assets/placeholderEnemy.png" id="2_g5n2c"]
+
+[resource]
+script = ExtResource("1_weeoi")
+name = "Enemy"
+texture = ExtResource("2_g5n2c")
+encounter_text = "An enemy appears!"
+health = 200
+atk = 50
+def = 50

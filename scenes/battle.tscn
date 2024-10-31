@@ -1,0 +1,339 @@
+[gd_scene load_steps=22 format=3 uid="uid://beayxgfkk3h5v"]
+
+[ext_resource type="Script" path="res://scripts/battle.gd" id="1_id4ev"]
+[ext_resource type="Texture2D" uid="uid://dbm8m2ao2vl51" path="res://assets/placeholderEnemy.png" id="2_ciloq"]
+[ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/enemy.tres" id="2_vqcng"]
+[ext_resource type="Texture2D" uid="uid://otu5f1jl8lrh" path="res://assets/placeholderBattleBG.png" id="3_jibwr"]
+[ext_resource type="FontFile" uid="uid://d2e46k3m0ng28" path="res://fonts/Kenney Mini Square.ttf" id="4_kywr0"]
+[ext_resource type="FontFile" uid="uid://c21mggakav4fu" path="res://fonts/Kenney Pixel.ttf" id="4_p0f5x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e27sl"]
+bg_color = Color(1, 0.337255, 0.313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mcxu4"]
+bg_color = Color(0, 0.721569, 0.32549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qbo0"]
+bg_color = Color(0.309804, 0.643137, 0.721569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5wce"]
+bg_color = Color(1, 0.337255, 0.313726, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.572549, 0.909804, 0.752941, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp8h"]
+bg_color = Color(0.572549, 0.909804, 0.752941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftph5"]
+bg_color = Color(0.572549, 0.909804, 0.752941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4tomp"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.572549, 0.909804, 0.752941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv62g"]
+bg_color = Color(0.572549, 0.909804, 0.752941, 1)
+
+[sub_resource type="Theme" id="Theme_8nup1"]
+Button/colors/font_color = Color(0.572549, 0.909804, 0.752941, 1)
+Button/colors/font_focus_color = Color(0, 0.243137, 0.411765, 1)
+Button/colors/font_hover_color = Color(0, 0.243137, 0.411765, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0.243137, 0.411765, 1)
+Button/colors/font_pressed_color = Color(0, 0.243137, 0.411765, 1)
+Button/constants/outline_size = 0
+Button/fonts/font = ExtResource("4_kywr0")
+Button/styles/focus = SubResource("StyleBoxFlat_2yp8h")
+Button/styles/hover = SubResource("StyleBoxFlat_ftph5")
+Button/styles/normal = SubResource("StyleBoxFlat_4tomp")
+Button/styles/pressed = SubResource("StyleBoxFlat_gv62g")
+
+[sub_resource type="Animation" id="Animation_803hh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerDmgColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DefeatColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xndoi"]
+resource_name = "defeat"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DefeatColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0ckph"]
+resource_name = "enemy_damaged"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mnkwu"]
+resource_name = "enemy_died"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r5k3u"]
+resource_name = "player_dmg"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerDmgColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 0.490196), Color(1, 0, 0, 0), Color(1, 0, 0, 0.490196), Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v0eu2"]
+_data = {
+"RESET": SubResource("Animation_803hh"),
+"defeat": SubResource("Animation_xndoi"),
+"enemy_damaged": SubResource("Animation_0ckph"),
+"enemy_died": SubResource("Animation_mnkwu"),
+"player_dmg": SubResource("Animation_r5k3u")
+}
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_id4ev")
+enemy = ExtResource("2_vqcng")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_jibwr")
+
+[node name="EnemyContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -127.5
+offset_top = -118.5
+offset_right = 127.5
+offset_bottom = 118.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="EnemyContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_e27sl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mcxu4")
+show_percentage = false
+
+[node name="Enemy" type="TextureRect" parent="EnemyContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_ciloq")
+
+[node name="DefeatColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="ActionsPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -63.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5qbo0")
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Actions" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="PlayerInfo" type="VBoxContainer" parent="ActionsPanel/MarginContainer/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="PlayerLabel" type="Label" parent="ActionsPanel/MarginContainer/Actions/PlayerInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_p0f5x")
+theme_override_font_sizes/font_size = 22
+text = "Player"
+
+[node name="HealthBar" type="ProgressBar" parent="ActionsPanel/MarginContainer/Actions/PlayerInfo"]
+custom_minimum_size = Vector2(0, 13)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_y5wce")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mcxu4")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="ActionsPanel/MarginContainer/Actions/PlayerInfo/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_p0f5x")
+vertical_alignment = 1
+
+[node name="Attack" type="Button" parent="ActionsPanel/MarginContainer/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_right = NodePath("../Escape")
+focus_next = NodePath("../Escape")
+theme = SubResource("Theme_8nup1")
+text = "Attack"
+
+[node name="Button2" type="Button" parent="ActionsPanel/MarginContainer/Actions"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Magic"
+
+[node name="Escape" type="Button" parent="ActionsPanel/MarginContainer/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../Attack")
+focus_previous = NodePath("../Attack")
+theme = SubResource("Theme_8nup1")
+text = "Escape"
+
+[node name="Textbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_p0f5x")
+theme_override_fonts/mono_font = ExtResource("4_p0f5x")
+theme_override_fonts/italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_font = ExtResource("4_p0f5x")
+theme_override_font_sizes/normal_font_size = 17
+scroll_active = false
+
+[node name="PlayerDmgColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v0eu2")
+}
+
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/Escape" to="." method="_on_run_pressed"]
