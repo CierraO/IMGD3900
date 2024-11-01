@@ -1,12 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://db3xs6g7oqyhl"]
+[gd_scene load_steps=10 format=3 uid="uid://db3xs6g7oqyhl"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_yquaj"]
-[ext_resource type="Resource" uid="uid://bhbjnbnqtd4t8" path="res://resources/enemy2.tres" id="2_l0da5"]
-[ext_resource type="Texture2D" uid="uid://cs85t3vbh88yn" path="res://assets/placeholderSprite.png" id="3_thg5c"]
+[ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="2_ahtxm"]
+[ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="3_qcinb"]
 [ext_resource type="Texture2D" uid="uid://dnltaew8p66bf" path="res://assets/emote_exclamation.png" id="4_o5wu5"]
 
+[sub_resource type="Resource" id="Resource_exlgo"]
+script = ExtResource("2_ahtxm")
+name = "Different Enemy"
+texture = ExtResource("3_qcinb")
+encounter_text = "A new enemy appears!"
+health = 15
+atk = 3
+def = 4
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5bect"]
-size = Vector2(48, 87)
+size = Vector2(56, 60)
 
 [sub_resource type="Animation" id="Animation_82122"]
 length = 0.001
@@ -70,18 +79,17 @@ _data = {
 }
 
 [node name="Enemy" type="Area2D"]
-position = Vector2(296, 180)
 collision_mask = 2
 script = ExtResource("1_yquaj")
-enemy = ExtResource("2_l0da5")
+enemy = SubResource("Resource_exlgo")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -8)
 shape = SubResource("RectangleShape2D_5bect")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.211765, 0, 1)
-texture = ExtResource("3_thg5c")
+texture = ExtResource("3_qcinb")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 visible = false

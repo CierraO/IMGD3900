@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ct1tp5l3wbu1g"]
+
+[ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="1_cfbsc"]
+[ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="2_tu8oy"]
+
+[resource]
+script = ExtResource("1_cfbsc")
+name = "Skull"
+texture = ExtResource("2_tu8oy")
+encounter_text = "A Skull appears!"
+health = 3
+atk = 3
+def = 4

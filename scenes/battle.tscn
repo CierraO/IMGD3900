@@ -1,11 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://beayxgfkk3h5v"]
+[gd_scene load_steps=26 format=3 uid="uid://beayxgfkk3h5v"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_id4ev"]
-[ext_resource type="Texture2D" uid="uid://dbm8m2ao2vl51" path="res://assets/placeholderEnemy.png" id="2_ciloq"]
-[ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/enemy.tres" id="2_vqcng"]
+[ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skull.tres" id="2_vqcng"]
 [ext_resource type="Texture2D" uid="uid://otu5f1jl8lrh" path="res://assets/placeholderBattleBG.png" id="3_jibwr"]
 [ext_resource type="FontFile" uid="uid://d2e46k3m0ng28" path="res://fonts/Kenney Mini Square.ttf" id="4_kywr0"]
 [ext_resource type="FontFile" uid="uid://c21mggakav4fu" path="res://fonts/Kenney Pixel.ttf" id="4_p0f5x"]
+[ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="4_x0toj"]
+[ext_resource type="Texture2D" uid="uid://drudr1oagdm3q" path="res://assets/health-bar.png" id="6_rspfa"]
+[ext_resource type="Texture2D" uid="uid://c7yf6svrfm18m" path="res://assets/attack-icon.png" id="7_67na4"]
+[ext_resource type="Texture2D" uid="uid://dkxovs1ky71g2" path="res://assets/flee-icon.png" id="8_tm0nu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e27sl"]
 bg_color = Color(1, 0.337255, 0.313726, 1)
@@ -16,23 +19,32 @@ bg_color = Color(0, 0.721569, 0.32549, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qbo0"]
 bg_color = Color(0.309804, 0.643137, 0.721569, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5wce"]
-bg_color = Color(1, 0.337255, 0.313726, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.572549, 0.909804, 0.752941, 1)
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i6ihn"]
+texture = ExtResource("6_rspfa")
+texture_margin_left = 37.0465
+texture_margin_top = 5.89847
+texture_margin_right = 39.1684
+texture_margin_bottom = 7.11678
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+axis_stretch_vertical = 1
+region_rect = Rect2(2.95572, 3.09153, 84.0736, 26.0038)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6tffp"]
+texture = ExtResource("6_rspfa")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(6.01341, 49.0362, 77.984, 19.8931)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp8h"]
-bg_color = Color(0.572549, 0.909804, 0.752941, 1)
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftph5"]
-bg_color = Color(0.572549, 0.909804, 0.752941, 1)
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4tomp"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -40,13 +52,13 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.572549, 0.909804, 0.752941, 1)
+border_color = Color(0.807843, 0.807843, 0.807843, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv62g"]
-bg_color = Color(0.572549, 0.909804, 0.752941, 1)
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
 
 [sub_resource type="Theme" id="Theme_8nup1"]
-Button/colors/font_color = Color(0.572549, 0.909804, 0.752941, 1)
+Button/colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
 Button/colors/font_focus_color = Color(0, 0.243137, 0.411765, 1)
 Button/colors/font_hover_color = Color(0, 0.243137, 0.411765, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0.243137, 0.411765, 1)
@@ -196,12 +208,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -127.5
-offset_top = -118.5
-offset_right = 127.5
-offset_bottom = 118.5
+offset_left = -28.0
+offset_top = -31.0
+offset_right = 28.0
+offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="HealthBar" type="ProgressBar" parent="EnemyContainer"]
 custom_minimum_size = Vector2(0, 5)
@@ -213,7 +226,9 @@ show_percentage = false
 [node name="Enemy" type="TextureRect" parent="EnemyContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("2_ciloq")
+size_flags_horizontal = 4
+texture = ExtResource("4_x0toj")
+stretch_mode = 4
 
 [node name="DefeatColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -264,11 +279,11 @@ theme_override_font_sizes/font_size = 22
 text = "Player"
 
 [node name="HealthBar" type="ProgressBar" parent="ActionsPanel/MarginContainer/Actions/PlayerInfo"]
-custom_minimum_size = Vector2(0, 13)
+custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_y5wce")
-theme_override_styles/fill = SubResource("StyleBoxFlat_mcxu4")
-value = 100.0
+theme_override_styles/background = SubResource("StyleBoxTexture_i6ihn")
+theme_override_styles/fill = SubResource("StyleBoxTexture_6tffp")
+value = 70.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="ActionsPanel/MarginContainer/Actions/PlayerInfo/HealthBar"]
@@ -285,6 +300,8 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_p0f5x")
+theme_override_font_sizes/font_size = 12
+text = "willpower"
 vertical_alignment = 1
 
 [node name="Attack" type="Button" parent="ActionsPanel/MarginContainer/Actions"]
@@ -294,6 +311,8 @@ focus_neighbor_right = NodePath("../Escape")
 focus_next = NodePath("../Escape")
 theme = SubResource("Theme_8nup1")
 text = "Attack"
+icon = ExtResource("7_67na4")
+expand_icon = true
 
 [node name="Button2" type="Button" parent="ActionsPanel/MarginContainer/Actions"]
 visible = false
@@ -308,6 +327,8 @@ focus_neighbor_left = NodePath("../Attack")
 focus_previous = NodePath("../Attack")
 theme = SubResource("Theme_8nup1")
 text = "Escape"
+icon = ExtResource("8_tm0nu")
+expand_icon = true
 
 [node name="Textbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer"]
 unique_name_in_owner = true
