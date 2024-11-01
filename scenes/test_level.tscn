@@ -1,12 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bnwe8chejtm3j"]
+[gd_scene load_steps=15 format=3 uid="uid://bnwe8chejtm3j"]
 
 [ext_resource type="Texture2D" uid="uid://bbr173rijipvb" path="res://assets/placeholderTile2.png" id="1_1fhew"]
 [ext_resource type="Texture2D" uid="uid://bi8bs3f6gbxcd" path="res://assets/placeholderTile.png" id="2_1g7jr"]
 [ext_resource type="PackedScene" uid="uid://db3xs6g7oqyhl" path="res://scenes/enemy.tscn" id="3_i78y7"]
 [ext_resource type="PackedScene" uid="uid://tj2l03e6u4lg" path="res://scenes/player.tscn" id="3_w81om"]
-[ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/enemy.tres" id="4_2ahdj"]
+[ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skull.tres" id="4_2ahdj"]
 [ext_resource type="Texture2D" uid="uid://cs85t3vbh88yn" path="res://assets/placeholderSprite.png" id="4_yx6fq"]
-[ext_resource type="Resource" uid="uid://dwcdc8syxj61x" path="res://resources/enemy3.tres" id="7_3vx3p"]
 [ext_resource type="Script" path="res://scripts/npc.gd" id="8_btytp"]
 [ext_resource type="Resource" uid="uid://cevdbw0y5otkh" path="res://dialogue/placeholderDialogue.dialogue" id="9_fapb2"]
 
@@ -28,7 +27,13 @@ sources/0 = SubResource("TileSetAtlasSource_6k4o1")
 sources/1 = SubResource("TileSetAtlasSource_lmu3g")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qm40v"]
-size = Vector2(45, 68)
+size = Vector2(18, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdy14"]
+size = Vector2(514.5, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tqg3"]
+size = Vector2(26.25, 227)
 
 [node name="TestLevel" type="Node2D"]
 
@@ -36,19 +41,28 @@ size = Vector2(45, 68)
 position = Vector2(0, 63)
 tile_set = SubResource("TileSet_78fpm")
 format = 2
-layer_0/tile_data = PackedInt32Array(65536, 1, 0, 0, 1, 0, 131072, 1, 0, 196608, 1, 0, 262144, 1, 0, 1, 1, 0, 65537, 1, 0, 131073, 1, 0, 196609, 1, 0, 262145, 1, 0, 2, 1, 0, 65538, 1, 0, 131074, 1, 0, 196610, 1, 0, 262146, 1, 0, 3, 1, 0, 65539, 1, 0, 131075, 1, 0, 196611, 1, 0, 262147, 1, 0, 4, 1, 0, 65540, 1, 0, 131076, 1, 0, 196612, 1, 0, 262148, 1, 0, 5, 1, 0, 65541, 1, 0, 131077, 1, 0, 196613, 1, 0, 262149, 1, 0, 6, 1, 0, 65542, 1, 0, 131078, 1, 0, 196614, 1, 0, 262150, 1, 0, 7, 1, 0, 65543, 1, 0, 131079, 1, 0, 196615, 1, 0, 262151, 1, 0, 327680, 1, 0, 327681, 1, 0, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 8, 1, 0, 65544, 1, 0, 131080, 1, 0, 196616, 1, 0, 262152, 1, 0, 327688, 1, 0, 9, 1, 0, 65545, 1, 0, 131081, 1, 0, 196617, 1, 0, 262153, 1, 0, 327689, 1, 0, 10, 1, 0, 65546, 1, 0, 131082, 1, 0, 196618, 1, 0, 262154, 1, 0, 327690, 1, 0, 11, 1, 0, 65547, 1, 0, 131083, 1, 0, 196619, 1, 0, 262155, 1, 0, 327691, 1, 0, -131072, 0, 0, -65536, 0, 0, -131071, 0, 0, -65535, 0, 0, -131070, 0, 0, -65534, 0, 0, -131069, 0, 0, -65533, 0, 0, -131068, 0, 0, -65532, 0, 0, -131067, 0, 0, -65531, 0, 0, -131066, 0, 0, -65530, 0, 0, -131065, 0, 0, -65529, 0, 0, -131064, 0, 0, -65528, 0, 0, -131063, 0, 0, -65527, 0, 0, -131062, 0, 0, -65526, 0, 0, -131061, 0, 0, -65525, 0, 0)
+layer_0/tile_data = PackedInt32Array(65536, 1, 0, 0, 1, 0, 131072, 1, 0, 196608, 1, 0, 262144, 1, 0, 1, 1, 0, 65537, 1, 0, 131073, 1, 0, 196609, 1, 0, 262145, 1, 0, 2, 1, 0, 65538, 1, 0, 131074, 1, 0, 196610, 1, 0, 262146, 1, 0, 3, 1, 0, 65539, 1, 0, 131075, 1, 0, 196611, 1, 0, 262147, 1, 0, 4, 1, 0, 65540, 1, 0, 131076, 1, 0, 196612, 1, 0, 262148, 1, 0, 5, 1, 0, 65541, 1, 0, 131077, 1, 0, 196613, 1, 0, 262149, 1, 0, 6, 1, 0, 65542, 1, 0, 131078, 1, 0, 196614, 1, 0, 262150, 1, 0, 7, 1, 0, 65543, 1, 0, 131079, 1, 0, 196615, 1, 0, 262151, 1, 0, 327680, 1, 0, 327681, 1, 0, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 8, 1, 0, 65544, 1, 0, 131080, 1, 0, 196616, 1, 0, 262152, 1, 0, 327688, 1, 0, 9, 1, 0, 65545, 1, 0, 131081, 1, 0, 196617, 1, 0, 262153, 1, 0, 327689, 1, 0, 10, 1, 0, 65546, 1, 0, 131082, 1, 0, 196618, 1, 0, 262154, 1, 0, 327690, 1, 0, 11, 1, 0, 65547, 1, 0, 131083, 1, 0, 196619, 1, 0, 262155, 1, 0, 327691, 1, 0, -131072, 0, 0, -65536, 0, 0, -131071, 0, 0, -65535, 0, 0, -131070, 0, 0, -65534, 0, 0, -131069, 0, 0, -65533, 0, 0, -131068, 0, 0, -65532, 0, 0, -131067, 0, 0, -65531, 0, 0, -131066, 0, 0, -65530, 0, 0, -131065, 0, 0, -65529, 0, 0, -131064, 0, 0, -65528, 0, 0, -131063, 0, 0, -65527, 0, 0, -131062, 0, 0, -65526, 0, 0, -131061, 0, 0, -65525, 0, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 131087, 1, 0, 131086, 1, 0, 131085, 1, 0, 131084, 1, 0, 196620, 1, 0, 196621, 1, 0, 196622, 1, 0, 196623, 1, 0, 262159, 1, 0, 262158, 1, 0, 262157, 1, 0, 262156, 1, 0, 327692, 1, 0, 327693, 1, 0, 327694, 1, 0, 327695, 1, 0, 393216, 1, 0, 393217, 1, 0, 393218, 1, 0, 393219, 1, 0, 393220, 1, 0, 393221, 1, 0, 393222, 1, 0, 393223, 1, 0, 393224, 1, 0, 393225, 1, 0, 393226, 1, 0, 393227, 1, 0, 393228, 1, 0, 393229, 1, 0, 393230, 1, 0, 393231, 1, 0, -131060, 0, 0, -131059, 0, 0, -131058, 0, 0, -131057, 0, 0, -65521, 0, 0, -65522, 0, 0, -65523, 0, 0, -65524, 0, 0, 65535, 0, 0, 131071, 0, 0, 131070, 0, 0, 196606, 0, 0, 196607, 0, 0, 262143, 0, 0, 327679, 0, 0, 393215, 0, 0, 458751, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 393232, 0, 0, 327696, 0, 0, 262160, 0, 0, 196624, 0, 0, 131088, 0, 0, 65552, 0, 0, 16, 0, 0, 15, 1, 0, 65551, 1, 0)
 
 [node name="Enemy" parent="." instance=ExtResource("3_i78y7")]
+position = Vector2(205, 94)
+enemy = ExtResource("4_2ahdj")
 
 [node name="Enemy4" parent="." instance=ExtResource("3_i78y7")]
-position = Vector2(165, 78)
+position = Vector2(281, 216)
 enemy = ExtResource("4_2ahdj")
 
 [node name="Enemy5" parent="." instance=ExtResource("3_i78y7")]
-position = Vector2(353, 68)
-enemy = ExtResource("7_3vx3p")
+position = Vector2(435, 86)
+enemy = ExtResource("4_2ahdj")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Player" parent="." instance=ExtResource("3_w81om")]
+position = Vector2(45, 183)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="NPC" type="StaticBody2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="NPC"]
 position = Vector2(69, 62)
 collision_layer = 5
 script = ExtResource("8_btytp")
@@ -56,15 +70,25 @@ dialogue_resource = ExtResource("9_fapb2")
 dialogue_start = "test"
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-0.5, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/Area2D"]
+position = Vector2(7, 16.5)
 shape = SubResource("RectangleShape2D_qm40v")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
-modulate = Color(0, 0.701961, 1, 1)
+[node name="Sprite2D" type="Sprite2D" parent="NPC/Area2D"]
+position = Vector2(7, 16.7705)
+scale = Vector2(0.5625, 0.459016)
 texture = ExtResource("4_yx6fq")
 
-[node name="Player" parent="." instance=ExtResource("3_w81om")]
-position = Vector2(45, 183)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="NPC"]
+position = Vector2(76, 78.5)
+shape = SubResource("RectangleShape2D_qm40v")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(256.75, 280)
+shape = SubResource("RectangleShape2D_cdy14")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(493, 156.5)
+shape = SubResource("RectangleShape2D_6tqg3")

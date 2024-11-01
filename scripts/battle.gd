@@ -86,7 +86,7 @@ func enemy_turn():
 			await(animation_player.animation_finished)
 			display_text("You have been defeated.")
 			await (textbox_closed)
-			get_tree().quit()
+			SceneManager.change_scene(SceneManager.TEST_LEVEL)
 	else:
 		display_text("%s's attack whiffed." % enemy.name)
 		await(textbox_closed)
@@ -129,6 +129,7 @@ func _on_attack_pressed():
 			await (textbox_closed)
 			animation_player.play("enemy_died")
 			await(animation_player.animation_finished)
+			PlayerStats.current_health = current_player_health
 			battle_finished.emit()
 	else:
 		display_text("Your attack whiffed.")

@@ -2,29 +2,33 @@ extends CharacterBody2D
 
 
 @onready var actionable_finder = $ActionableFinder
+@onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 
-const SPEED = 300.0
+const SPEED = 100.0
 
 enum State {MOVING, BATTLING}
 var state: State = State.MOVING
-
+var direction = "down"
 
 func _physics_process(delta):
 	# Handle movement
 	if (state == State.MOVING):
-		var xDirection = Input.get_axis("ui_left", "ui_right")
-		if xDirection:
-			velocity.x = xDirection * SPEED
+		var x_direction = Input.get_axis("ui_left", "ui_right")
+		if x_direction:
+			velocity.x = x_direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			
-		var yDirection = Input.get_axis("ui_up", "ui_down")
-		if yDirection:
-			velocity.y = yDirection * SPEED
+		var y_direction = Input.get_axis("ui_up", "ui_down")
+		if y_direction:
+			velocity.y = y_direction * SPEED
 		else:
 			velocity.y = move_toward(velocity.y, 0, SPEED)
 
+		update_anim(x_direction, y_direction)
 		move_and_slide()
+	else:
+		update_anim(0, 0)
 
 
 func _unhandled_input(event):
@@ -36,3 +40,18 @@ func _unhandled_input(event):
 
 func set_state(s: State):
 	state = s
+
+
+func update_anim(x_direction, y_direction):
+	if x_direction or y_direction:
+		if x_direction:
+			sprite_2d.flip_h = x_direction < 0
+			direction = "side"
+		elif y_direction:
+			if y_direction > 0:
+				direction = "down"
+			else:
+				direction = "up"
+		sprite_2d.play("walk_" + direction)
+	else:
+		sprite_2d.play(direction)
