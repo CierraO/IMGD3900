@@ -8,7 +8,7 @@ signal textbox_closed
 @onready var actions = $ActionsPanel/MarginContainer/Actions
 @onready var enemy_health_bar = $EnemyContainer/HealthBar
 @onready var player_health_bar = $ActionsPanel/MarginContainer/Actions/PlayerInfo/HealthBar
-@onready var attack = $ActionsPanel/MarginContainer/Actions/Attack
+@onready var attack = $ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack
 @onready var animation_player = $AnimationPlayer
 
 var current_player_health = 0
@@ -55,7 +55,7 @@ func update_progress_bar(progress_bar, has_label, health, max_health):
 	progress_bar.max_value = max_health
 	progress_bar.value = health
 	if has_label:
-		progress_bar.get_node("Label").text = "WILLPOWER: %d/%d" % [health, max_health]
+		progress_bar.get_node("Label").text = "HP: %d/%d" % [health, max_health]
 		
 # Updates the player's progress bar's value, max value, and label; health is the player's current HP
 func update_player_progress_bar(health):
