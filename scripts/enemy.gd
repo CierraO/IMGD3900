@@ -2,6 +2,7 @@ extends Area2D
 
 
 @export var enemy: Resource = preload("res://resources/skull.tres")
+@export var respawns: bool = true
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -40,4 +41,14 @@ func remove_from_scene():
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "modulate", Color(1, 1, 1, 0), 0.5)
 	await (tween.finished)
-	queue_free()
+	
+	if respawns:
+		$CollisionShape2D.disabled = true
+		await (get_tree().create_timer(3).timeout)
+		
+		tween = create_tween()
+		tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.5)
+		await (tween.finished)
+		$CollisionShape2D.disabled = false
+	else:
+		queue_free()

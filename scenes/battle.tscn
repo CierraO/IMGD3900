@@ -275,6 +275,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.4
 
 [node name="PlayerLabel" type="Label" parent="ActionsPanel/MarginContainer/Actions/PlayerInfo"]
+texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_p0f5x")
 theme_override_font_sizes/font_size = 22
@@ -359,6 +360,7 @@ expand_icon = true
 [node name="Textbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer"]
 unique_name_in_owner = true
 visible = false
+texture_filter = 1
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_p0f5x")
 theme_override_fonts/mono_font = ExtResource("4_p0f5x")
