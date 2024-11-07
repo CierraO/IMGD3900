@@ -1,39 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8benhjr4gbex"]
+[gd_scene load_steps=6 format=3 uid="uid://b8benhjr4gbex"]
 
 [ext_resource type="Texture2D" uid="uid://otu5f1jl8lrh" path="res://assets/placeholderBattleBG.png" id="1_bdjsh"]
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_dkdl6"]
 [ext_resource type="Theme" uid="uid://dsldiw4rqrjxb" path="res://resources/theme.tres" id="2_y7oua"]
-[ext_resource type="FontFile" uid="uid://d2e46k3m0ng28" path="res://fonts/Kenney Mini Square.ttf" id="3_tjj08"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp8h"]
-bg_color = Color(0.807843, 0.807843, 0.807843, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftph5"]
-bg_color = Color(0.807843, 0.807843, 0.807843, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4tomp"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.807843, 0.807843, 0.807843, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv62g"]
-bg_color = Color(0.807843, 0.807843, 0.807843, 1)
-
-[sub_resource type="Theme" id="Theme_xgncp"]
-Button/colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
-Button/colors/font_focus_color = Color(0, 0.243137, 0.411765, 1)
-Button/colors/font_hover_color = Color(0, 0.243137, 0.411765, 1)
-Button/colors/font_hover_pressed_color = Color(0, 0.243137, 0.411765, 1)
-Button/colors/font_pressed_color = Color(0, 0.243137, 0.411765, 1)
-Button/constants/outline_size = 0
-Button/fonts/font = ExtResource("3_tjj08")
-Button/styles/focus = SubResource("StyleBoxFlat_2yp8h")
-Button/styles/hover = SubResource("StyleBoxFlat_ftph5")
-Button/styles/normal = SubResource("StyleBoxFlat_4tomp")
-Button/styles/pressed = SubResource("StyleBoxFlat_gv62g")
+[ext_resource type="Texture2D" uid="uid://bjn7dwhh3i4as" path="res://assets/start-button.png" id="5_n50da"]
+[ext_resource type="Texture2D" uid="uid://d2p0vutblhi8f" path="res://assets/exit-button.png" id="6_bwd1m"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_dkdl6")
@@ -64,17 +35,17 @@ horizontal_alignment = 1
 
 [node name="StartGame" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
 focus_neighbor_bottom = NodePath("../Quit")
-theme = SubResource("Theme_xgncp")
-text = "Start Game"
+theme = ExtResource("2_y7oua")
+icon = ExtResource("5_n50da")
 
 [node name="Quit" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../StartGame")
-theme = SubResource("Theme_xgncp")
-text = "Quit"
+theme = ExtResource("2_y7oua")
+icon = ExtResource("6_bwd1m")
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
