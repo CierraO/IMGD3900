@@ -1,0 +1,35 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dsldiw4rqrjxb"]
+
+[ext_resource type="FontFile" uid="uid://d2e46k3m0ng28" path="res://fonts/Kenney Mini Square.ttf" id="1_6s08v"]
+[ext_resource type="FontFile" uid="uid://c21mggakav4fu" path="res://fonts/Kenney Pixel.ttf" id="2_7hnql"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0oyqw"]
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gey0t"]
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iwqvx"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwpck"]
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[resource]
+Button/colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+Button/colors/font_focus_color = Color(0, 0.243137, 0.411765, 1)
+Button/colors/font_hover_color = Color(0, 0.243137, 0.411765, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0.243137, 0.411765, 1)
+Button/colors/font_pressed_color = Color(0, 0.243137, 0.411765, 1)
+Button/constants/outline_size = 0
+Button/fonts/font = ExtResource("1_6s08v")
+Button/styles/focus = SubResource("StyleBoxFlat_0oyqw")
+Button/styles/hover = SubResource("StyleBoxFlat_gey0t")
+Button/styles/normal = SubResource("StyleBoxFlat_iwqvx")
+Button/styles/pressed = SubResource("StyleBoxFlat_mwpck")
+Label/fonts/font = ExtResource("2_7hnql")

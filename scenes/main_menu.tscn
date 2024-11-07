@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8benhjr4gbex"]
+
+[ext_resource type="Texture2D" uid="uid://otu5f1jl8lrh" path="res://assets/placeholderBattleBG.png" id="1_bdjsh"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_dkdl6"]
+[ext_resource type="Theme" uid="uid://dsldiw4rqrjxb" path="res://resources/theme.tres" id="2_y7oua"]
+[ext_resource type="FontFile" uid="uid://d2e46k3m0ng28" path="res://fonts/Kenney Mini Square.ttf" id="3_tjj08"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp8h"]
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftph5"]
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4tomp"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv62g"]
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="Theme" id="Theme_xgncp"]
+Button/colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+Button/colors/font_focus_color = Color(0, 0.243137, 0.411765, 1)
+Button/colors/font_hover_color = Color(0, 0.243137, 0.411765, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0.243137, 0.411765, 1)
+Button/colors/font_pressed_color = Color(0, 0.243137, 0.411765, 1)
+Button/constants/outline_size = 0
+Button/fonts/font = ExtResource("3_tjj08")
+Button/styles/focus = SubResource("StyleBoxFlat_2yp8h")
+Button/styles/hover = SubResource("StyleBoxFlat_ftph5")
+Button/styles/normal = SubResource("StyleBoxFlat_4tomp")
+Button/styles/pressed = SubResource("StyleBoxFlat_gv62g")
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_dkdl6")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_bdjsh")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_y7oua")
+theme_override_font_sizes/font_size = 48
+text = "Game Title"
+horizontal_alignment = 1
+
+[node name="StartGame" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath("../Quit")
+theme = SubResource("Theme_xgncp")
+text = "Start Game"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../StartGame")
+theme = SubResource("Theme_xgncp")
+text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
