@@ -11,6 +11,7 @@ name = "Different Enemy"
 texture = ExtResource("3_qcinb")
 encounter_text = "A new enemy appears!"
 health = 15
+mag = 4
 atk = 3
 def = 4
 
