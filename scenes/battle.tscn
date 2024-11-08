@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://beayxgfkk3h5v"]
+[gd_scene load_steps=35 format=3 uid="uid://beayxgfkk3h5v"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_id4ev"]
 [ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skull.tres" id="2_vqcng"]
@@ -15,7 +15,12 @@
 [ext_resource type="Texture2D" uid="uid://c8dgf8gufcd2n" path="res://assets/bag-icon.png" id="10_uccvl"]
 [ext_resource type="AudioStream" uid="uid://l4sy7526bldl" path="res://audio/Physical-Attack-Sound-Effect.mp3" id="13_vdble"]
 [ext_resource type="AudioStream" uid="uid://bhs5yu2yhg5hr" path="res://audio/Enemy-Physical-Attack-Sound-Effect-PH.mp3" id="14_gy17m"]
+[ext_resource type="Texture2D" uid="uid://ch75h3iaql21u" path="res://assets/empty-icon.png" id="14_lyat4"]
+[ext_resource type="Texture2D" uid="uid://blhbwi3j0lvl7" path="res://assets/sword-item.png" id="15_i2q1p"]
 [ext_resource type="AudioStream" uid="uid://c04u77sudo84j" path="res://audio/Magic-Attack-Sound-Effect.mp3" id="15_vtudw"]
+[ext_resource type="Texture2D" uid="uid://bcaxwx0776lck" path="res://assets/helmet-item.png" id="16_ark76"]
+[ext_resource type="Texture2D" uid="uid://dyti2ws5tbkhc" path="res://assets/chest-item.png" id="17_a1775"]
+[ext_resource type="Texture2D" uid="uid://c3gyjdfw4wxgt" path="res://assets/boots-item.png" id="18_jaivx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e27sl"]
 bg_color = Color(1, 0.337255, 0.313726, 1)
@@ -24,7 +29,7 @@ bg_color = Color(1, 0.337255, 0.313726, 1)
 bg_color = Color(0, 0.721569, 0.32549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qbo0"]
-bg_color = Color(0.309804, 0.643137, 0.721569, 1)
+bg_color = Color(0.180392, 0.207843, 0.196078, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i6ihn"]
 texture = ExtResource("6_rspfa")
@@ -550,6 +555,75 @@ layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
+[node name="Equipment" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="ActionsPanel/MarginContainer/Equipment"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.55
+focus_neighbor_right = NodePath("../Equip/Weapon")
+theme = ExtResource("7_bqs2w")
+icon = ExtResource("14_lyat4")
+expand_icon = true
+
+[node name="Spacer2" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Equipment"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Equip" type="GridContainer" parent="ActionsPanel/MarginContainer/Equipment"]
+layout_mode = 2
+theme_override_constants/h_separation = 14
+columns = 3
+
+[node name="Weapon" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../Back")
+focus_neighbor_right = NodePath("../Artifact")
+focus_neighbor_bottom = NodePath("../Chestplate")
+theme = ExtResource("7_bqs2w")
+text = "Weapon"
+icon = ExtResource("15_i2q1p")
+
+[node name="Artifact" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Weapon")
+focus_neighbor_right = NodePath("../Helmet")
+focus_neighbor_bottom = NodePath("../Boots")
+theme = ExtResource("7_bqs2w")
+text = "Artifact"
+icon = ExtResource("15_i2q1p")
+
+[node name="Helmet" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Artifact")
+focus_neighbor_bottom = NodePath("../Boots")
+theme = ExtResource("7_bqs2w")
+text = "Helmet"
+icon = ExtResource("16_ark76")
+
+[node name="Chestplate" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../Back")
+focus_neighbor_top = NodePath("../Weapon")
+focus_neighbor_right = NodePath("../Boots")
+theme = ExtResource("7_bqs2w")
+text = "Chestplate"
+icon = ExtResource("17_a1775")
+
+[node name="Boots" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Chestplate")
+focus_neighbor_top = NodePath("../Artifact")
+theme = ExtResource("7_bqs2w")
+text = "Boots"
+icon = ExtResource("18_jaivx")
+
+[node name="Spacer" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Equipment"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="Textbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer"]
 unique_name_in_owner = true
 visible = false
@@ -582,5 +656,6 @@ libraries = {
 
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Magic" to="." method="_on_magic_pressed"]
-[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Equipment" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Equipment" to="." method="_on_equipment_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Escape" to="." method="_on_run_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Equipment/Back" to="." method="_on_back_pressed"]

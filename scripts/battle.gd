@@ -7,9 +7,11 @@ signal textbox_closed
 
 @onready var actions = $ActionsPanel/MarginContainer/Actions
 @onready var spells = $ActionsPanel/MarginContainer/Spells
+@onready var equipment = $ActionsPanel/MarginContainer/Equipment
 @onready var enemy_health_bar = $EnemyContainer/HealthBar
 @onready var player_health_bar = $ActionsPanel/MarginContainer/Actions/PlayerInfo/HealthBar
 @onready var attack = $ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack
+@onready var eq_back = $ActionsPanel/MarginContainer/Equipment/Back
 @onready var animation_player = $AnimationPlayer
 
 var current_player_health = 0
@@ -35,6 +37,7 @@ func _ready():
 	%Textbox.hide()
 	actions.hide()
 	spells.hide()
+	equipment.hide()
 	
 	# Add spells
 	var theme = load("res://resources/theme.tres")
@@ -186,3 +189,15 @@ func use_magic_attack(attack_name):
 	m_atk.queue_free()
 	print(current_enemy_def)
 	enemy_turn()
+
+
+func _on_equipment_pressed() -> void:
+	actions.hide()
+	equipment.show()
+	eq_back.grab_focus()
+
+
+func _on_back_pressed() -> void:
+	equipment.hide()
+	actions.show()
+	attack.grab_focus()
