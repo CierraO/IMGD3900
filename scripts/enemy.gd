@@ -32,7 +32,6 @@ func _on_body_entered(body):
 	
 	# When the battle is over, destroy it and return movement controls to the player
 	await(battle.battle_finished)
-	battle.queue_free()
 	body.set_state(0)
 	
 	remove_from_scene()

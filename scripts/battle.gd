@@ -6,13 +6,18 @@ signal textbox_closed
 @export var enemy: Resource
 
 @onready var actions = $ActionsPanel/MarginContainer/Actions
+@onready var spells = $ActionsPanel/MarginContainer/Spells
+@onready var equipment = $ActionsPanel/MarginContainer/Equipment
 @onready var enemy_health_bar = $EnemyContainer/HealthBar
 @onready var player_health_bar = $ActionsPanel/MarginContainer/Actions/PlayerInfo/HealthBar
 @onready var attack = $ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack
+@onready var eq_back = $ActionsPanel/MarginContainer/Equipment/Back
 @onready var animation_player = $AnimationPlayer
 
 var current_player_health = 0
 var current_enemy_health = 0
+var current_enemy_atk = 0
+var current_enemy_def = 0
 
 var tween: Tween
 
@@ -26,9 +31,25 @@ func _ready():
 	
 	current_player_health = PlayerStats.current_health
 	current_enemy_health = enemy.health
+	current_enemy_atk = enemy.atk
+	current_enemy_def = enemy.def
 	
 	%Textbox.hide()
 	actions.hide()
+	spells.hide()
+	equipment.hide()
+	
+	# Add spells
+	var theme = load("res://resources/theme.tres")
+	for spell in PlayerStats.magic_attacks.keys():
+		var button = Button.new()
+		button.text = spell
+		button.theme = theme
+		button.pressed.connect(use_magic_attack.bind(spell))
+		
+		if spells.get_child_count() > 0:
+			spells.add_spacer(false)
+		spells.add_child(button)
 	
 #	# Display encounter text, then show battle menu
 	display_text(enemy.encounter_text)
@@ -109,6 +130,7 @@ func _on_run_pressed():
 	await(textbox_closed)
 	PlayerStats.current_health = current_player_health
 	battle_finished.emit()
+	queue_free()
 
 func _on_attack_pressed():
 	display_text("You attack.")
@@ -120,24 +142,62 @@ func _on_attack_pressed():
 		current_enemy_health = max(0, current_enemy_health - dmg)
 		update_enemy_progress_bar(current_enemy_health)
 		
-		animation_player.play("enemy_damaged")
+		animation_player.play("melee_attack")
 		await(animation_player.animation_finished)
+		animation_player.play("enemy_damaged")
 		display_text("%s takes %d damage." % [enemy.name, dmg])
 		await(textbox_closed)
 		
-		if current_enemy_health == 0:
-			display_text("%s has been defeated!" % enemy.name)
-			await (textbox_closed)
-			animation_player.play("enemy_died")
-			await(animation_player.animation_finished)
-			PlayerStats.current_health = current_player_health
-			battle_finished.emit()
+		await check_if_enemy_died()
 	else:
 		display_text("Your attack whiffed.")
 		await(textbox_closed)
 	
 	enemy_turn()
 
+func check_if_enemy_died():
+	if current_enemy_health == 0:
+		display_text("%s has been defeated!" % enemy.name)
+		await (textbox_closed)
+		animation_player.play("enemy_died")
+		await(animation_player.animation_finished)
+		PlayerStats.current_health = current_player_health
+		battle_finished.emit()
+		queue_free()
+
+
 # Set the enemy resource
 func set_enemy(e):
 	enemy = e
+
+
+func _on_magic_pressed() -> void:
+	actions.hide()
+	spells.show()
+	
+	if spells.get_child_count() > 0:
+		spells.get_child(0).grab_focus()
+
+
+func use_magic_attack(attack_name):
+	print(current_enemy_def)
+	actions.hide()
+	spells.hide()
+	var m_atk = PlayerStats.magic_attacks[attack_name].new()
+	m_atk.call("use", self)
+	await(m_atk.completed_attack)
+	m_atk.queue_free()
+	print(current_enemy_def)
+	enemy_turn()
+
+
+func _on_equipment_pressed() -> void:
+	actions.hide()
+	equipment.show()
+	eq_back.grab_focus()
+
+
+func _on_back_pressed() -> void:
+	equipment.hide()
+	actions.show()
+	attack.grab_focus()
