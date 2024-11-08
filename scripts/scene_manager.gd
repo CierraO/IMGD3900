@@ -4,6 +4,8 @@ extends Node
 @onready var black = $AnimationPlayer/Black
 
 const TEST_LEVEL = "res://scenes/test_level.tscn"
+const MAIN_MENU = "res://scenes/main_menu.tscn"
+const GAME_OVER = "res://scenes/game_over.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,6 +15,7 @@ func _ready():
 # Change the scene to the given file or PackedScene
 func change_scene(scene):
 	# Fade in
+	black.move_to_front()
 	black.show()
 	animation_player.play("fade_in")
 	await animation_player.animation_finished

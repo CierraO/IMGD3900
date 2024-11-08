@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cswegpnnucgqe"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_b6b72"]
+[ext_resource type="FontFile" uid="uid://d2e46k3m0ng28" path="res://fonts/Kenney Mini Square.ttf" id="1_mvvm7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_p4fmp"]
+font = ExtResource("1_mvvm7")
+font_size = 32
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_b6b72")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_p4fmp")

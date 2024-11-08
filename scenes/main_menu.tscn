@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8benhjr4gbex"]
+
+[ext_resource type="Texture2D" uid="uid://otu5f1jl8lrh" path="res://assets/placeholderBattleBG.png" id="1_bdjsh"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_dkdl6"]
+[ext_resource type="Theme" uid="uid://dsldiw4rqrjxb" path="res://resources/theme.tres" id="2_y7oua"]
+[ext_resource type="Texture2D" uid="uid://bjn7dwhh3i4as" path="res://assets/start-button.png" id="5_n50da"]
+[ext_resource type="Texture2D" uid="uid://d2p0vutblhi8f" path="res://assets/exit-button.png" id="6_bwd1m"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_dkdl6")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_bdjsh")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_y7oua")
+theme_override_font_sizes/font_size = 48
+text = "Game Title"
+horizontal_alignment = 1
+
+[node name="StartGame" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_bottom = NodePath("../Quit")
+theme = ExtResource("2_y7oua")
+icon = ExtResource("5_n50da")
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../StartGame")
+theme = ExtResource("2_y7oua")
+icon = ExtResource("6_bwd1m")
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

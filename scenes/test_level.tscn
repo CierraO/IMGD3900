@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bnwe8chejtm3j"]
+[gd_scene load_steps=16 format=3 uid="uid://bnwe8chejtm3j"]
 
 [ext_resource type="Texture2D" uid="uid://bbr173rijipvb" path="res://assets/placeholderTile2.png" id="1_1fhew"]
 [ext_resource type="Texture2D" uid="uid://bi8bs3f6gbxcd" path="res://assets/placeholderTile.png" id="2_1g7jr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://tj2l03e6u4lg" path="res://scenes/player.tscn" id="3_w81om"]
 [ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skull.tres" id="4_2ahdj"]
 [ext_resource type="Texture2D" uid="uid://cs85t3vbh88yn" path="res://assets/placeholderSprite.png" id="4_yx6fq"]
+[ext_resource type="Resource" uid="uid://bhe56oiuoihks" path="res://resources/tougher_skull.tres" id="5_4xm27"]
 [ext_resource type="Script" path="res://scripts/npc.gd" id="8_btytp"]
 [ext_resource type="Resource" uid="uid://cevdbw0y5otkh" path="res://dialogue/placeholderDialogue.dialogue" id="9_fapb2"]
 
@@ -49,7 +50,7 @@ enemy = ExtResource("4_2ahdj")
 
 [node name="Enemy4" parent="." instance=ExtResource("3_i78y7")]
 position = Vector2(281, 216)
-enemy = ExtResource("4_2ahdj")
+enemy = ExtResource("5_4xm27")
 
 [node name="Enemy5" parent="." instance=ExtResource("3_i78y7")]
 position = Vector2(435, 86)
