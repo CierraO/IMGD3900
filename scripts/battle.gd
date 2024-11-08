@@ -120,8 +120,9 @@ func _on_attack_pressed():
 		current_enemy_health = max(0, current_enemy_health - dmg)
 		update_enemy_progress_bar(current_enemy_health)
 		
-		animation_player.play("enemy_damaged")
+		animation_player.play("melee_attack")
 		await(animation_player.animation_finished)
+		animation_player.play("enemy_damaged")
 		display_text("%s takes %d damage." % [enemy.name, dmg])
 		await(textbox_closed)
 		
