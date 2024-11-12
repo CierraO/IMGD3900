@@ -2,8 +2,8 @@ extends Node
 var atk = 5
 var mag = 5
 var def = 2
-var max_health = 10
-var current_health = 10
+var max_health = 100
+var current_health = 100
 
 var magic_attacks = {
 	"Basic": preload("res://scripts/magic_attacks/basic.gd"),
