@@ -5,9 +5,10 @@
 
 [resource]
 script = ExtResource("1_7vtr1")
-name = "Skull"
+name = "Golem"
 texture = ExtResource("2_ypdae")
-encounter_text = "A Skull appears!"
-health = 10
-atk = 5
-def = 4
+encounter_text = "A Golem appears!"
+health = 40
+mag = 3
+atk = 0
+def = 10

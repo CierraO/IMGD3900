@@ -1,7 +1,7 @@
 [gd_scene load_steps=35 format=3 uid="uid://beayxgfkk3h5v"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_id4ev"]
-[ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skull.tres" id="2_vqcng"]
+[ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skeleton.tres" id="2_vqcng"]
 [ext_resource type="Texture2D" uid="uid://otu5f1jl8lrh" path="res://assets/placeholderBattleBG.png" id="3_jibwr"]
 [ext_resource type="FontFile" uid="uid://c21mggakav4fu" path="res://fonts/Kenney Pixel.ttf" id="4_p0f5x"]
 [ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="4_x0toj"]
@@ -456,7 +456,6 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Actions" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
@@ -556,6 +555,7 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Equipment" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Back" type="Button" parent="ActionsPanel/MarginContainer/Equipment"]
