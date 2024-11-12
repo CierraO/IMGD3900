@@ -1,7 +1,7 @@
 extends Area2D
 
 
-@export var enemy: Resource = preload("res://resources/skull.tres")
+@export var enemy: Resource = preload("res://resources/skeleton.tres")
 @export var respawns: bool = true
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
