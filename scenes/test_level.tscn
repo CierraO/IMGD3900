@@ -287,10 +287,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="OuterHBox" type="VBoxContainer" parent="Inventory/OuterMarginContainer"]
 layout_mode = 2
@@ -301,11 +301,11 @@ size_flags_stretch_ratio = 1.4
 texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("12_7urf1")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 32
 text = "Player"
 
 [node name="HealthBar" type="ProgressBar" parent="Inventory/OuterMarginContainer/OuterHBox"]
-custom_minimum_size = Vector2(150, 14)
+custom_minimum_size = Vector2(300, 28)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/background = SubResource("StyleBoxTexture_cvqbe")
@@ -327,7 +327,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("12_7urf1")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 32
 text = "HP"
 horizontal_alignment = 1
 vertical_alignment = 1
