@@ -171,7 +171,7 @@ border_color = Color(0.611765, 0.52549, 0.607843, 1)
 
 [sub_resource type="Theme" id="Theme_ainoj"]
 ItemList/colors/guide_color = Color(0.701961, 0.701961, 0.701961, 0)
-ItemList/font_sizes/font_size = 16
+ItemList/font_sizes/font_size = 24
 ItemList/fonts/font = ExtResource("16_l7inw")
 ItemList/styles/focus = SubResource("StyleBoxEmpty_p0nhc")
 ItemList/styles/hovered = SubResource("StyleBoxEmpty_l3ef0")
@@ -185,6 +185,7 @@ ItemList/styles/selected_focus = SubResource("StyleBoxFlat_02rkb")
 bg_color = Color(0.611765, 0.52549, 0.607843, 1)
 
 [sub_resource type="Theme" id="Theme_wxrwt"]
+ItemList/font_sizes/font_size = 24
 ItemList/fonts/font = ExtResource("12_7urf1")
 ItemList/styles/focus = SubResource("StyleBoxEmpty_wtf7b")
 ItemList/styles/panel = SubResource("StyleBoxFlat_qko1s")
@@ -335,10 +336,10 @@ vertical_alignment = 1
 [node name="PanelOuterMarginContainer" type="MarginContainer" parent="Inventory/OuterMarginContainer/OuterHBox"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 20
 
 [node name="Panel" type="Panel" parent="Inventory/OuterMarginContainer/OuterHBox/PanelOuterMarginContainer"]
 layout_mode = 2
@@ -352,10 +353,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
 [node name="PanelVBoxContainer" type="VBoxContainer" parent="Inventory/OuterMarginContainer/OuterHBox/PanelOuterMarginContainer/Panel/PanelInnerMarginContainer"]
 layout_mode = 2
@@ -373,10 +374,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rqlhn")
 
 [node name="EquipMarginContainer" type="MarginContainer" parent="Inventory/OuterMarginContainer/OuterHBox/PanelOuterMarginContainer/Panel/PanelInnerMarginContainer/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2"]
 layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="EquipHBoxContainer" type="HBoxContainer" parent="Inventory/OuterMarginContainer/OuterHBox/PanelOuterMarginContainer/Panel/PanelInnerMarginContainer/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer"]
 layout_mode = 2
@@ -389,6 +390,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("15_jqrof")
+theme_override_font_sizes/font_size = 32
 text = "EQUIP"
 
 [node name="ArmorTypesItemList" type="ItemList" parent="Inventory/OuterMarginContainer/OuterHBox/PanelOuterMarginContainer/Panel/PanelInnerMarginContainer/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer"]
@@ -418,6 +420,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_dwslo")
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("15_jqrof")
+theme_override_font_sizes/font_size = 32
 text = "STATS"
 
 [node name="ItemsPanelContainer" type="PanelContainer" parent="Inventory/OuterMarginContainer/OuterHBox/PanelOuterMarginContainer/Panel/PanelInnerMarginContainer/PanelVBoxContainer"]
@@ -430,4 +433,5 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_v4pss")
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("15_jqrof")
+theme_override_font_sizes/font_size = 32
 text = "ITEMS"
