@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bpbu8eebw2h7y" path="res://assets/melee-attack.png" id="5_8rc5m"]
 [ext_resource type="Texture2D" uid="uid://daqlip0slws7d" path="res://assets/magic-attack.png" id="6_rcjf7"]
 [ext_resource type="Texture2D" uid="uid://drudr1oagdm3q" path="res://assets/health-bar.png" id="6_rspfa"]
+[ext_resource type="StyleBox" uid="uid://dw6yxedkecnq6" path="res://resources/panel.tres" id="7_6vsqg"]
 [ext_resource type="Texture2D" uid="uid://c7yf6svrfm18m" path="res://assets/attack-icon.png" id="7_67na4"]
 [ext_resource type="Theme" uid="uid://dsldiw4rqrjxb" path="res://resources/theme.tres" id="7_bqs2w"]
 [ext_resource type="Texture2D" uid="uid://dkxovs1ky71g2" path="res://assets/flee-icon.png" id="8_tm0nu"]
@@ -27,9 +28,6 @@ bg_color = Color(1, 0.337255, 0.313726, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mcxu4"]
 bg_color = Color(0, 0.721569, 0.32549, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qbo0"]
-bg_color = Color(0.180392, 0.207843, 0.196078, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i6ihn"]
 texture = ExtResource("6_rspfa")
@@ -441,7 +439,7 @@ anchor_bottom = 1.0
 offset_top = -63.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_5qbo0")
+theme_override_styles/panel = ExtResource("7_6vsqg")
 
 [node name="MarginContainer" type="MarginContainer" parent="ActionsPanel"]
 layout_mode = 1
