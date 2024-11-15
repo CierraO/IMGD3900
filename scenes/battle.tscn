@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://beayxgfkk3h5v"]
+[gd_scene load_steps=38 format=3 uid="uid://beayxgfkk3h5v"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_id4ev"]
 [ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skeleton.tres" id="2_vqcng"]
@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://bcaxwx0776lck" path="res://assets/helmet-item.png" id="16_ark76"]
 [ext_resource type="Texture2D" uid="uid://dyti2ws5tbkhc" path="res://assets/chest-item.png" id="17_a1775"]
 [ext_resource type="Texture2D" uid="uid://c3gyjdfw4wxgt" path="res://assets/boots-item.png" id="18_jaivx"]
+[ext_resource type="Texture2D" uid="uid://b1i17o4ex1t7p" path="res://assets/health-potion.png" id="19_3isyu"]
+[ext_resource type="Texture2D" uid="uid://dgpn5b13iicnm" path="res://assets/greater-health-potion.png" id="20_0gvbn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e27sl"]
 bg_color = Color(1, 0.337255, 0.313726, 1)
@@ -51,6 +53,8 @@ texture_margin_top = 6.0
 texture_margin_right = 6.0
 texture_margin_bottom = 6.0
 region_rect = Rect2(6.01341, 49.0362, 77.984, 19.8931)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_am68v"]
 
 [sub_resource type="Animation" id="Animation_803hh"]
 length = 0.001
@@ -456,6 +460,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Actions" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
@@ -624,6 +629,38 @@ icon = ExtResource("18_jaivx")
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Inventory" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="ActionsPanel/MarginContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.13
+focus_neighbor_right = NodePath("../ItemList")
+theme = ExtResource("7_bqs2w")
+icon = ExtResource("14_lyat4")
+expand_icon = true
+
+[node name="Spacer2" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="ItemList" type="ItemList" parent="ActionsPanel/MarginContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../Back")
+theme_override_fonts/font = ExtResource("4_p0f5x")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("StyleBoxEmpty_am68v")
+item_count = 2
+max_columns = 2
+same_column_width = true
+item_0/text = "Health Potion"
+item_0/icon = ExtResource("19_3isyu")
+item_1/text = "Greater Health Potion"
+item_1/icon = ExtResource("20_0gvbn")
+
 [node name="Textbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer"]
 unique_name_in_owner = true
 visible = false
@@ -659,3 +696,5 @@ libraries = {
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Equipment" to="." method="_on_equipment_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Escape" to="." method="_on_run_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Equipment/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Inventory/Back" to="." method="_on_back_pressed"]
+[connection signal="item_activated" from="ActionsPanel/MarginContainer/Inventory/ItemList" to="." method="_on_item_list_item_activated"]
