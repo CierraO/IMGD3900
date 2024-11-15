@@ -121,7 +121,7 @@ func enemy_attack():
 	display_text("%s attacks you." % enemy.name)
 	await(textbox_closed)
 	
-	var dmg = max(0, enemy.atk - PlayerStats.def) + (randi() % 3)
+	var dmg = max(0, current_enemy_stats["atk"] - current_player_stats["def"]) + (randi() % 3)
 	
 	if dmg > 0:
 		current_player_stats["hp"] = max(0, current_player_stats["hp"] - dmg)
@@ -163,7 +163,7 @@ func _on_attack_pressed():
 	display_text("You attack.")
 	await(textbox_closed)
 	
-	var dmg = max(0, PlayerStats.atk - enemy.def) + (randi() % 3)
+	var dmg = max(0, current_player_stats["atk"] - current_enemy_stats["def"]) + (randi() % 3)
 	
 	if dmg > 0:
 		current_enemy_stats["hp"] = max(0, current_enemy_stats["hp"] - dmg)
