@@ -7,3 +7,4 @@ extends Resource
 @export var mag: int = 4
 @export var atk: int = 3
 @export var def: int = 4
+@export var magic_attacks: Array[Resource] = []

@@ -12,3 +12,4 @@ health = 25
 mag = 0
 atk = 10
 def = 3
+magic_attacks = Array[Resource]([])

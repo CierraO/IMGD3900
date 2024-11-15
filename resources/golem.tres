@@ -1,5 +1,6 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bhe56oiuoihks"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bhe56oiuoihks"]
 
+[ext_resource type="Script" path="res://scripts/magic_attacks/basic.gd" id="1_5aux7"]
 [ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="1_7vtr1"]
 [ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="2_ypdae"]
 
@@ -12,3 +13,4 @@ health = 40
 mag = 3
 atk = 0
 def = 10
+magic_attacks = Array[Resource]([ExtResource("1_5aux7")])

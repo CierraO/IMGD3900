@@ -34,7 +34,7 @@ func _ready():
 	
 	current_enemy_stats["hp"] = enemy.health
 	current_enemy_stats["atk"] = enemy.atk
-	current_enemy_stats["mag"] = enemy.atk
+	current_enemy_stats["mag"] = enemy.mag
 	current_enemy_stats["def"] = enemy.def
 	
 	%Textbox.hide()
@@ -101,6 +101,23 @@ func update_all_progress_bars(player_hp=current_player_stats["hp"], enemy_hp=cur
 
 
 func enemy_turn():
+	var move = pick_enemy_move()
+	
+	# Normal attack
+	if (move < 0):
+		await enemy_attack()
+	# Magic attack
+	else:
+		var m_atk = enemy.magic_attacks[move].new()
+		m_atk.call("use", current_player_stats, current_enemy_stats, self)
+		await(m_atk.completed_attack)
+		m_atk.queue_free()
+	actions.show()
+	attack.grab_focus()
+
+
+# Normal non-magic attack
+func enemy_attack():
 	display_text("%s attacks you." % enemy.name)
 	await(textbox_closed)
 	
@@ -119,9 +136,10 @@ func enemy_turn():
 	else:
 		display_text("%s's attack whiffed." % enemy.name)
 		await(textbox_closed)
-		
-	actions.show()
-	attack.grab_focus()
+
+
+func pick_enemy_move():
+	return randi_range(-1, enemy.magic_attacks.size() - 1)
 
 
 func _input(event):
