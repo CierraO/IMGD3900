@@ -14,6 +14,7 @@ health = 15
 mag = 4
 atk = 3
 def = 4
+magic_attacks = Array[Resource]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5bect"]
 size = Vector2(56, 60)
