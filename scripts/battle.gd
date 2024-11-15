@@ -14,10 +14,8 @@ signal textbox_closed
 @onready var eq_back = $ActionsPanel/MarginContainer/Equipment/Back
 @onready var animation_player = $AnimationPlayer
 
-var current_player_health = 0
-var current_enemy_health = 0
-var current_enemy_atk = 0
-var current_enemy_def = 0
+var current_player_stats = {"hp": 0, "atk": 0, "mag":0, "def": 0}
+var current_enemy_stats = {"hp": 0, "atk": 0, "mag":0, "def": 0}
 
 var tween: Tween
 
@@ -29,10 +27,15 @@ func _ready():
 	update_player_progress_bar(PlayerStats.current_health)
 	update_enemy_progress_bar(enemy.health)
 	
-	current_player_health = PlayerStats.current_health
-	current_enemy_health = enemy.health
-	current_enemy_atk = enemy.atk
-	current_enemy_def = enemy.def
+	current_player_stats["hp"] = PlayerStats.current_health
+	current_player_stats["atk"] = PlayerStats.atk
+	current_player_stats["mag"] = PlayerStats.mag
+	current_player_stats["def"] = PlayerStats.def
+	
+	current_enemy_stats["hp"] = enemy.health
+	current_enemy_stats["atk"] = enemy.atk
+	current_enemy_stats["mag"] = enemy.atk
+	current_enemy_stats["def"] = enemy.def
 	
 	%Textbox.hide()
 	actions.hide()
@@ -56,7 +59,8 @@ func _ready():
 	await(textbox_closed)
 	actions.show()
 	attack.grab_focus()
-	
+
+
 # Displays text in the panel
 func display_text(text):
 	actions.hide()
@@ -77,16 +81,25 @@ func update_progress_bar(progress_bar, has_label, health, max_health):
 	progress_bar.value = health
 	if has_label:
 		progress_bar.get_node("Label").text = "HP: %d/%d" % [health, max_health]
-		
+
+
 # Updates the player's progress bar's value, max value, and label; health is the player's current HP
-func update_player_progress_bar(health):
+func update_player_progress_bar(health=current_player_stats["hp"]):
 	update_progress_bar(player_health_bar, true, \
 		health, PlayerStats.max_health)
 
+
 # Updates the enemy's progress bar's value and max value; health is the enemy's current HP
-func update_enemy_progress_bar(health):
+func update_enemy_progress_bar(health=current_enemy_stats["hp"]):
 	update_progress_bar(enemy_health_bar, false, health, enemy.health)
-	
+
+
+# Update both the player's and enemy's health bars
+func update_all_progress_bars(player_hp=current_player_stats["hp"], enemy_hp=current_enemy_stats["hp"]):
+	update_player_progress_bar(player_hp)
+	update_enemy_progress_bar(enemy_hp)
+
+
 func enemy_turn():
 	display_text("%s attacks you." % enemy.name)
 	await(textbox_closed)
@@ -94,26 +107,22 @@ func enemy_turn():
 	var dmg = max(0, enemy.atk - PlayerStats.def) + (randi() % 3)
 	
 	if dmg > 0:
-		current_player_health = max(0, current_player_health - dmg)
-		update_player_progress_bar(current_player_health)
+		current_player_stats["hp"] = max(0, current_player_stats["hp"] - dmg)
+		update_player_progress_bar(current_player_stats["hp"])
 		
 		animation_player.play("player_dmg")
 		await(animation_player.animation_finished)
 		display_text("%s deals %d damage." % [enemy.name, dmg])
 		await(textbox_closed)
 		
-		if current_player_health == 0:
-			animation_player.play("defeat")
-			await(animation_player.animation_finished)
-			display_text("You have been defeated.")
-			await (textbox_closed)
-			SceneManager.change_scene(SceneManager.GAME_OVER)
+		check_if_player_died()
 	else:
 		display_text("%s's attack whiffed." % enemy.name)
 		await(textbox_closed)
 		
 	actions.show()
 	attack.grab_focus()
+
 
 func _input(event):
 	if ((Input.is_action_just_released("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) \
@@ -125,12 +134,12 @@ func _input(event):
 				%Textbox.hide()
 				textbox_closed.emit()
 
+
 func _on_run_pressed():
 	display_text("You run away.")
 	await(textbox_closed)
-	PlayerStats.current_health = current_player_health
-	battle_finished.emit()
-	queue_free()
+	leave_battle()
+
 
 func _on_attack_pressed():
 	display_text("You attack.")
@@ -139,8 +148,8 @@ func _on_attack_pressed():
 	var dmg = max(0, PlayerStats.atk - enemy.def) + (randi() % 3)
 	
 	if dmg > 0:
-		current_enemy_health = max(0, current_enemy_health - dmg)
-		update_enemy_progress_bar(current_enemy_health)
+		current_enemy_stats["hp"] = max(0, current_enemy_stats["hp"] - dmg)
+		update_enemy_progress_bar(current_enemy_stats["hp"])
 		
 		animation_player.play("melee_attack")
 		await(animation_player.animation_finished)
@@ -155,15 +164,29 @@ func _on_attack_pressed():
 	
 	enemy_turn()
 
+
 func check_if_enemy_died():
-	if current_enemy_health == 0:
+	if current_enemy_stats["hp"] == 0:
 		display_text("%s has been defeated!" % enemy.name)
 		await (textbox_closed)
 		animation_player.play("enemy_died")
 		await(animation_player.animation_finished)
-		PlayerStats.current_health = current_player_health
-		battle_finished.emit()
-		queue_free()
+		leave_battle()
+
+
+func check_if_player_died():
+	if current_player_stats["hp"] == 0:
+		animation_player.play("defeat")
+		await(animation_player.animation_finished)
+		display_text("You have been defeated.")
+		await (textbox_closed)
+		SceneManager.change_scene(SceneManager.GAME_OVER)
+
+
+func leave_battle():
+	PlayerStats.current_health = current_player_stats["hp"]
+	battle_finished.emit()
+	queue_free()
 
 
 # Set the enemy resource
@@ -180,14 +203,12 @@ func _on_magic_pressed() -> void:
 
 
 func use_magic_attack(attack_name):
-	print(current_enemy_def)
 	actions.hide()
 	spells.hide()
 	var m_atk = PlayerStats.magic_attacks[attack_name].new()
-	m_atk.call("use", self)
+	m_atk.call("use", current_enemy_stats, current_player_stats, self)
 	await(m_atk.completed_attack)
 	m_atk.queue_free()
-	print(current_enemy_def)
 	enemy_turn()
 
 
@@ -197,6 +218,7 @@ func _on_equipment_pressed() -> void:
 	eq_back.grab_focus()
 
 
+# Leave the equipment menu
 func _on_back_pressed() -> void:
 	equipment.hide()
 	actions.show()
