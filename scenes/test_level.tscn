@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bnwe8chejtm3j"]
+[gd_scene load_steps=16 format=4 uid="uid://bnwe8chejtm3j"]
 
 [ext_resource type="Texture2D" uid="uid://djwg63iedc0i0" path="res://assets/ground-tileset.png" id="1_rvsuv"]
 [ext_resource type="PackedScene" uid="uid://db3xs6g7oqyhl" path="res://scenes/enemy.tscn" id="3_i78y7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skeleton.tres" id="4_2ahdj"]
 [ext_resource type="Texture2D" uid="uid://cs85t3vbh88yn" path="res://assets/placeholderSprite.png" id="4_yx6fq"]
 [ext_resource type="Resource" uid="uid://bhe56oiuoihks" path="res://resources/golem.tres" id="5_4xm27"]
+[ext_resource type="Texture2D" uid="uid://cskgh0qigct1v" path="res://assets/golem.png" id="5_pmpjm"]
 [ext_resource type="Resource" uid="uid://cn0m577c47c58" path="res://resources/magic.tres" id="5_v2dri"]
 [ext_resource type="Script" path="res://scripts/npc.gd" id="8_btytp"]
 [ext_resource type="Resource" uid="uid://cevdbw0y5otkh" path="res://dialogue/placeholderDialogue.dialogue" id="9_fapb2"]
@@ -129,9 +130,12 @@ position = Vector2(205, 94)
 enemy = ExtResource("4_2ahdj")
 
 [node name="Golem" parent="." instance=ExtResource("3_i78y7")]
-modulate = Color(0, 1, 0, 1)
 position = Vector2(281, 216)
 enemy = ExtResource("5_4xm27")
+
+[node name="Sprite2D" parent="Golem" index="1"]
+scale = Vector2(2, 2)
+texture = ExtResource("5_pmpjm")
 
 [node name="MagicEnemy" parent="." instance=ExtResource("3_i78y7")]
 modulate = Color(1, 0, 1, 1)
@@ -183,3 +187,5 @@ shape = SubResource("RectangleShape2D_6tqg3")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
 position = Vector2(-13, 136)
 shape = SubResource("RectangleShape2D_6tqg3")
+
+[editable path="Golem"]
