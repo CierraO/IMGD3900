@@ -8,6 +8,8 @@ signal textbox_closed
 @onready var actions = $ActionsPanel/MarginContainer/Actions
 @onready var spells = $ActionsPanel/MarginContainer/Spells
 @onready var equipment = $ActionsPanel/MarginContainer/Equipment
+@onready var inventory: HBoxContainer = $ActionsPanel/MarginContainer/Inventory
+@onready var inv_item_list: ItemList = $ActionsPanel/MarginContainer/Inventory/ItemList
 @onready var enemy_health_bar = $EnemyContainer/HealthBar
 @onready var player_health_bar = $ActionsPanel/MarginContainer/Actions/PlayerInfo/HealthBar
 @onready var attack = $ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack
@@ -41,6 +43,7 @@ func _ready():
 	actions.hide()
 	spells.hide()
 	equipment.hide()
+	inventory.hide()
 	
 	# Add spells
 	var theme = load("res://resources/theme.tres")
@@ -232,12 +235,34 @@ func use_magic_attack(attack_name):
 
 func _on_equipment_pressed() -> void:
 	actions.hide()
-	equipment.show()
-	eq_back.grab_focus()
+	inventory.show()
+	inv_item_list.grab_focus()
+	inv_item_list.select(0)
+	#equipment.show()
+	#eq_back.grab_focus()
 
 
-# Leave the equipment menu
+# Leave the equipment/inventory menu
 func _on_back_pressed() -> void:
 	equipment.hide()
+	inventory.hide()
 	actions.show()
 	attack.grab_focus()
+
+
+func _on_item_list_item_activated(index: int) -> void:
+	if inv_item_list.get_item_text(index) == "Health Potion":
+		current_player_stats["hp"] = min(PlayerStats.max_health,\
+									current_player_stats["hp"] + 0.25 * PlayerStats.max_health)
+	elif inv_item_list.get_item_text(index) == "Greater Health Potion":
+		current_player_stats["hp"] = min(PlayerStats.max_health,\
+									current_player_stats["hp"] + 0.5 * PlayerStats.max_health)
+	
+	update_player_progress_bar()
+	
+	inventory.hide()
+	
+	display_text("You take the potion and heal some HP!")
+	await (textbox_closed)
+	
+	enemy_turn()
