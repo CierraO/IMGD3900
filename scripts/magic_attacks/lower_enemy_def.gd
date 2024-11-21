@@ -1,4 +1,4 @@
-extends "res://scripts/magic_attacks/base_magic_attack.gd"
+extends "res://scripts/magic_attacks/base_stat_affector.gd"
 
 
 func use(opponent_stats=null, self_stats=null, battle=null):
@@ -17,4 +17,4 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 		battle.display_text("Your defense is lowered!")
 		await(battle.textbox_closed)
 	
-	completed_attack.emit()
+	completed_use.emit()

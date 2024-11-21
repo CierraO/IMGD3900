@@ -1,4 +1,4 @@
-extends "res://scripts/magic_attacks/base_magic_attack.gd"
+extends "res://scripts/magic_attacks/base_stat_affector.gd"
 
 
 func use(opponent_stats=null, self_stats=null, battle=null):
@@ -24,4 +24,4 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 	
 	await battle.check_if_enemy_died()
 	await battle.check_if_player_died()
-	completed_attack.emit()
+	completed_use.emit()
