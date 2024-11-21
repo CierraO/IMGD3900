@@ -16,8 +16,8 @@ signal textbox_closed
 @onready var eq_back = $ActionsPanel/MarginContainer/Equipment/Back
 @onready var animation_player = $AnimationPlayer
 
-var current_player_stats = {"hp": 0, "atk": 0, "mag":0, "def": 0}
-var current_enemy_stats = {"hp": 0, "atk": 0, "mag":0, "def": 0}
+var current_player_stats = {"hp": 0, "max_hp": 0, "atk": 0, "mag":0, "def": 0}
+var current_enemy_stats = {"hp": 0, "max_hp": 0, "atk": 0, "mag":0, "def": 0}
 
 var tween: Tween
 
@@ -28,13 +28,16 @@ func _ready():
 	%Enemy.texture = enemy.texture
 	update_player_progress_bar(PlayerStats.current_health)
 	update_enemy_progress_bar(enemy.health)
+	update_inventory()
 	
 	current_player_stats["hp"] = PlayerStats.current_health
+	current_player_stats["max_hp"] = PlayerStats.max_health
 	current_player_stats["atk"] = PlayerStats.atk
 	current_player_stats["mag"] = PlayerStats.mag
 	current_player_stats["def"] = PlayerStats.def
 	
 	current_enemy_stats["hp"] = enemy.health
+	current_enemy_stats["max_hp"] = enemy.health
 	current_enemy_stats["atk"] = enemy.atk
 	current_enemy_stats["mag"] = enemy.mag
 	current_enemy_stats["def"] = enemy.def
@@ -113,7 +116,7 @@ func enemy_turn():
 	else:
 		var m_atk = enemy.magic_attacks[move].new()
 		m_atk.call("use", current_player_stats, current_enemy_stats, self)
-		await(m_atk.completed_attack)
+		await(m_atk.completed_use)
 		m_atk.queue_free()
 	actions.show()
 	attack.grab_focus()
@@ -228,7 +231,7 @@ func use_magic_attack(attack_name):
 	spells.hide()
 	var m_atk = PlayerStats.magic_attacks[attack_name].new()
 	m_atk.call("use", current_enemy_stats, current_player_stats, self)
-	await(m_atk.completed_attack)
+	await(m_atk.completed_use)
 	m_atk.queue_free()
 	enemy_turn()
 
@@ -251,18 +254,22 @@ func _on_back_pressed() -> void:
 
 
 func _on_item_list_item_activated(index: int) -> void:
-	if inv_item_list.get_item_text(index) == "Health Potion":
-		current_player_stats["hp"] = min(PlayerStats.max_health,\
-									current_player_stats["hp"] + 0.25 * PlayerStats.max_health)
-	elif inv_item_list.get_item_text(index) == "Greater Health Potion":
-		current_player_stats["hp"] = min(PlayerStats.max_health,\
-									current_player_stats["hp"] + 0.5 * PlayerStats.max_health)
-	
-	update_player_progress_bar()
-	
 	inventory.hide()
 	
-	display_text("You take the potion and heal some HP!")
-	await (textbox_closed)
+	var m_item = PlayerStats.ITEM_MAPPINGS[PlayerStats.inventory[index]]["script"].new()
+	m_item.call("use", current_enemy_stats, current_player_stats, self)
+	await(m_item.completed_use)
+	m_item.queue_free()
+	PlayerStats.inventory.remove_at(index)
+	
+	update_player_progress_bar()
+	update_inventory()
 	
 	enemy_turn()
+
+
+func update_inventory():
+	inv_item_list.clear()
+	for item in PlayerStats.inventory:
+		inv_item_list.add_item(PlayerStats.ITEM_MAPPINGS[item]["name"], \
+		PlayerStats.ITEM_MAPPINGS[item]["icon"])
