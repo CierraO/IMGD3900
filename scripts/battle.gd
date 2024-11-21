@@ -11,7 +11,8 @@ signal textbox_closed
 @onready var inventory: HBoxContainer = $ActionsPanel/MarginContainer/Inventory
 @onready var inv_item_list: ItemList = $ActionsPanel/MarginContainer/Inventory/ItemList
 @onready var enemy_health_bar = $EnemyContainer/HealthBar
-@onready var player_health_bar = $ActionsPanel/MarginContainer/Actions/PlayerInfo/HealthBar
+@onready var player_health_bar = $MarginContainer/PlayerInfo/HealthBar
+@onready var player_mana_bar = $MarginContainer/PlayerInfo/ManaBar
 @onready var attack = $ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack
 @onready var eq_back = $ActionsPanel/MarginContainer/Equipment/Back
 @onready var animation_player = $AnimationPlayer
@@ -19,7 +20,7 @@ signal textbox_closed
 ## Player and enemy stats.
 ## For the battle, base stats include equipment buffs but not potion buffs.
 var current_player_stats = {
-		"hp": 0, "max_hp": 0,
+		"hp": 0, "max_hp": 0, "mana": 10,
 		"base_atk": 0, "atk": 0,
 		"base_mag": 0, "mag": 0,
 		"base_def": 0, "def": 0,
@@ -39,6 +40,7 @@ func _ready():
 	# Set up textures and health bars
 	%Enemy.texture = enemy.texture
 	update_player_progress_bar(PlayerStats.player_stats["hp"])
+	update_progress_bar(player_mana_bar, "Mana", 10, 10)
 	update_enemy_progress_bar(enemy.health)
 	update_inventory()
 	
@@ -100,16 +102,16 @@ func display_text(text):
 # progress_bar: the progress bar node to be updated
 # health: the current HP
 # max_health: the maximum HP
-func update_progress_bar(progress_bar, has_label, health, max_health):
+func update_progress_bar(progress_bar, label, health, max_health):
 	progress_bar.max_value = max_health
 	progress_bar.value = health
-	if has_label:
-		progress_bar.get_node("Label").text = "HP: %d/%d" % [health, max_health]
+	if label:
+		progress_bar.get_node("Label").text = "%s: %d/%d" % [label, health, max_health]
 
 
 # Updates the player's progress bar's value, max value, and label; health is the player's current HP
 func update_player_progress_bar(health=current_player_stats["hp"]):
-	update_progress_bar(player_health_bar, true, \
+	update_progress_bar(player_health_bar, "HP", \
 		health, PlayerStats.player_stats["max_hp"])
 
 
@@ -122,6 +124,7 @@ func update_enemy_progress_bar(health=current_enemy_stats["hp"]):
 func update_all_progress_bars(player_hp=current_player_stats["hp"], enemy_hp=current_enemy_stats["hp"]):
 	update_player_progress_bar(player_hp)
 	update_enemy_progress_bar(enemy_hp)
+	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
 
 
 func enemy_turn():
@@ -136,6 +139,8 @@ func enemy_turn():
 		m_atk.call("use", current_player_stats, current_enemy_stats, self)
 		await(m_atk.completed_use)
 		m_atk.queue_free()
+	current_player_stats["mana"] += 1
+	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
 	actions.show()
 	attack.grab_focus()
 
@@ -254,11 +259,19 @@ func _on_magic_pressed() -> void:
 func use_magic_attack(attack_name):
 	actions.hide()
 	spells.hide()
-	var m_atk = PlayerStats.magic_attacks[attack_name].new()
-	m_atk.call("use", current_enemy_stats, current_player_stats, self)
-	await(m_atk.completed_use)
-	m_atk.queue_free()
-	enemy_turn()
+	if (current_player_stats["mana"] > 4):
+		current_player_stats["mana"] -= 4
+		update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
+		var m_atk = PlayerStats.magic_attacks[attack_name].new()
+		m_atk.call("use", current_enemy_stats, current_player_stats, self)
+		await(m_atk.completed_use)
+		m_atk.queue_free()
+		enemy_turn()
+	else:
+		display_text("You don't have enough mana!")
+		await(textbox_closed)
+		actions.show()
+		attack.grab_focus()
 
 
 func _on_equipment_pressed() -> void:
