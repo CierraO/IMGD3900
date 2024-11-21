@@ -16,8 +16,20 @@ signal textbox_closed
 @onready var eq_back = $ActionsPanel/MarginContainer/Equipment/Back
 @onready var animation_player = $AnimationPlayer
 
-var current_player_stats = {"hp": 0, "max_hp": 0, "atk": 0, "mag":0, "def": 0}
-var current_enemy_stats = {"hp": 0, "max_hp": 0, "atk": 0, "mag":0, "def": 0}
+## Player and enemy stats.
+## For the battle, base stats include equipment buffs but not potion buffs.
+var current_player_stats = {
+		"hp": 0, "max_hp": 0,
+		"base_atk": 0, "atk": 0,
+		"base_mag": 0, "mag": 0,
+		"base_def": 0, "def": 0,
+		}
+var current_enemy_stats = {
+		"hp": 0, "max_hp": 0,
+		"base_atk": 0, "atk": 0,
+		"base_mag": 0, "mag": 0,
+		"base_def": 0, "def": 0,
+		}
 
 var tween: Tween
 
@@ -26,20 +38,26 @@ var tween: Tween
 func _ready():
 	# Set up textures and health bars
 	%Enemy.texture = enemy.texture
-	update_player_progress_bar(PlayerStats.current_health)
+	update_player_progress_bar(PlayerStats.player_stats["hp"])
 	update_enemy_progress_bar(enemy.health)
 	update_inventory()
 	
-	current_player_stats["hp"] = PlayerStats.current_health
-	current_player_stats["max_hp"] = PlayerStats.max_health
-	current_player_stats["atk"] = PlayerStats.atk
-	current_player_stats["mag"] = PlayerStats.mag
-	current_player_stats["def"] = PlayerStats.def
+	current_player_stats["hp"] = PlayerStats.player_stats["hp"]
+	current_player_stats["max_hp"] = PlayerStats.player_stats["max_hp"]
+	current_player_stats["base_atk"] = PlayerStats.player_stats["atk"]
+	current_player_stats["atk"] = PlayerStats.player_stats["atk"]
+	current_player_stats["base_mag"] = PlayerStats.player_stats["mag"]
+	current_player_stats["mag"] = PlayerStats.player_stats["mag"]
+	current_player_stats["base_def"] = PlayerStats.player_stats["def"]
+	current_player_stats["def"] = PlayerStats.player_stats["def"]
 	
 	current_enemy_stats["hp"] = enemy.health
 	current_enemy_stats["max_hp"] = enemy.health
+	current_enemy_stats["base_atk"] = enemy.atk
 	current_enemy_stats["atk"] = enemy.atk
+	current_enemy_stats["base_mag"] = enemy.mag
 	current_enemy_stats["mag"] = enemy.mag
+	current_enemy_stats["base_def"] = enemy.def
 	current_enemy_stats["def"] = enemy.def
 	
 	%Textbox.hide()
@@ -92,7 +110,7 @@ func update_progress_bar(progress_bar, has_label, health, max_health):
 # Updates the player's progress bar's value, max value, and label; health is the player's current HP
 func update_player_progress_bar(health=current_player_stats["hp"]):
 	update_progress_bar(player_health_bar, true, \
-		health, PlayerStats.max_health)
+		health, PlayerStats.player_stats["max_hp"])
 
 
 # Updates the enemy's progress bar's value and max value; health is the enemy's current HP
@@ -208,7 +226,7 @@ func check_if_player_died():
 
 
 func leave_battle():
-	PlayerStats.current_health = current_player_stats["hp"]
+	PlayerStats.player_stats["hp"] = current_player_stats["hp"]
 	battle_finished.emit()
 	queue_free()
 

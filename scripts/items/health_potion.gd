@@ -12,8 +12,8 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 		await (battle.textbox_closed)
 		
 	else:
-		PlayerStats.current_health = min(PlayerStats.max_health,\
-									PlayerStats.current_health + 0.25 * PlayerStats.max_health)
+		PlayerStats.player_stats["hp"] = min(PlayerStats.player_stats["max_hp"],
+				PlayerStats.player_stats["hp"] + 0.25 * PlayerStats.player_stats["max_hp"])
 	
 	
 	completed_use.emit()
