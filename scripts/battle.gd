@@ -213,6 +213,13 @@ func check_if_enemy_died():
 		await (textbox_closed)
 		animation_player.play("enemy_died")
 		await(animation_player.animation_finished)
+		
+		# Enemy drops
+		var drop = randi_range(-1, PlayerStats.ITEMS.size() - 1)
+		if drop != -1:
+			display_text("%s dropped %s!" % [enemy.name, PlayerStats.ITEM_MAPPINGS[drop]["name"]])
+			await(textbox_closed)
+			PlayerStats.inventory.append(drop)
 		leave_battle()
 
 
