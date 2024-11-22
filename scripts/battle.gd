@@ -5,16 +5,15 @@ signal textbox_closed
 
 @export var enemy: Resource
 
-@onready var actions = $ActionsPanel/MarginContainer/Actions
-@onready var spells = $ActionsPanel/MarginContainer/Spells
-@onready var equipment = $ActionsPanel/MarginContainer/Equipment
+@onready var actions: HBoxContainer = $ActionsPanel/MarginContainer/Actions
+@onready var spells: HBoxContainer = $ActionsPanel/MarginContainer/Spells
 @onready var inventory: HBoxContainer = $ActionsPanel/MarginContainer/Inventory
-@onready var inv_item_list: ItemList = $ActionsPanel/MarginContainer/Inventory/ItemList
+@onready var inv_item_list: ItemList = %InvItemList
+@onready var inv_textbox: RichTextLabel = %InvTextbox
 @onready var enemy_health_bar = $EnemyContainer/HealthBar
 @onready var player_health_bar = $MarginContainer/PlayerInfo/HealthBar
 @onready var player_mana_bar = $MarginContainer/PlayerInfo/ManaBar
 @onready var attack = $ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack
-@onready var eq_back = $ActionsPanel/MarginContainer/Equipment/Back
 @onready var animation_player = $AnimationPlayer
 
 ## Player and enemy stats.
@@ -43,7 +42,10 @@ func _ready():
 	update_progress_bar(player_mana_bar, "Mana", 10, 10)
 	update_enemy_progress_bar(enemy.health)
 	update_inventory()
+	inv_item_list.get_v_scroll_bar().hide()
+	inv_item_list.get_v_scroll_bar().visibility_changed.connect(_hide_scroll_bar)
 	
+	# Set up stats
 	current_player_stats["hp"] = PlayerStats.player_stats["hp"]
 	current_player_stats["max_hp"] = PlayerStats.player_stats["max_hp"]
 	current_player_stats["base_atk"] = PlayerStats.player_stats["atk"]
@@ -65,7 +67,6 @@ func _ready():
 	%Textbox.hide()
 	actions.hide()
 	spells.hide()
-	equipment.hide()
 	inventory.hide()
 	
 	# Add spells
@@ -85,6 +86,11 @@ func _ready():
 	await(textbox_closed)
 	actions.show()
 	attack.grab_focus()
+
+
+#func _process(delta: float) -> void:
+	## For some reason, has to be called repeatedly in order to work.
+	#inv_item_list.get_v_scroll_bar().hide()
 
 
 # Displays text in the panel
@@ -139,7 +145,7 @@ func enemy_turn():
 		m_atk.call("use", current_player_stats, current_enemy_stats, self)
 		await(m_atk.completed_use)
 		m_atk.queue_free()
-	current_player_stats["mana"] += 1
+	current_player_stats["mana"] = min(10, current_player_stats["mana"] + 1)
 	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
 	actions.show()
 	attack.grab_focus()
@@ -259,6 +265,7 @@ func _on_magic_pressed() -> void:
 func use_magic_attack(attack_name):
 	actions.hide()
 	spells.hide()
+	inv_textbox.text = ""
 	if (current_player_stats["mana"] > 4):
 		current_player_stats["mana"] -= 4
 		update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
@@ -278,14 +285,11 @@ func _on_equipment_pressed() -> void:
 	actions.hide()
 	inventory.show()
 	inv_item_list.grab_focus()
-	inv_item_list.select(0)
-	#equipment.show()
-	#eq_back.grab_focus()
 
 
-# Leave the equipment/inventory menu
+# Leave the inventory menu
 func _on_back_pressed() -> void:
-	equipment.hide()
+	inv_textbox.text = ""
 	inventory.hide()
 	actions.show()
 	attack.grab_focus()
@@ -311,3 +315,23 @@ func update_inventory():
 	for item in PlayerStats.inventory:
 		inv_item_list.add_item(PlayerStats.ITEM_MAPPINGS[item]["name"], \
 		PlayerStats.ITEM_MAPPINGS[item]["icon"])
+
+
+func _on_inv_item_list_item_selected(index: int) -> void:
+	inv_textbox.text = PlayerStats.ITEM_MAPPINGS[PlayerStats.inventory[index]]["desc"]
+
+
+func _on_inv_item_list_focus_exited() -> void:
+	inv_item_list.deselect_all()
+	inv_textbox.text = ""
+
+
+func _on_inv_item_list_focus_entered() -> void:
+	inv_item_list.select(0)
+	inv_item_list.item_selected.emit(0)
+	inv_item_list.ensure_current_is_visible()
+
+
+# For some reason, even after hiding, the scrollbar shows itself again.
+func _hide_scroll_bar() -> void:
+	inv_item_list.get_v_scroll_bar().hide()
