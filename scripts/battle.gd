@@ -40,9 +40,9 @@ var tween: Tween
 func _ready():
 	# Set up textures and health bars
 	%Enemy.texture = enemy.texture
-	update_player_progress_bar(PlayerStats.player_stats["hp"])
-	update_progress_bar(player_mana_bar, "Mana", 10, 10)
-	update_enemy_progress_bar(enemy.health)
+	update_player_progress_bar(PlayerStats.player_stats["hp"], false)
+	update_progress_bar(player_mana_bar, "Mana", 10, 10, false)
+	update_enemy_progress_bar(enemy.health, false)
 	update_spells()
 	update_inventory()
 	inv_item_list.get_v_scroll_bar().hide()
@@ -99,22 +99,26 @@ func display_text(text):
 # progress_bar: the progress bar node to be updated
 # health: the current HP
 # max_health: the maximum HP
-func update_progress_bar(progress_bar, label, health, max_health):
+func update_progress_bar(progress_bar, label, health, max_health, to_tween=true):
 	progress_bar.max_value = max_health
-	progress_bar.value = health
+	var t_tween = create_tween().bind_node(progress_bar)
+	if to_tween:
+		t_tween.tween_property(progress_bar, "value", health, 0.5)
+	else:
+		progress_bar.value = health
 	if label:
 		progress_bar.get_node("Label").text = "%s: %d/%d" % [label, health, max_health]
 
 
 # Updates the player's progress bar's value, max value, and label; health is the player's current HP
-func update_player_progress_bar(health=current_player_stats["hp"]):
+func update_player_progress_bar(health=current_player_stats["hp"], to_tween=true):
 	update_progress_bar(player_health_bar, "HP", \
-		health, PlayerStats.player_stats["max_hp"])
+			health, PlayerStats.player_stats["max_hp"], to_tween)
 
 
 # Updates the enemy's progress bar's value and max value; health is the enemy's current HP
-func update_enemy_progress_bar(health=current_enemy_stats["hp"]):
-	update_progress_bar(enemy_health_bar, false, health, enemy.health)
+func update_enemy_progress_bar(health=current_enemy_stats["hp"], to_tween=true):
+	update_progress_bar(enemy_health_bar, false, health, enemy.health, to_tween)
 
 
 # Update both the player's and enemy's health bars
@@ -137,7 +141,7 @@ func enemy_turn():
 		await(m_atk.completed_use)
 		m_atk.queue_free()
 	current_player_stats["mana"] = min(10, current_player_stats["mana"] + 1)
-	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
+	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10, false)
 	actions.show()
 	attack.grab_focus()
 
@@ -252,6 +256,7 @@ func _on_magic_pressed() -> void:
 
 
 func _on_spell_item_list_item_activated(index: int) -> void:
+	await get_tree().create_timer(0.1).timeout
 	actions.hide()
 	spells.hide()
 	inv_textbox.text = ""
@@ -287,6 +292,7 @@ func _on_back_pressed() -> void:
 
 
 func _on_inv_item_list_item_activated(index: int) -> void:
+	await get_tree().create_timer(0.1).timeout
 	inventory.hide()
 	
 	var m_item = PlayerStats.ITEM_MAPPINGS[PlayerStats.inventory[index]]["script"].new()
