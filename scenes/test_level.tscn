@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://db3xs6g7oqyhl" path="res://scenes/enemy.tscn" id="3_i78y7"]
 [ext_resource type="PackedScene" uid="uid://tj2l03e6u4lg" path="res://scenes/player.tscn" id="3_w81om"]
 [ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skeleton.tres" id="4_2ahdj"]
-[ext_resource type="Texture2D" uid="uid://cs85t3vbh88yn" path="res://assets/placeholderSprite.png" id="4_yx6fq"]
 [ext_resource type="Resource" uid="uid://bhe56oiuoihks" path="res://resources/golem.tres" id="5_4xm27"]
 [ext_resource type="Texture2D" uid="uid://cskgh0qigct1v" path="res://assets/golem.png" id="5_pmpjm"]
 [ext_resource type="Resource" uid="uid://cn0m577c47c58" path="res://resources/magic.tres" id="5_v2dri"]
 [ext_resource type="Script" path="res://scripts/npc.gd" id="8_btytp"]
 [ext_resource type="Resource" uid="uid://cevdbw0y5otkh" path="res://dialogue/placeholderDialogue.dialogue" id="9_fapb2"]
+[ext_resource type="Texture2D" uid="uid://171c0hefl2hp" path="res://assets/knight-npc-sprite.png" id="10_1w0ck"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_huxdb"]
 texture = ExtResource("1_rvsuv")
@@ -111,7 +111,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_huxdb")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qm40v"]
-size = Vector2(18, 29)
+size = Vector2(12, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cdy14"]
 size = Vector2(778.25, 20)
@@ -134,11 +134,10 @@ position = Vector2(290, 207)
 enemy = ExtResource("4_2ahdj")
 
 [node name="Golem" parent="." instance=ExtResource("3_i78y7")]
-position = Vector2(650, 64)
+position = Vector2(602, 66)
 enemy = ExtResource("5_4xm27")
 
 [node name="Sprite2D" parent="Golem" index="1"]
-scale = Vector2(2, 2)
 texture = ExtResource("5_pmpjm")
 
 [node name="MagicEnemy" parent="." instance=ExtResource("3_i78y7")]
@@ -167,16 +166,16 @@ collision_layer = 5
 script = ExtResource("8_btytp")
 dialogue_resource = ExtResource("9_fapb2")
 dialogue_start = "test"
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/Area2D"]
-position = Vector2(7, 16.5)
+position = Vector2(6.5, 17)
 shape = SubResource("RectangleShape2D_qm40v")
 
 [node name="Sprite2D" type="Sprite2D" parent="NPC/Area2D"]
 position = Vector2(7, 16.7705)
-scale = Vector2(0.5625, 0.459016)
-texture = ExtResource("4_yx6fq")
+texture = ExtResource("10_1w0ck")
+hframes = 2
+vframes = 3
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="NPC"]
 position = Vector2(76, 78.5)
