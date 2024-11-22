@@ -41,7 +41,7 @@ var player_stats = {
 	}
 
 var magic_attacks = {
-	"Basic": preload("res://scripts/magic_attacks/basic.gd"),
+	"Basic Magic Attack": preload("res://scripts/magic_attacks/basic.gd"),
 	"Lower Enemy Defense": preload("res://scripts/magic_attacks/lower_enemy_def.gd"),
 }
 var weapons = {}

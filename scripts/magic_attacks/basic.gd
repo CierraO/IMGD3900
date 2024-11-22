@@ -25,3 +25,7 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 	await battle.check_if_enemy_died()
 	await battle.check_if_player_died()
 	completed_use.emit()
+
+
+func get_description():
+	return "A basic magical attack that deals damage based on your magic stat. The enemy's defense is ignored."

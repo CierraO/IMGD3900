@@ -498,14 +498,14 @@ expand_icon = true
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../Attack")
-focus_neighbor_right = NodePath("../Equipment")
-focus_next = NodePath("../Equipment")
+focus_neighbor_right = NodePath("../Inventory")
+focus_next = NodePath("../Inventory")
 focus_previous = NodePath("../Attack")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("9_u5ego")
 expand_icon = true
 
-[node name="Equipment" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
+[node name="Inventory" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../Magic")
@@ -519,19 +519,74 @@ expand_icon = true
 [node name="Escape" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_left = NodePath("../Equipment")
-focus_previous = NodePath("../Equipment")
+focus_neighbor_left = NodePath("../Inventory")
+focus_previous = NodePath("../Inventory")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("8_tm0nu")
 expand_icon = true
 
 [node name="Spells" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
-visible = false
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 7
 alignment = 1
 
+[node name="Back" type="Button" parent="ActionsPanel/MarginContainer/Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+focus_neighbor_right = NodePath("../SpellItemList")
+theme = ExtResource("7_bqs2w")
+icon = ExtResource("19_f0lgg")
+expand_icon = true
+
+[node name="Spacer2" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="SpellItemList" type="ItemList" parent="ActionsPanel/MarginContainer/Spells"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
+focus_neighbor_left = NodePath("../Back")
+theme_override_fonts/font = ExtResource("4_p0f5x")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("StyleBoxEmpty_am68v")
+
+[node name="SpellPanel" type="Panel" parent="ActionsPanel/MarginContainer/Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
+theme_override_styles/panel = SubResource("StyleBoxFlat_6vrkc")
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionsPanel/MarginContainer/Spells/SpellPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="SpellTextbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer/Spells/SpellPanel/MarginContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_p0f5x")
+theme_override_fonts/mono_font = ExtResource("4_p0f5x")
+theme_override_fonts/italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_font = ExtResource("4_p0f5x")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+scroll_active = false
+
 [node name="Inventory" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 
@@ -700,10 +755,15 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Magic" to="." method="_on_magic_pressed"]
-[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Equipment" to="." method="_on_equipment_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Inventory" to="." method="_on_inventory_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Escape" to="." method="_on_run_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Spells/Back" to="." method="_on_back_pressed"]
+[connection signal="focus_entered" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%SpellItemList")]]
+[connection signal="focus_exited" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%SpellItemList"), NodePath("%SpellTextbox")]]
+[connection signal="item_activated" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_spell_item_list_item_activated"]
+[connection signal="item_selected" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_spell_item_list_item_selected"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Inventory/Back" to="." method="_on_back_pressed"]
-[connection signal="focus_entered" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_inv_item_list_focus_entered"]
-[connection signal="focus_exited" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_inv_item_list_focus_exited"]
-[connection signal="item_activated" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="focus_entered" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%InvItemList")]]
+[connection signal="focus_exited" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%InvItemList"), NodePath("%InvTextbox")]]
+[connection signal="item_activated" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_inv_item_list_item_activated"]
 [connection signal="item_selected" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_inv_item_list_item_selected"]

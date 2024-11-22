@@ -7,6 +7,8 @@ signal textbox_closed
 
 @onready var actions: HBoxContainer = $ActionsPanel/MarginContainer/Actions
 @onready var spells: HBoxContainer = $ActionsPanel/MarginContainer/Spells
+@onready var spell_item_list: ItemList = %SpellItemList
+@onready var spell_textbox: RichTextLabel = %SpellTextbox
 @onready var inventory: HBoxContainer = $ActionsPanel/MarginContainer/Inventory
 @onready var inv_item_list: ItemList = %InvItemList
 @onready var inv_textbox: RichTextLabel = %InvTextbox
@@ -41,6 +43,7 @@ func _ready():
 	update_player_progress_bar(PlayerStats.player_stats["hp"])
 	update_progress_bar(player_mana_bar, "Mana", 10, 10)
 	update_enemy_progress_bar(enemy.health)
+	update_spells()
 	update_inventory()
 	inv_item_list.get_v_scroll_bar().hide()
 	inv_item_list.get_v_scroll_bar().visibility_changed.connect(_hide_scroll_bar)
@@ -68,18 +71,6 @@ func _ready():
 	actions.hide()
 	spells.hide()
 	inventory.hide()
-	
-	# Add spells
-	var theme = load("res://resources/theme.tres")
-	for spell in PlayerStats.magic_attacks.keys():
-		var button = Button.new()
-		button.text = spell
-		button.theme = theme
-		button.pressed.connect(use_magic_attack.bind(spell))
-		
-		if spells.get_child_count() > 0:
-			spells.add_spacer(false)
-		spells.add_child(button)
 	
 #	# Display encounter text, then show battle menu
 	display_text(enemy.encounter_text)
@@ -257,19 +248,17 @@ func set_enemy(e):
 func _on_magic_pressed() -> void:
 	actions.hide()
 	spells.show()
-	
-	if spells.get_child_count() > 0:
-		spells.get_child(0).grab_focus()
+	spell_item_list.grab_focus()
 
 
-func use_magic_attack(attack_name):
+func _on_spell_item_list_item_activated(index: int) -> void:
 	actions.hide()
 	spells.hide()
 	inv_textbox.text = ""
 	if (current_player_stats["mana"] > 4):
 		current_player_stats["mana"] -= 4
 		update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
-		var m_atk = PlayerStats.magic_attacks[attack_name].new()
+		var m_atk = PlayerStats.magic_attacks[spell_item_list.get_item_text(index)].new()
 		m_atk.call("use", current_enemy_stats, current_player_stats, self)
 		await(m_atk.completed_use)
 		m_atk.queue_free()
@@ -281,7 +270,7 @@ func use_magic_attack(attack_name):
 		attack.grab_focus()
 
 
-func _on_equipment_pressed() -> void:
+func _on_inventory_pressed() -> void:
 	actions.hide()
 	inventory.show()
 	inv_item_list.grab_focus()
@@ -289,13 +278,15 @@ func _on_equipment_pressed() -> void:
 
 # Leave the inventory menu
 func _on_back_pressed() -> void:
+	spell_textbox.text = ""
 	inv_textbox.text = ""
+	spells.hide()
 	inventory.hide()
 	actions.show()
 	attack.grab_focus()
 
 
-func _on_item_list_item_activated(index: int) -> void:
+func _on_inv_item_list_item_activated(index: int) -> void:
 	inventory.hide()
 	
 	var m_item = PlayerStats.ITEM_MAPPINGS[PlayerStats.inventory[index]]["script"].new()
@@ -310,28 +301,45 @@ func _on_item_list_item_activated(index: int) -> void:
 	enemy_turn()
 
 
+func update_spells():
+	spell_item_list.clear()
+	for spell in PlayerStats.magic_attacks.keys():
+		spell_item_list.add_item(spell)
+
+
 func update_inventory():
 	inv_item_list.clear()
 	for item in PlayerStats.inventory:
-		inv_item_list.add_item(PlayerStats.ITEM_MAPPINGS[item]["name"], \
-		PlayerStats.ITEM_MAPPINGS[item]["icon"])
+		inv_item_list.add_item(PlayerStats.ITEM_MAPPINGS[item]["name"],
+				PlayerStats.ITEM_MAPPINGS[item]["icon"])
 
 
 func _on_inv_item_list_item_selected(index: int) -> void:
 	inv_textbox.text = PlayerStats.ITEM_MAPPINGS[PlayerStats.inventory[index]]["desc"]
 
 
-func _on_inv_item_list_focus_exited() -> void:
-	inv_item_list.deselect_all()
-	inv_textbox.text = ""
+func _on_item_list_focus_exited(item_list_path, textbox_path) -> void:
+	var item_list = get_node(item_list_path)
+	var textbox = get_node(textbox_path)
+	item_list.deselect_all()
+	textbox.text = ""
 
 
-func _on_inv_item_list_focus_entered() -> void:
-	inv_item_list.select(0)
-	inv_item_list.item_selected.emit(0)
-	inv_item_list.ensure_current_is_visible()
+func _on_item_list_focus_entered(item_list_path) -> void:
+	var item_list = get_node(item_list_path)
+	if (item_list.get_item_count() > 0):
+		item_list.select(0)
+		item_list.item_selected.emit(0)
+		item_list.ensure_current_is_visible()
 
 
 # For some reason, even after hiding, the scrollbar shows itself again.
 func _hide_scroll_bar() -> void:
 	inv_item_list.get_v_scroll_bar().hide()
+
+
+func _on_spell_item_list_item_selected(index: int) -> void:
+	var m_atk = PlayerStats.magic_attacks[spell_item_list.get_item_text(index)].new()
+	var desc = m_atk.call("get_description")
+	spell_textbox.text = desc
+	m_atk.queue_free()

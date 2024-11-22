@@ -18,3 +18,7 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 		await(battle.textbox_closed)
 	
 	completed_use.emit()
+
+
+func get_description():
+	return "Lowers the enemy's defense."
