@@ -4,7 +4,7 @@ extends "res://scripts/magic_attacks/base_stat_affector.gd"
 func use(opponent_stats=null, self_stats=null, battle=null):
 	if (battle):
 		var prev_hp = self_stats["hp"]
-		self_stats["hp"] = min(self_stats["max_hp"], self_stats["hp"] + 0.25 * self_stats["max_hp"])
+		self_stats["hp"] = min(self_stats["max_hp"], self_stats["hp"] + 0.5 * self_stats["max_hp"])
 		battle.update_all_progress_bars()
 		
 		battle.inventory.hide()
