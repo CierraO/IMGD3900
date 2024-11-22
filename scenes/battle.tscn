@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://beayxgfkk3h5v"]
+[gd_scene load_steps=35 format=3 uid="uid://beayxgfkk3h5v"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_id4ev"]
 [ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skeleton.tres" id="2_vqcng"]
@@ -15,12 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://c8dgf8gufcd2n" path="res://assets/bag-icon.png" id="10_uccvl"]
 [ext_resource type="AudioStream" uid="uid://l4sy7526bldl" path="res://audio/Physical-Attack-Sound-Effect.mp3" id="13_vdble"]
 [ext_resource type="AudioStream" uid="uid://bhs5yu2yhg5hr" path="res://audio/Enemy-Physical-Attack-Sound-Effect-PH.mp3" id="14_gy17m"]
-[ext_resource type="Texture2D" uid="uid://ch75h3iaql21u" path="res://assets/empty-icon.png" id="14_lyat4"]
-[ext_resource type="Texture2D" uid="uid://blhbwi3j0lvl7" path="res://assets/sword-item.png" id="15_i2q1p"]
 [ext_resource type="AudioStream" uid="uid://c04u77sudo84j" path="res://audio/Magic-Attack-Sound-Effect.mp3" id="15_vtudw"]
-[ext_resource type="Texture2D" uid="uid://bcaxwx0776lck" path="res://assets/helmet-item.png" id="16_ark76"]
-[ext_resource type="Texture2D" uid="uid://dyti2ws5tbkhc" path="res://assets/chest-item.png" id="17_a1775"]
-[ext_resource type="Texture2D" uid="uid://c3gyjdfw4wxgt" path="res://assets/boots-item.png" id="18_jaivx"]
 [ext_resource type="Texture2D" uid="uid://b1i17o4ex1t7p" path="res://assets/health-potion.png" id="19_3isyu"]
 [ext_resource type="Texture2D" uid="uid://dkyf41a1ryg6d" path="res://assets/back-icon.png" id="19_f0lgg"]
 [ext_resource type="Texture2D" uid="uid://dgpn5b13iicnm" path="res://assets/greater-health-potion.png" id="20_0gvbn"]
@@ -35,6 +30,9 @@ bg_color = Color(0, 0.721569, 0.32549, 1)
 bg_color = Color(0.180392, 0.207843, 0.196078, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_am68v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vrkc"]
+bg_color = Color(0.611765, 0.52549, 0.607843, 1)
 
 [sub_resource type="Animation" id="Animation_803hh"]
 length = 0.001
@@ -473,7 +471,6 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Actions" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
@@ -481,11 +478,12 @@ alignment = 1
 [node name="Spacer" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Actions"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Actions"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 15
 
 [node name="Attack" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
 layout_mode = 2
@@ -494,20 +492,22 @@ focus_neighbor_right = NodePath("../Magic")
 focus_next = NodePath("../Magic")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("7_67na4")
+icon_alignment = 1
 expand_icon = true
 
 [node name="Magic" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../Attack")
-focus_neighbor_right = NodePath("../Equipment")
-focus_next = NodePath("../Equipment")
+focus_neighbor_right = NodePath("../Inventory")
+focus_next = NodePath("../Inventory")
 focus_previous = NodePath("../Attack")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("9_u5ego")
+icon_alignment = 1
 expand_icon = true
 
-[node name="Equipment" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
+[node name="Inventory" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../Magic")
@@ -516,101 +516,94 @@ focus_next = NodePath("../Escape")
 focus_previous = NodePath("../Magic")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("10_uccvl")
+icon_alignment = 1
 expand_icon = true
 
 [node name="Escape" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_left = NodePath("../Equipment")
-focus_previous = NodePath("../Equipment")
+focus_neighbor_left = NodePath("../Inventory")
+focus_previous = NodePath("../Inventory")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("8_tm0nu")
+icon_alignment = 1
 expand_icon = true
+
+[node name="Spacer2" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Spells" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 7
 alignment = 1
 
-[node name="Equipment" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Back" type="Button" parent="ActionsPanel/MarginContainer/Equipment"]
+[node name="Back" type="Button" parent="ActionsPanel/MarginContainer/Spells"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.55
-focus_neighbor_right = NodePath("../Equip/Weapon")
+size_flags_stretch_ratio = 0.1
+focus_neighbor_right = NodePath("../SpellItemList")
 theme = ExtResource("7_bqs2w")
-icon = ExtResource("14_lyat4")
+icon = ExtResource("19_f0lgg")
 expand_icon = true
 
-[node name="Spacer2" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Equipment"]
+[node name="Spacer2" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Spells"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.2
+size_flags_stretch_ratio = 0.02
 
-[node name="Equip" type="GridContainer" parent="ActionsPanel/MarginContainer/Equipment"]
-layout_mode = 2
-theme_override_constants/h_separation = 14
-columns = 3
-
-[node name="Weapon" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../../Back")
-focus_neighbor_right = NodePath("../Artifact")
-focus_neighbor_bottom = NodePath("../Chestplate")
-theme = ExtResource("7_bqs2w")
-text = "Weapon"
-icon = ExtResource("15_i2q1p")
-
-[node name="Artifact" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../Weapon")
-focus_neighbor_right = NodePath("../Helmet")
-focus_neighbor_bottom = NodePath("../Boots")
-theme = ExtResource("7_bqs2w")
-text = "Artifact"
-icon = ExtResource("15_i2q1p")
-
-[node name="Helmet" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../Artifact")
-focus_neighbor_bottom = NodePath("../Boots")
-theme = ExtResource("7_bqs2w")
-text = "Helmet"
-icon = ExtResource("16_ark76")
-
-[node name="Chestplate" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../../Back")
-focus_neighbor_top = NodePath("../Weapon")
-focus_neighbor_right = NodePath("../Boots")
-theme = ExtResource("7_bqs2w")
-text = "Chestplate"
-icon = ExtResource("17_a1775")
-
-[node name="Boots" type="Button" parent="ActionsPanel/MarginContainer/Equipment/Equip"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../Chestplate")
-focus_neighbor_top = NodePath("../Artifact")
-theme = ExtResource("7_bqs2w")
-text = "Boots"
-icon = ExtResource("18_jaivx")
-
-[node name="Spacer" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Equipment"]
+[node name="SpellItemList" type="ItemList" parent="ActionsPanel/MarginContainer/Spells"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
+focus_neighbor_left = NodePath("../Back")
+theme_override_fonts/font = ExtResource("4_p0f5x")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("StyleBoxEmpty_am68v")
+
+[node name="SpellPanel" type="Panel" parent="ActionsPanel/MarginContainer/Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
+theme_override_styles/panel = SubResource("StyleBoxFlat_6vrkc")
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionsPanel/MarginContainer/Spells/SpellPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="SpellTextbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer/Spells/SpellPanel/MarginContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_p0f5x")
+theme_override_fonts/mono_font = ExtResource("4_p0f5x")
+theme_override_fonts/italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_font = ExtResource("4_p0f5x")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+scroll_active = false
 
 [node name="Inventory" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+visible = false
 layout_mode = 2
+theme_override_constants/separation = 7
 
 [node name="Back" type="Button" parent="ActionsPanel/MarginContainer/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.13
-focus_neighbor_right = NodePath("../ItemList")
+size_flags_stretch_ratio = 0.1
+focus_neighbor_right = NodePath("../InvItemList")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("19_f0lgg")
 expand_icon = true
@@ -618,22 +611,53 @@ expand_icon = true
 [node name="Spacer2" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.2
+size_flags_stretch_ratio = 0.02
 
-[node name="ItemList" type="ItemList" parent="ActionsPanel/MarginContainer/Inventory"]
+[node name="InvItemList" type="ItemList" parent="ActionsPanel/MarginContainer/Inventory"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
 focus_neighbor_left = NodePath("../Back")
 theme_override_fonts/font = ExtResource("4_p0f5x")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/focus = SubResource("StyleBoxEmpty_am68v")
 item_count = 2
-max_columns = 2
-same_column_width = true
 item_0/text = "Health Potion"
 item_0/icon = ExtResource("19_3isyu")
 item_1/text = "Greater Health Potion"
 item_1/icon = ExtResource("20_0gvbn")
+
+[node name="InvPanel" type="Panel" parent="ActionsPanel/MarginContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
+theme_override_styles/panel = SubResource("StyleBoxFlat_6vrkc")
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionsPanel/MarginContainer/Inventory/InvPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="InvTextbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer/Inventory/InvPanel/MarginContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_p0f5x")
+theme_override_fonts/mono_font = ExtResource("4_p0f5x")
+theme_override_fonts/italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_font = ExtResource("4_p0f5x")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+scroll_active = false
 
 [node name="Textbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer"]
 unique_name_in_owner = true
@@ -676,15 +700,19 @@ theme_override_constants/margin_bottom = 10
 
 [node name="PlayerInfo" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 8
 
-[node name="PlayerLabel" type="Label" parent="MarginContainer/PlayerInfo"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PlayerInfo"]
+layout_mode = 2
+
+[node name="PlayerLabel" type="Label" parent="MarginContainer/PlayerInfo/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_p0f5x")
 theme_override_font_sizes/font_size = 22
 text = "Player"
 
-[node name="HealthBar" type="ProgressBar" parent="MarginContainer/PlayerInfo"]
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/PlayerInfo/VBoxContainer"]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxTexture_i6ihn")
@@ -692,7 +720,7 @@ theme_override_styles/fill = SubResource("StyleBoxTexture_6tffp")
 value = 70.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="MarginContainer/PlayerInfo/HealthBar"]
+[node name="Label" type="Label" parent="MarginContainer/PlayerInfo/VBoxContainer/HealthBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -740,8 +768,15 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Magic" to="." method="_on_magic_pressed"]
-[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Equipment" to="." method="_on_equipment_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Inventory" to="." method="_on_inventory_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/HBoxContainer/Escape" to="." method="_on_run_pressed"]
-[connection signal="pressed" from="ActionsPanel/MarginContainer/Equipment/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Spells/Back" to="." method="_on_back_pressed"]
+[connection signal="focus_entered" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%SpellItemList")]]
+[connection signal="focus_exited" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%SpellItemList"), NodePath("%SpellTextbox")]]
+[connection signal="item_activated" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_spell_item_list_item_activated"]
+[connection signal="item_selected" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_spell_item_list_item_selected"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Inventory/Back" to="." method="_on_back_pressed"]
-[connection signal="item_activated" from="ActionsPanel/MarginContainer/Inventory/ItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="focus_entered" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%InvItemList")]]
+[connection signal="focus_exited" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%InvItemList"), NodePath("%InvTextbox")]]
+[connection signal="item_activated" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_inv_item_list_item_activated"]
+[connection signal="item_selected" from="ActionsPanel/MarginContainer/Inventory/InvItemList" to="." method="_on_inv_item_list_item_selected"]
