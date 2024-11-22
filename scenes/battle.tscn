@@ -471,7 +471,6 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Actions" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
@@ -479,11 +478,12 @@ alignment = 1
 [node name="Spacer" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Actions"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Actions"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 15
 
 [node name="Attack" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
 layout_mode = 2
@@ -492,6 +492,7 @@ focus_neighbor_right = NodePath("../Magic")
 focus_next = NodePath("../Magic")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("7_67na4")
+icon_alignment = 1
 expand_icon = true
 
 [node name="Magic" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
@@ -503,6 +504,7 @@ focus_next = NodePath("../Inventory")
 focus_previous = NodePath("../Attack")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("9_u5ego")
+icon_alignment = 1
 expand_icon = true
 
 [node name="Inventory" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
@@ -514,6 +516,7 @@ focus_next = NodePath("../Escape")
 focus_previous = NodePath("../Magic")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("10_uccvl")
+icon_alignment = 1
 expand_icon = true
 
 [node name="Escape" type="Button" parent="ActionsPanel/MarginContainer/Actions/HBoxContainer"]
@@ -523,9 +526,15 @@ focus_neighbor_left = NodePath("../Inventory")
 focus_previous = NodePath("../Inventory")
 theme = ExtResource("7_bqs2w")
 icon = ExtResource("8_tm0nu")
+icon_alignment = 1
 expand_icon = true
 
+[node name="Spacer2" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="Spells" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 alignment = 1
@@ -691,15 +700,19 @@ theme_override_constants/margin_bottom = 10
 
 [node name="PlayerInfo" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 8
 
-[node name="PlayerLabel" type="Label" parent="MarginContainer/PlayerInfo"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PlayerInfo"]
+layout_mode = 2
+
+[node name="PlayerLabel" type="Label" parent="MarginContainer/PlayerInfo/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_p0f5x")
 theme_override_font_sizes/font_size = 22
 text = "Player"
 
-[node name="HealthBar" type="ProgressBar" parent="MarginContainer/PlayerInfo"]
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/PlayerInfo/VBoxContainer"]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxTexture_i6ihn")
@@ -707,7 +720,7 @@ theme_override_styles/fill = SubResource("StyleBoxTexture_6tffp")
 value = 70.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="MarginContainer/PlayerInfo/HealthBar"]
+[node name="Label" type="Label" parent="MarginContainer/PlayerInfo/VBoxContainer/HealthBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

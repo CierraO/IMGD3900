@@ -13,7 +13,7 @@ signal textbox_closed
 @onready var inv_item_list: ItemList = %InvItemList
 @onready var inv_textbox: RichTextLabel = %InvTextbox
 @onready var enemy_health_bar = $EnemyContainer/HealthBar
-@onready var player_health_bar = $MarginContainer/PlayerInfo/HealthBar
+@onready var player_health_bar = $MarginContainer/PlayerInfo/VBoxContainer/HealthBar
 @onready var player_mana_bar = $MarginContainer/PlayerInfo/ManaBar
 @onready var attack = $ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack
 @onready var animation_player = $AnimationPlayer
