@@ -1,4 +1,6 @@
 ~ test
-NPC: hi
-Player: bye
+Player: i have clinical depression
+NPC: oh 😔
+NPC: take this potion
+do PlayerStats.inventory.append(PlayerStats.ITEMS.HEALTH_POTION)
 => END
