@@ -39,10 +39,8 @@ texture = ExtResource("1_rvsuv")
 2:2/0 = 0
 3:2/0 = 0
 4:2/0 = 0
-5:2/0 = 0
-5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:2/0 = 0
-6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.875, -3.625, 6, -6.375, 6.75, 6.5, -8, 5.625)
 0:3/0 = 0
 1:3/0 = 0
 2:3/0 = 0
@@ -112,6 +110,8 @@ texture = ExtResource("1_rvsuv")
 5:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:11/0 = 0
 6:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5, -3.625, 1.875, -4.375, 6.25, -2.875, 6.25, 5.125, -7, 5.375)
 
 [sub_resource type="TileSet" id="TileSet_vvhhx"]
 physics_layer_0/collision_layer = 1
@@ -232,9 +232,6 @@ enemy = ExtResource("5_v2dri")
 [node name="Player" parent="." instance=ExtResource("3_w81om")]
 position = Vector2(45, 183)
 
-[node name="Camera2D" parent="Player" index="3"]
-limit_right = 750
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="NPC" type="StaticBody2D" parent="."]
@@ -279,6 +276,7 @@ position = Vector2(-13, 136)
 shape = SubResource("RectangleShape2D_6tqg3")
 
 [node name="Inventory" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Blur" type="TextureRect" parent="Inventory"]
 material = SubResource("ShaderMaterial_f2srl")
