@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://bnwe8chejtm3j"]
+[gd_scene load_steps=41 format=4 uid="uid://bnwe8chejtm3j"]
 
 [ext_resource type="Texture2D" uid="uid://djwg63iedc0i0" path="res://assets/ground-tileset.png" id="1_rvsuv"]
 [ext_resource type="PackedScene" uid="uid://db3xs6g7oqyhl" path="res://scenes/enemy.tscn" id="3_i78y7"]
@@ -17,6 +17,8 @@
 [ext_resource type="StyleBox" uid="uid://dw6yxedkecnq6" path="res://resources/panel.tres" id="14_ymhah"]
 [ext_resource type="FontFile" uid="uid://d2e46k3m0ng28" path="res://fonts/Kenney Mini Square.ttf" id="15_jqrof"]
 [ext_resource type="FontFile" uid="uid://h8bkkxv8oug1" path="res://fonts/NicoPups-Regular.ttf" id="16_l7inw"]
+[ext_resource type="Texture2D" uid="uid://b1i17o4ex1t7p" path="res://assets/health-potion.png" id="18_eu0xj"]
+[ext_resource type="Texture2D" uid="uid://dgpn5b13iicnm" path="res://assets/greater-health-potion.png" id="19_gfhxn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_huxdb"]
 texture = ExtResource("1_rvsuv")
@@ -40,7 +42,7 @@ texture = ExtResource("1_rvsuv")
 3:2/0 = 0
 4:2/0 = 0
 6:2/0 = 0
-6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.875, -3.625, 6, -6.375, 6.75, 6.5, -8, 5.625)
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:3/0 = 0
 1:3/0 = 0
 2:3/0 = 0
@@ -197,6 +199,11 @@ ItemList/styles/panel = SubResource("StyleBoxFlat_qko1s")
 draw_center = false
 border_width_top = 1
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_21xyx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p28xg"]
+bg_color = Color(0.611765, 0.52549, 0.607843, 1)
+
 [node name="TestLevel" type="Node2D"]
 scale = Vector2(2, 2)
 
@@ -276,7 +283,6 @@ position = Vector2(-13, 136)
 shape = SubResource("RectangleShape2D_6tqg3")
 
 [node name="Inventory" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Blur" type="TextureRect" parent="Inventory"]
 material = SubResource("ShaderMaterial_f2srl")
@@ -400,12 +406,12 @@ size_flags_vertical = 3
 [node name="EquipPanelContainer2" type="PanelContainer" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 1.7
 theme_override_styles/panel = SubResource("StyleBoxFlat_rqlhn")
 
 [node name="EquipMarginContainer" type="MarginContainer" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2"]
 layout_mode = 2
-theme_override_constants/margin_left = 6
+theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
@@ -426,6 +432,7 @@ text = "EQUIP"
 
 [node name="ArmorTypesItemList" type="ItemList" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../../../../ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList")
 theme = SubResource("Theme_ainoj")
 allow_search = false
 auto_height = true
@@ -447,7 +454,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_dwslo")
 
-[node name="StatsLabel2" type="Label" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/StatsPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/StatsPanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="StatsLabel" type="Label" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/StatsPanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("15_jqrof")
@@ -460,12 +474,73 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_v4pss")
 
-[node name="StatsLabel2" type="Label" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ItemsVBoxContainer" type="VBoxContainer" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemsLabel" type="Label" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("15_jqrof")
 theme_override_font_sizes/font_size = 32
 text = "ITEMS"
+
+[node name="ItemsHBoxContainer" type="HBoxContainer" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InvItemList" type="ItemList" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.43
+focus_neighbor_top = NodePath("../../../../../PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer/ArmorTypesItemList")
+theme_override_fonts/font = ExtResource("12_7urf1")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_21xyx")
+item_count = 2
+item_0/text = "Health Potion"
+item_0/icon = ExtResource("18_eu0xj")
+item_1/text = "Greater Health Potion"
+item_1/icon = ExtResource("19_gfhxn")
+
+[node name="InvPanel" type="Panel" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
+theme_override_styles/panel = SubResource("StyleBoxFlat_p28xg")
+
+[node name="MarginContainer" type="MarginContainer" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="InvTextbox" type="RichTextLabel" parent="Inventory/OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvPanel/MarginContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("12_7urf1")
+theme_override_fonts/mono_font = ExtResource("12_7urf1")
+theme_override_fonts/italics_font = ExtResource("12_7urf1")
+theme_override_fonts/bold_italics_font = ExtResource("12_7urf1")
+theme_override_fonts/bold_font = ExtResource("12_7urf1")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+scroll_active = false
 
 [editable path="Golem"]
 [editable path="Player"]
