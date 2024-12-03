@@ -22,6 +22,7 @@ PlayerStats="*res://scripts/PlayerStats.gd"
 SceneManager="*res://scenes/scene_manager.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 AudioPlayer="*res://scenes/audio_stream_player.tscn"
+Inventory="*res://scenes/inventory.tscn"
 
 [dialogue_manager]
 

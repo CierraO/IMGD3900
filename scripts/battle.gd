@@ -221,11 +221,11 @@ func check_if_enemy_died():
 		await(animation_player.animation_finished)
 		
 		# Enemy drops
-		var drop = randi_range(-1, PlayerStats.ITEMS.size() - 1)
+		var drop = randi_range(-1, Inventory.ITEMS.size() - 1)
 		if drop != -1:
-			display_text("%s dropped %s!" % [enemy.name, PlayerStats.ITEM_MAPPINGS[drop]["name"]])
+			display_text("%s dropped %s!" % [enemy.name, Inventory.ITEM_MAPPINGS[drop]["name"]])
 			await(textbox_closed)
-			PlayerStats.inventory.append(drop)
+			Inventory.add_inventory_item(drop)
 		leave_battle()
 
 
@@ -295,14 +295,14 @@ func _on_inv_item_list_item_activated(index: int) -> void:
 	await get_tree().create_timer(0.1).timeout
 	inventory.hide()
 	
-	var m_item = PlayerStats.ITEM_MAPPINGS[PlayerStats.inventory[index]]["script"].new()
+	var m_item = Inventory.ITEM_MAPPINGS[Inventory._inventory[index]]["script"].new()
 	m_item.call("use", current_enemy_stats, current_player_stats, self)
 	await(m_item.completed_use)
 	m_item.queue_free()
-	PlayerStats.inventory.remove_at(index)
+	Inventory.remove_inventory_item_at_index(index)
+	inv_item_list.remove_item(index)
 	
 	update_player_progress_bar()
-	update_inventory()
 	
 	enemy_turn()
 
@@ -315,13 +315,13 @@ func update_spells():
 
 func update_inventory():
 	inv_item_list.clear()
-	for item in PlayerStats.inventory:
-		inv_item_list.add_item(PlayerStats.ITEM_MAPPINGS[item]["name"],
-				PlayerStats.ITEM_MAPPINGS[item]["icon"])
+	for item in Inventory._inventory:
+		inv_item_list.add_item(Inventory.ITEM_MAPPINGS[item]["name"],
+				Inventory.ITEM_MAPPINGS[item]["icon"])
 
 
 func _on_inv_item_list_item_selected(index: int) -> void:
-	inv_textbox.text = PlayerStats.ITEM_MAPPINGS[PlayerStats.inventory[index]]["desc"]
+	inv_textbox.text = Inventory.ITEM_MAPPINGS[Inventory._inventory[index]]["desc"]
 
 
 func _on_item_list_focus_exited(item_list_path, textbox_path) -> void:
