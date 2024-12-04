@@ -578,7 +578,6 @@ bbcode_enabled = true
 scroll_active = false
 
 [node name="Inventory" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 

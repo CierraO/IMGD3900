@@ -79,11 +79,6 @@ func _ready():
 	attack.grab_focus()
 
 
-#func _process(delta: float) -> void:
-	## For some reason, has to be called repeatedly in order to work.
-	#inv_item_list.get_v_scroll_bar().hide()
-
-
 # Displays text in the panel
 func display_text(text):
 	actions.hide()

@@ -9,7 +9,7 @@
 [ext_resource type="FontFile" uid="uid://d2e46k3m0ng28" path="res://fonts/Kenney Mini Square.ttf" id="7_l4xna"]
 [ext_resource type="FontFile" uid="uid://h8bkkxv8oug1" path="res://fonts/NicoPups-Regular.ttf" id="8_80jhx"]
 [ext_resource type="Texture2D" uid="uid://b1i17o4ex1t7p" path="res://assets/health-potion.png" id="9_cvcw4"]
-[ext_resource type="Texture2D" uid="uid://dgpn5b13iicnm" path="res://assets/greater-health-potion.png" id="10_lhm2h"]
+[ext_resource type="Texture2D" uid="uid://cl4puei73ghe5" path="res://assets/armorskin-potion.png" id="9_govig"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f2srl"]
 shader = ExtResource("2_pvnnx")
@@ -70,7 +70,7 @@ ItemList/styles/selected_focus = SubResource("StyleBoxFlat_02rkb")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qko1s"]
 bg_color = Color(0.611765, 0.52549, 0.607843, 1)
 
-[sub_resource type="Theme" id="Theme_wxrwt"]
+[sub_resource type="Theme" id="Theme_oqyjp"]
 ItemList/font_sizes/font_size = 24
 ItemList/fonts/font = ExtResource("5_5xdfi")
 ItemList/styles/focus = SubResource("StyleBoxEmpty_wtf7b")
@@ -88,7 +88,6 @@ border_width_top = 1
 bg_color = Color(0.611765, 0.52549, 0.607843, 1)
 
 [node name="Inventory" type="CanvasLayer"]
-visible = false
 script = ExtResource("1_475of")
 
 [node name="Blur" type="TextureRect" parent="."]
@@ -210,34 +209,35 @@ theme_override_constants/separation = -1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="EquipPanelContainer2" type="PanelContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer"]
+[node name="EquipPanelContainer" type="PanelContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.7
 theme_override_styles/panel = SubResource("StyleBoxFlat_rqlhn")
 
-[node name="EquipMarginContainer" type="MarginContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2"]
+[node name="EquipMarginContainer" type="MarginContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="EquipHBoxContainer" type="HBoxContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer"]
+[node name="EquipHBoxContainer" type="HBoxContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer"]
 layout_mode = 2
 
-[node name="EquipVBoxContainer" type="VBoxContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer/EquipHBoxContainer"]
+[node name="EquipVBoxContainer" type="VBoxContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EquipLabel" type="Label" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer"]
+[node name="EquipLabel" type="Label" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("7_l4xna")
 theme_override_font_sizes/font_size = 32
 text = "EQUIP"
 
-[node name="ArmorTypesItemList" type="ItemList" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer"]
+[node name="ArmorTypesItemList" type="ItemList" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../../../../../../ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList")
 theme = SubResource("Theme_ainoj")
@@ -249,12 +249,13 @@ item_1/text = "Helmet"
 item_2/text = "Chest Piece"
 item_3/text = "Boots"
 
-[node name="ArmorItemList" type="ItemList" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer/EquipHBoxContainer"]
+[node name="ArmorItemList" type="ItemList" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme = SubResource("Theme_wxrwt")
+theme = SubResource("Theme_oqyjp")
 item_count = 1
-item_0/text = "Witch's Hat"
+item_0/text = "Witch's Hat "
 
 [node name="StatsPanelContainer" type="PanelContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer"]
 layout_mode = 2
@@ -282,42 +283,51 @@ text = "STATS"
 [node name="GridContainer" type="GridContainer" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/StatsPanelContainer/StatsMarginContainer/StatsVboxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 20
 columns = 2
 
 [node name="MaxHPLabel" type="RichTextLabel" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/StatsPanelContainer/StatsMarginContainer/StatsVboxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/normal_font = ExtResource("8_80jhx")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
 text = "Max HP: 100"
 scroll_active = false
 
 [node name="ATKLabel" type="RichTextLabel" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/StatsPanelContainer/StatsMarginContainer/StatsVboxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/normal_font = ExtResource("8_80jhx")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
 text = "ATK: 5"
 scroll_active = false
 
 [node name="MAGLabel" type="RichTextLabel" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/StatsPanelContainer/StatsMarginContainer/StatsVboxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/normal_font = ExtResource("8_80jhx")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
 text = "MAG: 5"
 scroll_active = false
 
 [node name="DEFLabel" type="RichTextLabel" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/StatsPanelContainer/StatsMarginContainer/StatsVboxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/normal_font = ExtResource("8_80jhx")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
 text = "DEF: 6"
 scroll_active = false
 
@@ -354,17 +364,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.43
-focus_neighbor_top = NodePath("../../../../../PanelHBoxContainer/EquipPanelContainer2/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer/ArmorTypesItemList")
+focus_neighbor_top = NodePath("../../../../../PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer/ArmorTypesItemList")
 theme_override_fonts/font = ExtResource("5_5xdfi")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = SubResource("StyleBoxEmpty_21xyx")
 item_count = 2
-item_0/text = "Health Potion"
-item_0/icon = ExtResource("9_cvcw4")
-item_1/text = "Greater Health Potion"
-item_1/icon = ExtResource("10_lhm2h")
+item_0/text = "Potion"
+item_0/icon = ExtResource("9_govig")
+item_1/text = "Health Potion"
+item_1/icon = ExtResource("9_cvcw4")
 
 [node name="InvPanel" type="Panel" parent="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.43
@@ -395,4 +407,14 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 scroll_active = false
 
+[connection signal="item_selected" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer/ArmorTypesItemList" to="." method="_on_armor_types_item_list_item_selected"]
+[connection signal="focus_entered" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/ArmorItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%ArmorItemList")]]
+[connection signal="focus_exited" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/ArmorItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%ArmorItemList")]]
+[connection signal="item_activated" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/ArmorItemList" to="." method="_on_armor_item_list_item_activated"]
+[connection signal="item_selected" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/ArmorItemList" to="." method="_on_armor_item_list_item_selected"]
+[connection signal="focus_entered" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList" to="." method="_on_inv_item_list_focus_entered"]
+[connection signal="focus_entered" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%InvItemList")]]
+[connection signal="focus_exited" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList" to="." method="_on_inv_item_list_focus_exited"]
+[connection signal="focus_exited" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%InvItemList"), NodePath("%InvTextbox")]]
+[connection signal="item_activated" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList" to="." method="_on_inv_item_list_item_activated"]
 [connection signal="item_selected" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList" to="." method="_on_inv_item_list_item_selected"]
