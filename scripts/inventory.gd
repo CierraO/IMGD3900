@@ -12,6 +12,7 @@ extends CanvasLayer
 @onready var atk_label: RichTextLabel = %ATKLabel
 @onready var mag_label: RichTextLabel = %MAGLabel
 @onready var def_label: RichTextLabel = %DEFLabel
+@onready var resume: Button = %Resume
 
 
 """ Inventory items """
@@ -306,7 +307,13 @@ func _on_inv_item_list_item_activated(index: int) -> void:
 
 
 func _on_inv_item_list_focus_entered() -> void:
-	inv_panel.show()
+	if (inv_item_list.get_item_count() > 0):
+		inv_panel.show()
+	else:
+		if Input.is_action_just_pressed("ui_down"):
+			resume.grab_focus()
+		else:
+			armor_types_item_list.grab_focus()
 
 
 func _on_inv_item_list_focus_exited() -> void:
@@ -444,7 +451,7 @@ func _update_health_bar(to_tween=true):
 		t_tween.tween_property(health_bar, "value", health, 0.5)
 	else:
 		health_bar.value = health
-		health_bar.get_node("Label").text = "%s: %d/%d" % ["HP", health, max_health]
+	health_bar.get_node("Label").text = "%s: %d/%d" % ["HP", health, max_health]
 
 
 func _on_visibility_changed() -> void:

@@ -385,6 +385,7 @@ bbcode_enabled = true
 scroll_active = false
 
 [node name="Resume" type="Button" parent="OuterMarginContainer/OuterVBox"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 52)
 layout_mode = 2
 size_flags_horizontal = 4
