@@ -88,6 +88,7 @@ border_width_top = 1
 bg_color = Color(0.611765, 0.52549, 0.607843, 1)
 
 [node name="Inventory" type="CanvasLayer"]
+visible = false
 script = ExtResource("1_475of")
 
 [node name="Blur" type="TextureRect" parent="."]
@@ -407,6 +408,7 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 scroll_active = false
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="item_selected" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer/ArmorTypesItemList" to="." method="_on_armor_types_item_list_item_selected"]
 [connection signal="focus_entered" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/ArmorItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%ArmorItemList")]]
 [connection signal="focus_exited" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/ArmorItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%ArmorItemList")]]

@@ -6,13 +6,11 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 
-enum State {MOVING, BATTLING}
-var state: State = State.MOVING
 var direction = "down"
 
 func _physics_process(delta):
 	# Handle movement
-	if (state == State.MOVING):
+	if (PlayerState.state == PlayerState.State.MOVING):
 		var x_direction = Input.get_axis("ui_left", "ui_right")
 		if x_direction:
 			velocity.x = x_direction * SPEED
@@ -36,10 +34,6 @@ func _unhandled_input(event):
 		var actionables = actionable_finder.get_overlapping_areas()
 		if actionables.size() > 0:
 			actionables[0].action()
-
-
-func set_state(s: State):
-	state = s
 
 
 func update_anim(x_direction, y_direction):

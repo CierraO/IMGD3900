@@ -19,7 +19,7 @@ func _process(delta):
 
 func _on_body_entered(body):
 	# Prevent player from receiving movement input during battle
-	body.set_state(1)
+	PlayerState.state = PlayerState.State.BATTLING
 	
 	# Encounter animation
 	animation_player.play("encounter")
@@ -32,7 +32,7 @@ func _on_body_entered(body):
 	
 	# When the battle is over, destroy it and return movement controls to the player
 	await(battle.battle_finished)
-	body.set_state(0)
+	PlayerState.state = PlayerState.State.MOVING
 	
 	remove_from_scene()
 

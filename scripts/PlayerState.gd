@@ -1,6 +1,9 @@
 extends Node
 
 
+enum State {MOVING, BATTLING, IN_MENU}
+var state: State = State.MOVING
+
 ## Player stats
 ## Base stats are the player's stats without equipment or potions,
 ## while the normal stats take modifiers into account.

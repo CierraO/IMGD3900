@@ -108,7 +108,7 @@ var HELMET_MAPPINGS = [
 	"def": 1},
 ]
 ## List of helmet IDs
-var helmets_collected = [0]
+var helmets_collected = [0, 1, 2]
 ## A helmet ID, or, if no helmet is equipped, -1
 var helmet_equipped = -1
 
@@ -138,7 +138,7 @@ var CHESTPIECE_MAPPINGS = [
 	"def": 2},
 ]
 ## List of chestpiece IDs
-var chestpieces_collected = [1]
+var chestpieces_collected = [0, 1, 2]
 ## A chestpiece ID, or, if no chestpiece is equipped, -1
 var chestpiece_equipped = -1
 
@@ -168,26 +168,15 @@ var BOOT_MAPPINGS = [
 	"def": 1},
 ]
 ## List of boots IDs
-var boots_collected = [0]
+var boots_collected = [0, 1, 2]
 ## A boots ID, or, if no boots are equipped, -1
 var boot_equipped = -1
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# Initialize inventory
-	inv_item_list.clear()
-	for item in _inventory:
-		inv_item_list.add_item(ITEM_MAPPINGS[item]["name"],
-				ITEM_MAPPINGS[item]["icon"])
-	
-	_update_health_bar(false)
-	
-	_reset_labels_to_default()
-	
-	armor_types_item_list.grab_focus()
-	armor_types_item_list.select(0)
-	armor_types_item_list.item_selected.emit(0)
+func _input(event: InputEvent) -> void:
+	if (event.is_action_pressed("ui_cancel")
+			and PlayerState.state != PlayerState.State.BATTLING):
+		set_visible(!visible)
 
 
 ## Add the equipment to the player's collection.
@@ -282,23 +271,23 @@ func remove_inventory_item_at_index(index: int):
 ## Updates the player's stats to remove this equipment's modifiers.
 ## equipment is a dictionary of equipment attributes
 func _remove_equipment_modifiers(equipment: Dictionary):
-	if PlayerStats.player_stats["hp"] == PlayerStats.player_stats["max_hp"]:
-		PlayerStats.player_stats["hp"] -= equipment["hp"]
-	PlayerStats.player_stats["max_hp"] -= equipment["hp"]
-	PlayerStats.player_stats["atk"] -= equipment["atk"]
-	PlayerStats.player_stats["mag"] -= equipment["mag"]
-	PlayerStats.player_stats["def"] -= equipment["def"]
+	if PlayerState.player_stats["hp"] == PlayerState.player_stats["max_hp"]:
+		PlayerState.player_stats["hp"] -= equipment["hp"]
+	PlayerState.player_stats["max_hp"] -= equipment["hp"]
+	PlayerState.player_stats["atk"] -= equipment["atk"]
+	PlayerState.player_stats["mag"] -= equipment["mag"]
+	PlayerState.player_stats["def"] -= equipment["def"]
 
 
 ## Updates the player's stats with equipment modifiers.
 ## equipment is a dictionary of equipment attributes
 func _add_equipment_modifiers(equipment: Dictionary):
-	if PlayerStats.player_stats["hp"] == PlayerStats.player_stats["max_hp"]:
-		PlayerStats.player_stats["hp"] += equipment["hp"]
-	PlayerStats.player_stats["max_hp"] += equipment["hp"]
-	PlayerStats.player_stats["atk"] += equipment["atk"]
-	PlayerStats.player_stats["mag"] += equipment["mag"]
-	PlayerStats.player_stats["def"] += equipment["def"]
+	if PlayerState.player_stats["hp"] == PlayerState.player_stats["max_hp"]:
+		PlayerState.player_stats["hp"] += equipment["hp"]
+	PlayerState.player_stats["max_hp"] += equipment["hp"]
+	PlayerState.player_stats["atk"] += equipment["atk"]
+	PlayerState.player_stats["mag"] += equipment["mag"]
+	PlayerState.player_stats["def"] += equipment["def"]
 
 
 func _on_inv_item_list_item_selected(index: int) -> void:
@@ -361,10 +350,10 @@ func _on_armor_item_list_item_selected(index: int) -> void:
 	
 	# Find the current player stats minus the modifiers of the currently equipped
 	# item of this type
-	var max_hp = PlayerStats.player_stats["max_hp"]
-	var atk = PlayerStats.player_stats["atk"]
-	var mag = PlayerStats.player_stats["mag"]
-	var def = PlayerStats.player_stats["def"]
+	var max_hp = PlayerState.player_stats["max_hp"]
+	var atk = PlayerState.player_stats["atk"]
+	var mag = PlayerState.player_stats["mag"]
+	var def = PlayerState.player_stats["def"]
 	
 	var equipped_dict = get_equipped_dict(equip_type)
 	if equipped_dict:
@@ -380,13 +369,13 @@ func _on_armor_item_list_item_selected(index: int) -> void:
 	var new_def = def + equip_dict["def"]
 	
 	# Update labels
-	_update_label_color(max_hp_label, new_max_hp, PlayerStats.player_stats["max_hp"])
+	_update_label_color(max_hp_label, new_max_hp, PlayerState.player_stats["max_hp"])
 	max_hp_label.add_text("Max HP: %d" % new_max_hp)
-	_update_label_color(atk_label, new_atk, PlayerStats.player_stats["atk"])
+	_update_label_color(atk_label, new_atk, PlayerState.player_stats["atk"])
 	atk_label.add_text("ATK: %d" % new_atk)
-	_update_label_color(mag_label, new_mag, PlayerStats.player_stats["mag"])
+	_update_label_color(mag_label, new_mag, PlayerState.player_stats["mag"])
 	mag_label.add_text("MAG: %d" % new_mag)
-	_update_label_color(def_label, new_def, PlayerStats.player_stats["def"])
+	_update_label_color(def_label, new_def, PlayerState.player_stats["def"])
 	def_label.add_text("DEF: %d" % new_def)
 
 
@@ -435,19 +424,19 @@ func _update_label_color(label: RichTextLabel, new_value: int, compare_to: int):
 ## as opposed to hypothetical stats from certain equipment.
 func _reset_labels_to_default():
 	max_hp_label.clear()
-	max_hp_label.add_text("Max HP: %d" % PlayerStats.player_stats["max_hp"])
+	max_hp_label.add_text("Max HP: %d" % PlayerState.player_stats["max_hp"])
 	atk_label.clear()
-	atk_label.add_text("ATK: %d" % PlayerStats.player_stats["atk"])
+	atk_label.add_text("ATK: %d" % PlayerState.player_stats["atk"])
 	mag_label.clear()
-	mag_label.add_text("MAG: %d" % PlayerStats.player_stats["mag"])
+	mag_label.add_text("MAG: %d" % PlayerState.player_stats["mag"])
 	def_label.clear()
-	def_label.add_text("DEF: %d" % PlayerStats.player_stats["def"])
+	def_label.add_text("DEF: %d" % PlayerState.player_stats["def"])
 
 
 ## Updates the player's health bar for the current hp and max_hp.
 func _update_health_bar(to_tween=true):
-	var health = PlayerStats.player_stats["hp"]
-	var max_health = PlayerStats.player_stats["max_hp"]
+	var health = PlayerState.player_stats["hp"]
+	var max_health = PlayerState.player_stats["max_hp"]
 	
 	health_bar.max_value = max_health
 	var t_tween = create_tween().bind_node(health_bar)
@@ -456,3 +445,26 @@ func _update_health_bar(to_tween=true):
 	else:
 		health_bar.value = health
 		health_bar.get_node("Label").text = "%s: %d/%d" % ["HP: ", health, max_health]
+
+
+func _on_visibility_changed() -> void:
+	if visible:
+		# Initialize inventory
+		inv_item_list.clear()
+		for item in _inventory:
+			inv_item_list.add_item(ITEM_MAPPINGS[item]["name"],
+					ITEM_MAPPINGS[item]["icon"])
+		
+		# Update view
+		_update_health_bar(false)
+		
+		_reset_labels_to_default()
+		
+		armor_types_item_list.grab_focus()
+		armor_types_item_list.select(0)
+		armor_types_item_list.item_selected.emit(0)
+		
+		# Prevent player movement
+		PlayerState.state = PlayerState.State.IN_MENU
+	else:
+		PlayerState.state = PlayerState.State.MOVING
