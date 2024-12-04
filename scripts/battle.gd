@@ -12,10 +12,10 @@ signal textbox_closed
 @onready var inventory: HBoxContainer = $ActionsPanel/MarginContainer/Inventory
 @onready var inv_item_list: ItemList = %InvItemList
 @onready var inv_textbox: RichTextLabel = %InvTextbox
-@onready var enemy_health_bar = $EnemyContainer/HealthBar
+@onready var enemy_health_bar = $EnemyCenterContainer/EnemyContainer/HealthBar
 @onready var player_health_bar = $MarginContainer/PlayerInfo/VBoxContainer/HealthBar
 @onready var player_mana_bar = $MarginContainer/PlayerInfo/ManaBar
-@onready var attack = $ActionsPanel/MarginContainer/Actions/HBoxContainer/Attack
+@onready var attack = $ActionsPanel/MarginContainer/Actions/MarginContainer/HBoxContainer/Attack
 @onready var animation_player = $AnimationPlayer
 
 ## Player and enemy stats.
@@ -40,7 +40,7 @@ var tween: Tween
 func _ready():
 	# Set up textures and health bars
 	%Enemy.texture = enemy.texture
-	update_player_progress_bar(PlayerStats.player_stats["hp"], false)
+	update_player_progress_bar(PlayerState.player_stats["hp"], false)
 	update_progress_bar(player_mana_bar, "Mana", 10, 10, false)
 	update_enemy_progress_bar(enemy.health, false)
 	update_spells()
@@ -49,14 +49,14 @@ func _ready():
 	inv_item_list.get_v_scroll_bar().visibility_changed.connect(_hide_scroll_bar)
 	
 	# Set up stats
-	current_player_stats["hp"] = PlayerStats.player_stats["hp"]
-	current_player_stats["max_hp"] = PlayerStats.player_stats["max_hp"]
-	current_player_stats["base_atk"] = PlayerStats.player_stats["atk"]
-	current_player_stats["atk"] = PlayerStats.player_stats["atk"]
-	current_player_stats["base_mag"] = PlayerStats.player_stats["mag"]
-	current_player_stats["mag"] = PlayerStats.player_stats["mag"]
-	current_player_stats["base_def"] = PlayerStats.player_stats["def"]
-	current_player_stats["def"] = PlayerStats.player_stats["def"]
+	current_player_stats["hp"] = PlayerState.player_stats["hp"]
+	current_player_stats["max_hp"] = PlayerState.player_stats["max_hp"]
+	current_player_stats["base_atk"] = PlayerState.player_stats["atk"]
+	current_player_stats["atk"] = PlayerState.player_stats["atk"]
+	current_player_stats["base_mag"] = PlayerState.player_stats["mag"]
+	current_player_stats["mag"] = PlayerState.player_stats["mag"]
+	current_player_stats["base_def"] = PlayerState.player_stats["def"]
+	current_player_stats["def"] = PlayerState.player_stats["def"]
 	
 	current_enemy_stats["hp"] = enemy.health
 	current_enemy_stats["max_hp"] = enemy.health
@@ -77,11 +77,6 @@ func _ready():
 	await(textbox_closed)
 	actions.show()
 	attack.grab_focus()
-
-
-#func _process(delta: float) -> void:
-	## For some reason, has to be called repeatedly in order to work.
-	#inv_item_list.get_v_scroll_bar().hide()
 
 
 # Displays text in the panel
@@ -113,7 +108,7 @@ func update_progress_bar(progress_bar, label, health, max_health, to_tween=true)
 # Updates the player's progress bar's value, max value, and label; health is the player's current HP
 func update_player_progress_bar(health=current_player_stats["hp"], to_tween=true):
 	update_progress_bar(player_health_bar, "HP", \
-			health, PlayerStats.player_stats["max_hp"], to_tween)
+			health, PlayerState.player_stats["max_hp"], to_tween)
 
 
 # Updates the enemy's progress bar's value and max value; health is the enemy's current HP
@@ -221,11 +216,11 @@ func check_if_enemy_died():
 		await(animation_player.animation_finished)
 		
 		# Enemy drops
-		var drop = randi_range(-1, PlayerStats.ITEMS.size() - 1)
+		var drop = randi_range(-1, Inventory.ITEMS.size() - 1)
 		if drop != -1:
-			display_text("%s dropped %s!" % [enemy.name, PlayerStats.ITEM_MAPPINGS[drop]["name"]])
+			display_text("%s dropped %s!" % [enemy.name, Inventory.ITEM_MAPPINGS[drop]["name"]])
 			await(textbox_closed)
-			PlayerStats.inventory.append(drop)
+			Inventory.add_inventory_item(drop)
 		leave_battle()
 
 
@@ -239,7 +234,7 @@ func check_if_player_died():
 
 
 func leave_battle():
-	PlayerStats.player_stats["hp"] = current_player_stats["hp"]
+	PlayerState.player_stats["hp"] = current_player_stats["hp"]
 	battle_finished.emit()
 	queue_free()
 
@@ -263,7 +258,7 @@ func _on_spell_item_list_item_activated(index: int) -> void:
 	if (current_player_stats["mana"] > 4):
 		current_player_stats["mana"] -= 4
 		update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
-		var m_atk = PlayerStats.magic_attacks[spell_item_list.get_item_text(index)].new()
+		var m_atk = PlayerState.magic_attacks[spell_item_list.get_item_text(index)].new()
 		m_atk.call("use", current_enemy_stats, current_player_stats, self)
 		await(m_atk.completed_use)
 		m_atk.queue_free()
@@ -295,33 +290,33 @@ func _on_inv_item_list_item_activated(index: int) -> void:
 	await get_tree().create_timer(0.1).timeout
 	inventory.hide()
 	
-	var m_item = PlayerStats.ITEM_MAPPINGS[PlayerStats.inventory[index]]["script"].new()
+	var m_item = Inventory.ITEM_MAPPINGS[Inventory._inventory[index]]["script"].new()
 	m_item.call("use", current_enemy_stats, current_player_stats, self)
 	await(m_item.completed_use)
 	m_item.queue_free()
-	PlayerStats.inventory.remove_at(index)
+	Inventory.remove_inventory_item_at_index(index)
+	inv_item_list.remove_item(index)
 	
 	update_player_progress_bar()
-	update_inventory()
 	
 	enemy_turn()
 
 
 func update_spells():
 	spell_item_list.clear()
-	for spell in PlayerStats.magic_attacks.keys():
+	for spell in PlayerState.magic_attacks.keys():
 		spell_item_list.add_item(spell)
 
 
 func update_inventory():
 	inv_item_list.clear()
-	for item in PlayerStats.inventory:
-		inv_item_list.add_item(PlayerStats.ITEM_MAPPINGS[item]["name"],
-				PlayerStats.ITEM_MAPPINGS[item]["icon"])
+	for item in Inventory._inventory:
+		inv_item_list.add_item(Inventory.ITEM_MAPPINGS[item]["name"],
+				Inventory.ITEM_MAPPINGS[item]["icon"])
 
 
 func _on_inv_item_list_item_selected(index: int) -> void:
-	inv_textbox.text = PlayerStats.ITEM_MAPPINGS[PlayerStats.inventory[index]]["desc"]
+	inv_textbox.text = Inventory.ITEM_MAPPINGS[Inventory._inventory[index]]["desc"]
 
 
 func _on_item_list_focus_exited(item_list_path, textbox_path) -> void:
@@ -345,7 +340,7 @@ func _hide_scroll_bar() -> void:
 
 
 func _on_spell_item_list_item_selected(index: int) -> void:
-	var m_atk = PlayerStats.magic_attacks[spell_item_list.get_item_text(index)].new()
+	var m_atk = PlayerState.magic_attacks[spell_item_list.get_item_text(index)].new()
 	var desc = m_atk.call("get_description")
 	spell_textbox.text = desc
 	m_atk.queue_free()

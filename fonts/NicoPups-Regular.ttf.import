@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://c21mggakav4fu"
-path="res://.godot/imported/Kenney Pixel.ttf-7e9abd317a107993cf9dd79985c49ce9.fontdata"
+uid="uid://h8bkkxv8oug1"
+path="res://.godot/imported/NicoPups-Regular.ttf-fb810d82a8c407fad4c151a4f40e2044.fontdata"
 
 [deps]
 
-source_file="res://fonts/Kenney Pixel.ttf"
-dest_files=["res://.godot/imported/Kenney Pixel.ttf-7e9abd317a107993cf9dd79985c49ce9.fontdata"]
+source_file="res://fonts/NicoPups-Regular.ttf"
+dest_files=["res://.godot/imported/NicoPups-Regular.ttf-fb810d82a8c407fad4c151a4f40e2044.fontdata"]
 
 [params]
 
@@ -28,13 +28,7 @@ Fallbacks=null
 fallbacks=[]
 Compress=null
 compress=true
-preload=[{
-"chars": [],
-"glyphs": [],
-"name": "New Configuration",
-"size": Vector2i(16, 0),
-"variation_embolden": 0.0
-}]
+preload=[]
 language_support={}
 script_support={}
 opentype_features={}

@@ -15,7 +15,7 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 		await (battle.textbox_closed)
 		
 	else:
-		PlayerStats.player_stats["hp"] = min(PlayerStats.player_stats["max_hp"],
-				PlayerStats.player_stats["hp"] + 0.5 * PlayerStats.player_stats["max_hp"])
+		PlayerState.player_stats["hp"] = min(PlayerState.player_stats["max_hp"],
+				PlayerState.player_stats["hp"] + 0.5 * PlayerState.player_stats["max_hp"])
 		
 	completed_use.emit()
