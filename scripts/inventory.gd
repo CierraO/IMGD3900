@@ -444,7 +444,7 @@ func _update_health_bar(to_tween=true):
 		t_tween.tween_property(health_bar, "value", health, 0.5)
 	else:
 		health_bar.value = health
-		health_bar.get_node("Label").text = "%s: %d/%d" % ["HP: ", health, max_health]
+		health_bar.get_node("Label").text = "%s: %d/%d" % ["HP", health, max_health]
 
 
 func _on_visibility_changed() -> void:
@@ -468,3 +468,7 @@ func _on_visibility_changed() -> void:
 		PlayerState.state = PlayerState.State.IN_MENU
 	else:
 		PlayerState.state = PlayerState.State.MOVING
+
+
+func _on_resume_pressed() -> void:
+	set_visible(false)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dqx04opxvr4ff"]
+[gd_scene load_steps=29 format=3 uid="uid://dqx04opxvr4ff"]
 
 [ext_resource type="Script" path="res://scripts/inventory.gd" id="1_475of"]
 [ext_resource type="Shader" path="res://resources/blur.gdshader" id="2_pvnnx"]
@@ -10,6 +10,8 @@
 [ext_resource type="FontFile" uid="uid://h8bkkxv8oug1" path="res://fonts/NicoPups-Regular.ttf" id="8_80jhx"]
 [ext_resource type="Texture2D" uid="uid://b1i17o4ex1t7p" path="res://assets/health-potion.png" id="9_cvcw4"]
 [ext_resource type="Texture2D" uid="uid://cl4puei73ghe5" path="res://assets/armorskin-potion.png" id="9_govig"]
+[ext_resource type="Theme" uid="uid://dsldiw4rqrjxb" path="res://resources/theme.tres" id="11_tdpfa"]
+[ext_resource type="Texture2D" uid="uid://b8ux0eynmnuim" path="res://assets/resume-button.png" id="12_0mmdx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f2srl"]
 shader = ExtResource("2_pvnnx")
@@ -71,6 +73,7 @@ ItemList/styles/selected_focus = SubResource("StyleBoxFlat_02rkb")
 bg_color = Color(0.611765, 0.52549, 0.607843, 1)
 
 [sub_resource type="Theme" id="Theme_oqyjp"]
+ItemList/colors/font_color = Color(1, 1, 1, 1)
 ItemList/font_sizes/font_size = 24
 ItemList/fonts/font = ExtResource("5_5xdfi")
 ItemList/styles/focus = SubResource("StyleBoxEmpty_wtf7b")
@@ -153,34 +156,6 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("5_5xdfi")
 theme_override_font_sizes/font_size = 25
 text = "HP"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ManaBar" type="ProgressBar" parent="OuterMarginContainer/OuterVBox/PlayerStatsVBox"]
-custom_minimum_size = Vector2(300, 28)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_styles/background = SubResource("StyleBoxTexture_cvqbe")
-theme_override_styles/fill = SubResource("StyleBoxTexture_cm1dn")
-value = 70.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="OuterMarginContainer/OuterVBox/PlayerStatsVBox/ManaBar"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("5_5xdfi")
-theme_override_font_sizes/font_size = 25
-text = "Mana"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -366,6 +341,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.43
 focus_neighbor_top = NodePath("../../../../../PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer/ArmorTypesItemList")
+focus_neighbor_bottom = NodePath("../../../../../../../../Resume")
 theme_override_fonts/font = ExtResource("5_5xdfi")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = SubResource("StyleBoxEmpty_21xyx")
@@ -408,6 +384,16 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 scroll_active = false
 
+[node name="Resume" type="Button" parent="OuterMarginContainer/OuterVBox"]
+custom_minimum_size = Vector2(170, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList")
+theme = ExtResource("11_tdpfa")
+icon = ExtResource("12_0mmdx")
+icon_alignment = 1
+expand_icon = true
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="item_selected" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/EquipVBoxContainer/ArmorTypesItemList" to="." method="_on_armor_types_item_list_item_selected"]
 [connection signal="focus_entered" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/PanelHBoxContainer/EquipPanelContainer/EquipMarginContainer/EquipHBoxContainer/ArmorItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%ArmorItemList")]]
@@ -420,3 +406,4 @@ scroll_active = false
 [connection signal="focus_exited" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%InvItemList"), NodePath("%InvTextbox")]]
 [connection signal="item_activated" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList" to="." method="_on_inv_item_list_item_activated"]
 [connection signal="item_selected" from="OuterMarginContainer/OuterVBox/PanelOuterMarginContainer/Panel/PanelVBoxContainer/ItemsPanelContainer/MarginContainer/ItemsVBoxContainer/ItemsHBoxContainer/InvItemList" to="." method="_on_inv_item_list_item_selected"]
+[connection signal="pressed" from="OuterMarginContainer/OuterVBox/Resume" to="." method="_on_resume_pressed"]
