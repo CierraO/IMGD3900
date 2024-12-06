@@ -154,6 +154,10 @@ enemy = ExtResource("5_v2dri")
 [node name="Player" parent="." instance=ExtResource("3_w81om")]
 position = Vector2(45, 183)
 
+[node name="Camera2D" parent="Player" index="3"]
+limit_right = 1504
+limit_bottom = 576
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="NPC" type="StaticBody2D" parent="."]
