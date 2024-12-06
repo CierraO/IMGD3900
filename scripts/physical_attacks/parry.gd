@@ -13,7 +13,7 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 	self_stats["next_dmg_taken_modifier"] = self_stats["next_dmg_taken_modifier"] * 0.5
 	
 	if (self_stats == battle.current_player_stats):
-		battle.animation_player.play("melee_attack")
+		battle.animation_player.play("parry_attack")
 		await(battle.animation_player.animation_finished)
 		
 		if (dmg > 0):
