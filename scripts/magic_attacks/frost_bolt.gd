@@ -2,15 +2,17 @@ extends "res://scripts/magic_attacks/base_stat_affector.gd"
 
 
 func use(opponent_stats=null, self_stats=null, battle=null):
-	battle.display_text("You cast a basic spell." if (self_stats == battle.current_player_stats) else "%s casts a basic spell." % battle.enemy.name)
+	battle.display_text("You cast a frost bolt." if (self_stats == battle.current_player_stats) else "%s casts a frost bolt." % battle.enemy.name)
 	await(battle.textbox_closed)
 	
-	var dmg = self_stats["mag"] * opponent_stats["next_dmg_taken_modifier"]
+	var dmg = self_stats["mag"] * opponent_stats["next_dmg_taken_modifier"] * 0.75
 	opponent_stats["hp"] = max(0, opponent_stats["hp"] - dmg)
 	battle.update_all_progress_bars()
 	
+	self_stats["next_dmg_taken_modifier"] = 0.5
+	
 	if (self_stats == battle.current_player_stats):
-		battle.animation_player.play("magic_attack")
+		battle.animation_player.play("frost_bolt_attack")
 		await(battle.animation_player.animation_finished)
 		if (dmg > 0):
 			battle.animation_player.play("enemy_damaged")
@@ -30,4 +32,4 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 
 
 func get_description():
-	return "A basic magical attack that deals damage based on your magic stat. The enemy's defense is ignored."
+	return "You deal less damage, but also take less damage this turn."
