@@ -5,7 +5,7 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 	battle.display_text("You attack." if (self_stats == battle.current_player_stats) else "%s attacks you spell." % battle.enemy.name)
 	await(battle.textbox_closed)
 	
-	var dmg = max(0, self_stats["atk"] - opponent_stats["def"]) + (randi() % 3)
+	var dmg = max(0, self_stats["atk"] - opponent_stats["def"]) + (randi() % 2)
 	dmg = dmg * opponent_stats["next_dmg_taken_modifier"] * 0.5
 	var prev_def = opponent_stats["def"]
 	opponent_stats["def"] = max(0, opponent_stats["def"] - dmg)

@@ -1,17 +1,19 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://cn0m577c47c58"]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://cn0m577c47c58"]
 
 [ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="1_m8x3v"]
 [ext_resource type="Script" path="res://scripts/magic_attacks/basic.gd" id="1_mktrj"]
-[ext_resource type="Script" path="res://scripts/physical_attacks/cleave.gd" id="2_sairy"]
+[ext_resource type="Script" path="res://scripts/magic_attacks/toxic_cloud.gd" id="2_iveom"]
 [ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="2_urxhi"]
+[ext_resource type="Script" path="res://scripts/magic_attacks/barrier.gd" id="3_ddas4"]
+[ext_resource type="Script" path="res://scripts/magic_attacks/arcane_charge.gd" id="4_m3hai"]
 
 [resource]
 script = ExtResource("1_m8x3v")
-name = "Magic"
+name = "Magic Enemy"
 texture = ExtResource("2_urxhi")
 encounter_text = "A Magic Enemy appears!"
 health = 20
 mag = 8
 atk = 0
 def = 2
-magic_attacks = Array[Resource]([ExtResource("1_mktrj"), ExtResource("2_sairy")])
+attacks = Array[Resource]([ExtResource("1_mktrj"), ExtResource("3_ddas4"), ExtResource("2_iveom"), ExtResource("4_m3hai")])

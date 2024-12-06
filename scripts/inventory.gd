@@ -174,8 +174,13 @@ var boots_collected = []
 var boot_equipped = -1
 
 
+func _ready() -> void:
+	inv_item_list.get_v_scroll_bar().hide()
+	inv_item_list.get_v_scroll_bar().visibility_changed.connect(_hide_scroll_bar)
+
+
 func _input(event: InputEvent) -> void:
-	if (event.is_action_pressed("ui_cancel")
+	if (event.is_action_pressed("ui_menu")
 			and PlayerState.state != PlayerState.State.BATTLING):
 		set_visible(!visible)
 
@@ -479,3 +484,7 @@ func _on_visibility_changed() -> void:
 
 func _on_resume_pressed() -> void:
 	set_visible(false)
+
+
+func _hide_scroll_bar():
+	inv_item_list.get_v_scroll_bar().hide()

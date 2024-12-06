@@ -140,18 +140,15 @@ func update_all_progress_bars(player_hp=current_player_stats["hp"], enemy_hp=cur
 
 
 func enemy_turn():
+	# Pick attack
 	var move = pick_enemy_move()
 	
-	# Normal attack
-	if (move < 0):
-		await enemy_attack()
-		current_player_stats["next_dmg_taken_modifier"] = 1
-	# Magic attack
-	else:
-		var m_atk = enemy.magic_attacks[move].new()
-		current_player_stats["next_dmg_taken_modifier"] = await m_atk.call("use", current_player_stats, current_enemy_stats, self)
-		m_atk.queue_free()
+	# Perform attack
+	var m_atk = enemy.attacks[move].new()
+	current_player_stats["next_dmg_taken_modifier"] = await m_atk.call("use", current_player_stats, current_enemy_stats, self)
+	m_atk.queue_free()
 	
+	# Increase mana and stamina by 1
 	current_player_stats["mana"] = min(10, current_player_stats["mana"] + 1)
 	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10, false)
 	current_player_stats["stamina"] = min(10, current_player_stats["stamina"] + 1)
@@ -162,30 +159,8 @@ func enemy_turn():
 	attack.grab_focus()
 
 
-# Normal non-magic attack
-func enemy_attack():
-	display_text("%s attacks you." % enemy.name)
-	await(textbox_closed)
-	
-	var dmg = (max(0, current_enemy_stats["atk"] - current_player_stats["def"]) + (randi() % 3)) * current_player_stats["next_dmg_taken_modifier"]
-	
-	if dmg > 0:
-		current_player_stats["hp"] = max(0, current_player_stats["hp"] - dmg)
-		update_player_progress_bar(current_player_stats["hp"])
-		
-		animation_player.play("player_dmg")
-		await(animation_player.animation_finished)
-		display_text("%s deals %d damage." % [enemy.name, dmg])
-		await(textbox_closed)
-		
-		check_if_player_died()
-	else:
-		display_text("%s's attack whiffed." % enemy.name)
-		await(textbox_closed)
-
-
 func pick_enemy_move():
-	return randi_range(-1, enemy.magic_attacks.size() - 1)
+	return randi_range(0, enemy.attacks.size() - 1)
 
 
 func _input(event):
@@ -213,6 +188,7 @@ func _on_attack_pressed():
 
 func check_if_enemy_died():
 	if current_enemy_stats["hp"] == 0:
+		actions.hide()
 		display_text("%s has been defeated!" % enemy.name)
 		await (textbox_closed)
 		animation_player.play("enemy_died")
@@ -222,7 +198,7 @@ func check_if_enemy_died():
 		if ((PlayerState.times_used_melee / 5) + 3 > PlayerState.attacks_collected.size()
 				and PlayerState.attacks_collected.size() < PlayerState.ATTACK_MAPPINGS.size()):
 			display_text("After honing your melee skills, you earned a new attack: %s!"
-					% PlayerState.ATTACK_MAPPINGS[(PlayerState.times_used_melee / 3) + 2]["name"])
+					% PlayerState.ATTACK_MAPPINGS[PlayerState.attacks_collected.size()]["name"])
 			await textbox_closed
 			PlayerState.attacks_collected.append(PlayerState.attacks_collected.size())
 			
@@ -231,29 +207,28 @@ func check_if_enemy_died():
 				display_text("You earned a new equipment set!")
 				await textbox_closed
 				Inventory.collect_equipment("weapon", Inventory.weapons_collected.size())
-				Inventory.collect_equipment("helmet", Inventory.weapons_collected.size())
-				Inventory.collect_equipment("chestpiece", Inventory.weapons_collected.size())
-				Inventory.collect_equipment("boot", Inventory.weapons_collected.size())
+				Inventory.collect_equipment("helmet", Inventory.helmets_collected.size())
+				Inventory.collect_equipment("chestpiece", Inventory.chestpieces_collected.size())
+				Inventory.collect_equipment("boot", Inventory.boots_collected.size())
 		
 		if ((PlayerState.times_used_magic / 5) + 3 > PlayerState.magic_attacks_collected.size()
 				and PlayerState.magic_attacks_collected.size() < PlayerState.MAGIC_ATTACK_MAPPINGS.size()):
 			display_text("After honing your magic skills, you earned a new spell: %s!"
-					 % PlayerState.MAGIC_ATTACK_MAPPINGS[(PlayerState.times_used_magic / 3) + 2]["name"])
+					 % PlayerState.MAGIC_ATTACK_MAPPINGS[PlayerState.magic_attacks_collected.size()]["name"])
 			await textbox_closed
-			PlayerState.magic_attacks_collected.append((PlayerState.times_used_magic / 3) + 2)
+			PlayerState.magic_attacks_collected.append(PlayerState.magic_attacks_collected.size())
 			
 			if ((PlayerState.times_used_magic / 5) % 2 == 0
 					and Inventory.weapons_collected.size() < Inventory.WEAPON_MAPPINGS.size()):
 				display_text("You earned a new equipment set!")
 				await textbox_closed
 				Inventory.collect_equipment("weapon", Inventory.weapons_collected.size())
-				Inventory.collect_equipment("helmet", Inventory.weapons_collected.size())
-				Inventory.collect_equipment("chestpiece", Inventory.weapons_collected.size())
-				Inventory.collect_equipment("boot", Inventory.weapons_collected.size())
+				Inventory.collect_equipment("helmet", Inventory.helmets_collected.size())
+				Inventory.collect_equipment("chestpiece", Inventory.chestpieces_collected.size())
+				Inventory.collect_equipment("boot", Inventory.boots_collected.size())
 		
 		# Enemy drops
 		var drop = randi_range(-2, Inventory.ITEMS.size() - 1)
-		print(drop)
 		if drop >= 0:
 			display_text("%s dropped %s!" % [enemy.name, Inventory.ITEM_MAPPINGS[drop]["name"]])
 			await(textbox_closed)
@@ -288,6 +263,7 @@ func apply_passive_damage():
 		animation_player.play("enemy_damaged")
 		display_text("%s takes poison damage!" % [enemy.name])
 		await(textbox_closed)
+		await check_if_enemy_died()
 	
 	if current_player_stats["passive_dmg_taken"] > 0:
 		current_player_stats["hp"] = max(0, current_player_stats["hp"] - current_player_stats["passive_dmg_taken"])
@@ -296,6 +272,7 @@ func apply_passive_damage():
 		await(animation_player.animation_finished)
 		display_text("You take poison damage!")
 		await(textbox_closed)
+		await check_if_player_died()
 
 
 func _on_magic_pressed() -> void:
