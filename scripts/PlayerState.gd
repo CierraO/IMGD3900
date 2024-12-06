@@ -16,6 +16,7 @@ var player_stats = {
 
 var times_used_melee = 0
 var times_used_magic = 0
+var talked_to_NPC = false
 
 
 """ Physical attacks """

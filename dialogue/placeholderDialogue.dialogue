@@ -1,6 +1,11 @@
 ~ test
-Player: i have clinical depression
-NPC: oh 😔
-NPC: take this potion
-do Inventory.add_inventory_item(Inventory.ITEMS.HEALTH_POTION)
+if not PlayerState.talked_to_NPC:
+	Player: i have clinical depression
+	NPC: oh [font_size=16]😔[/font_size]
+	NPC: take this potion
+	do Inventory.add_inventory_item(Inventory.ITEMS.HEALTH_POTION)
+	do PlayerState.talked_to_NPC = true
+else:
+	NPC: You can open the menu by pressing E!
+	NPC: There, you can view your stats, equip armor and weapons, or use items.
 => END
