@@ -2,10 +2,10 @@ extends "res://scripts/magic_attacks/base_stat_affector.gd"
 
 
 func use(opponent_stats=null, self_stats=null, battle=null):
-	battle.display_text("You cast a basic spell." if (self_stats == battle.current_player_stats) else "%s casts a basic spell." % battle.enemy.name)
+	battle.display_text("You cast a mana bolt!" if (self_stats == battle.current_player_stats) else "%s casts a mana bolt!" % battle.enemy.name)
 	await(battle.textbox_closed)
 	
-	var dmg = self_stats["mag"] * opponent_stats["next_dmg_taken_modifier"]
+	var dmg = self_stats["mag"] * opponent_stats["next_dmg_taken_modifier"] * 2
 	opponent_stats["hp"] = max(0, opponent_stats["hp"] - dmg)
 	battle.update_all_progress_bars()
 	
@@ -30,4 +30,4 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 
 
 func get_description():
-	return "A basic magical attack that deals damage based on your magic stat. The enemy's defense is ignored."
+	return "Deals massive damage."

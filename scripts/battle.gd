@@ -25,12 +25,16 @@ var current_player_stats = {
 		"base_atk": 0, "atk": 0,
 		"base_mag": 0, "mag": 0,
 		"base_def": 0, "def": 0,
+		"next_dmg_taken_modifier": 1,  # proportion of total calculated dmg to take
+		"passive_dmg_taken": 0,  # amount of damage to take every turn
 		}
 var current_enemy_stats = {
 		"hp": 0, "max_hp": 0,
 		"base_atk": 0, "atk": 0,
 		"base_mag": 0, "mag": 0,
 		"base_def": 0, "def": 0,
+		"next_dmg_taken_modifier": 1,  # proportion of total calculated dmg to take
+		"passive_dmg_taken": 0,  # amount of damage to take every turn
 		}
 
 var tween: Tween
@@ -123,7 +127,7 @@ func update_all_progress_bars(player_hp=current_player_stats["hp"], enemy_hp=cur
 	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
 
 
-func enemy_turn():
+func enemy_turn():	
 	var move = pick_enemy_move()
 	
 	# Normal attack
@@ -132,11 +136,13 @@ func enemy_turn():
 	# Magic attack
 	else:
 		var m_atk = enemy.magic_attacks[move].new()
-		m_atk.call("use", current_player_stats, current_enemy_stats, self)
-		await(m_atk.completed_use)
+		current_player_stats["next_dmg_taken_modifier"] = await m_atk.call("use", current_player_stats, current_enemy_stats, self)
 		m_atk.queue_free()
+	
 	current_player_stats["mana"] = min(10, current_player_stats["mana"] + 1)
 	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10, false)
+	
+	await apply_passive_damage()
 	actions.show()
 	attack.grab_focus()
 
@@ -146,7 +152,7 @@ func enemy_attack():
 	display_text("%s attacks you." % enemy.name)
 	await(textbox_closed)
 	
-	var dmg = max(0, current_enemy_stats["atk"] - current_player_stats["def"]) + (randi() % 3)
+	var dmg = (max(0, current_enemy_stats["atk"] - current_player_stats["def"]) + (randi() % 3)) * current_player_stats["next_dmg_taken_modifier"]
 	
 	if dmg > 0:
 		current_player_stats["hp"] = max(0, current_player_stats["hp"] - dmg)
@@ -244,6 +250,23 @@ func set_enemy(e):
 	enemy = e
 
 
+func apply_passive_damage():
+	if current_enemy_stats["passive_dmg_taken"] > 0:
+		current_enemy_stats["hp"] = max(0, current_enemy_stats["hp"] - current_enemy_stats["passive_dmg_taken"])
+		update_all_progress_bars()
+		animation_player.play("enemy_damaged")
+		display_text("%s takes poison damage!" % [enemy.name])
+		await(textbox_closed)
+	
+	if current_player_stats["passive_dmg_taken"] > 0:
+		current_player_stats["hp"] = max(0, current_player_stats["hp"] - current_player_stats["passive_dmg_taken"])
+		update_all_progress_bars()
+		animation_player.play("player_dmg")
+		await(animation_player.animation_finished)
+		display_text("You take poison damage!")
+		await(textbox_closed)
+
+
 func _on_magic_pressed() -> void:
 	actions.hide()
 	spells.show()
@@ -262,8 +285,7 @@ func _on_spell_item_list_item_activated(index: int) -> void:
 		current_player_stats["mana"] -= mana_cost
 		update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
 		var m_atk = spell_dict["script"].new()
-		m_atk.call("use", current_enemy_stats, current_player_stats, self)
-		await(m_atk.completed_use)
+		current_enemy_stats["next_dmg_taken_modifier"] = await m_atk.call("use", current_enemy_stats, current_player_stats, self)
 		m_atk.queue_free()
 		enemy_turn()
 	else:
@@ -345,6 +367,6 @@ func _hide_scroll_bar() -> void:
 func _on_spell_item_list_item_selected(index: int) -> void:
 	var spell_dict = PlayerState.MAGIC_ATTACK_MAPPINGS[PlayerState.magic_attacks_collected[index]]
 	var m_atk = spell_dict["script"].new()
-	var desc = m_atk.call("get_description")
+	var desc = m_atk.call("get_description") + " Mana: %d." % spell_dict["mana_cost"]
 	spell_textbox.text = desc
 	m_atk.queue_free()
