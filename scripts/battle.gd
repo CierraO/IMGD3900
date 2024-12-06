@@ -218,9 +218,43 @@ func check_if_enemy_died():
 		animation_player.play("enemy_died")
 		await(animation_player.animation_finished)
 		
+		# Earned skills/equipment
+		if ((PlayerState.times_used_melee / 5) + 3 > PlayerState.attacks_collected.size()
+				and PlayerState.attacks_collected.size() < PlayerState.ATTACK_MAPPINGS.size()):
+			display_text("After honing your melee skills, you earned a new attack: %s!"
+					% PlayerState.ATTACK_MAPPINGS[(PlayerState.times_used_melee / 3) + 2]["name"])
+			await textbox_closed
+			PlayerState.attacks_collected.append(PlayerState.attacks_collected.size())
+			
+			if ((PlayerState.times_used_melee / 5) % 2 == 0
+					and Inventory.weapons_collected.size() < Inventory.WEAPON_MAPPINGS.size()):
+				display_text("You earned a new equipment set!")
+				await textbox_closed
+				Inventory.collect_equipment("weapon", Inventory.weapons_collected.size())
+				Inventory.collect_equipment("helmet", Inventory.weapons_collected.size())
+				Inventory.collect_equipment("chestpiece", Inventory.weapons_collected.size())
+				Inventory.collect_equipment("boot", Inventory.weapons_collected.size())
+		
+		if ((PlayerState.times_used_magic / 5) + 3 > PlayerState.magic_attacks_collected.size()
+				and PlayerState.magic_attacks_collected.size() < PlayerState.MAGIC_ATTACK_MAPPINGS.size()):
+			display_text("After honing your magic skills, you earned a new spell: %s!"
+					 % PlayerState.MAGIC_ATTACK_MAPPINGS[(PlayerState.times_used_magic / 3) + 2]["name"])
+			await textbox_closed
+			PlayerState.magic_attacks_collected.append((PlayerState.times_used_magic / 3) + 2)
+			
+			if ((PlayerState.times_used_magic / 5) % 2 == 0
+					and Inventory.weapons_collected.size() < Inventory.WEAPON_MAPPINGS.size()):
+				display_text("You earned a new equipment set!")
+				await textbox_closed
+				Inventory.collect_equipment("weapon", Inventory.weapons_collected.size())
+				Inventory.collect_equipment("helmet", Inventory.weapons_collected.size())
+				Inventory.collect_equipment("chestpiece", Inventory.weapons_collected.size())
+				Inventory.collect_equipment("boot", Inventory.weapons_collected.size())
+		
 		# Enemy drops
-		var drop = randi_range(-1, Inventory.ITEMS.size() - 1)
-		if drop != -1:
+		var drop = randi_range(-2, Inventory.ITEMS.size() - 1)
+		print(drop)
+		if drop >= 0:
 			display_text("%s dropped %s!" % [enemy.name, Inventory.ITEM_MAPPINGS[drop]["name"]])
 			await(textbox_closed)
 			Inventory.add_inventory_item(drop)
@@ -279,6 +313,7 @@ func _on_spell_item_list_item_activated(index: int) -> void:
 	var spell_dict = PlayerState.MAGIC_ATTACK_MAPPINGS[PlayerState.magic_attacks_collected[index]]
 	var mana_cost = spell_dict["mana_cost"]
 	if (current_player_stats["mana"] >= mana_cost):
+		PlayerState.times_used_magic += 1
 		current_player_stats["mana"] -= mana_cost
 		update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
 		var m_atk = spell_dict["script"].new()
@@ -385,6 +420,7 @@ func _on_attack_item_list_item_activated(index: int) -> void:
 	var atk_dict = PlayerState.ATTACK_MAPPINGS[PlayerState.attacks_collected[index]]
 	var stamina_cost = atk_dict["stamina_cost"]
 	if (current_player_stats["stamina"] >= stamina_cost):
+		PlayerState.times_used_melee += 1
 		current_player_stats["stamina"] -= stamina_cost
 		update_progress_bar(player_stamina_bar, "Stamina", current_player_stats["stamina"], 10)
 		var m_atk = atk_dict["script"].new()

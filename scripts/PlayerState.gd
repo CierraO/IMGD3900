@@ -14,6 +14,9 @@ var player_stats = {
 	"base_def": 2, "def": 2,
 	}
 
+var times_used_melee = 0
+var times_used_magic = 0
+
 
 """ Physical attacks """
 ## Attack IDs
@@ -49,7 +52,7 @@ var ATTACK_MAPPINGS = [
 	"stamina_cost": 5},
 ]
 ## List of attack IDs
-var attacks_collected = [Attacks.BASIC_MAGIC_ATK, Attacks.PARRY, Attacks.RECKLESS_ATK, Attacks.PIERCE, Attacks.FULL_BLOCK, Attacks.CRITICAL_STRIKE, Attacks.CLEAVE]
+var attacks_collected = [Attacks.BASIC_MAGIC_ATK, Attacks.PARRY, Attacks.RECKLESS_ATK]
 
 """ Magic attacks """
 ## Magic attack IDs
@@ -85,4 +88,4 @@ var MAGIC_ATTACK_MAPPINGS = [
 	"mana_cost": 5},
 ]
 ## List of magic attack IDs
-var magic_attacks_collected = [MagicAttacks.BASIC_MAGIC_ATK, MagicAttacks.TOXIC_CLOUD, MagicAttacks.BARRIER, MagicAttacks.MANA_BOLT, MagicAttacks.ARCANE_CHARGE, MagicAttacks.FIREBALL, MagicAttacks.FROST_BOLT]
+var magic_attacks_collected = [MagicAttacks.BASIC_MAGIC_ATK, MagicAttacks.TOXIC_CLOUD, MagicAttacks.BARRIER]

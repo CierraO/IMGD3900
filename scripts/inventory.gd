@@ -79,7 +79,7 @@ var WEAPON_MAPPINGS = [
 	"def": 0},
 ]
 ## List of weapon IDs
-var weapons_collected = [0, 1, 2]
+var weapons_collected = []
 ## A weapon ID, or, if no weapon is equipped, -1
 var weapon_equipped = -1
 
@@ -109,7 +109,7 @@ var HELMET_MAPPINGS = [
 	"def": 1},
 ]
 ## List of helmet IDs
-var helmets_collected = [0, 1, 2]
+var helmets_collected = []
 ## A helmet ID, or, if no helmet is equipped, -1
 var helmet_equipped = -1
 
@@ -139,7 +139,7 @@ var CHESTPIECE_MAPPINGS = [
 	"def": 2},
 ]
 ## List of chestpiece IDs
-var chestpieces_collected = [0, 1, 2]
+var chestpieces_collected = []
 ## A chestpiece ID, or, if no chestpiece is equipped, -1
 var chestpiece_equipped = -1
 
@@ -169,7 +169,7 @@ var BOOT_MAPPINGS = [
 	"def": 1},
 ]
 ## List of boots IDs
-var boots_collected = [0, 1, 2]
+var boots_collected = []
 ## A boots ID, or, if no boots are equipped, -1
 var boot_equipped = -1
 
