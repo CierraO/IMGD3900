@@ -56,7 +56,11 @@ func _ready():
 	update_spells()
 	update_inventory()
 	inv_item_list.get_v_scroll_bar().hide()
-	inv_item_list.get_v_scroll_bar().visibility_changed.connect(_hide_scroll_bar)
+	attack_item_list.get_v_scroll_bar().hide()
+	spell_item_list.get_v_scroll_bar().hide()
+	inv_item_list.get_v_scroll_bar().visibility_changed.connect(_hide_scroll_bar.bind(inv_item_list))
+	attack_item_list.get_v_scroll_bar().visibility_changed.connect(_hide_scroll_bar.bind(attack_item_list))
+	spell_item_list.get_v_scroll_bar().visibility_changed.connect(_hide_scroll_bar.bind(spell_item_list))
 	
 	# Set up stats
 	current_player_stats["hp"] = PlayerState.player_stats["hp"]
@@ -360,8 +364,8 @@ func _on_item_list_focus_entered(item_list_path) -> void:
 
 
 # For some reason, even after hiding, the scrollbar shows itself again.
-func _hide_scroll_bar() -> void:
-	inv_item_list.get_v_scroll_bar().hide()
+func _hide_scroll_bar(item_list) -> void:
+	item_list.get_v_scroll_bar().hide()
 
 
 func _on_spell_item_list_item_selected(index: int) -> void:
