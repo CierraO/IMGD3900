@@ -15,9 +15,45 @@ var player_stats = {
 	}
 
 
+""" Physical attacks """
+## Attack IDs
+enum Attacks {BASIC_MAGIC_ATK, PARRY, RECKLESS_ATK, PIERCE, FULL_BLOCK, CRITICAL_STRIKE, CLEAVE}
+## Attack data, where each attack dict's index is its ID
+var ATTACK_MAPPINGS = [
+	{"name": "Basic Attack",
+	"script": preload("res://scripts/physical_attacks/basic.gd"),
+	"stamina_cost": 0},
+	
+	{"name": "Parry",
+	"script": preload("res://scripts/physical_attacks/parry.gd"),
+	"stamina_cost": 5},
+	
+	{"name": "Reckless Attack",
+	"script": preload("res://scripts/physical_attacks/reckless_attack.gd"),
+	"stamina_cost": 4},
+	
+	{"name": "Pierce",
+	"script": preload("res://scripts/physical_attacks/pierce.gd"),
+	"stamina_cost": 5},
+	
+	{"name": "Full Block",
+	"script": preload("res://scripts/physical_attacks/full_block.gd"),
+	"stamina_cost": 5},
+	
+	{"name": "Critical Strike",
+	"script": preload("res://scripts/physical_attacks/critical_strike.gd"),
+	"stamina_cost": 10},
+	
+	{"name": "Cleave",
+	"script": preload("res://scripts/physical_attacks/cleave.gd"),
+	"stamina_cost": 5},
+]
+## List of attack IDs
+var attacks_collected = [Attacks.BASIC_MAGIC_ATK, Attacks.PARRY, Attacks.RECKLESS_ATK, Attacks.PIERCE, Attacks.FULL_BLOCK, Attacks.CRITICAL_STRIKE, Attacks.CLEAVE]
+
 """ Magic attacks """
 ## Magic attack IDs
-enum MagicAttacks {BASE_MAGIC_ATK, TOXIC_CLOUD, BARRIER, MANA_BOLT, ARCANE_CHARGE, FIREBALL, FROST_BOLT}
+enum MagicAttacks {BASIC_MAGIC_ATK, TOXIC_CLOUD, BARRIER, MANA_BOLT, ARCANE_CHARGE, FIREBALL, FROST_BOLT}
 ## Magic attack data, where each attack dict's index is its ID
 var MAGIC_ATTACK_MAPPINGS = [
 	{"name": "Basic Magic Attack",
@@ -49,4 +85,4 @@ var MAGIC_ATTACK_MAPPINGS = [
 	"mana_cost": 5},
 ]
 ## List of magic attack IDs
-var magic_attacks_collected = [MagicAttacks.BASE_MAGIC_ATK, MagicAttacks.TOXIC_CLOUD, MagicAttacks.BARRIER, MagicAttacks.MANA_BOLT, MagicAttacks.ARCANE_CHARGE, MagicAttacks.FIREBALL, MagicAttacks.FROST_BOLT]
+var magic_attacks_collected = [MagicAttacks.BASIC_MAGIC_ATK, MagicAttacks.TOXIC_CLOUD, MagicAttacks.BARRIER, MagicAttacks.MANA_BOLT, MagicAttacks.ARCANE_CHARGE, MagicAttacks.FIREBALL, MagicAttacks.FROST_BOLT]
