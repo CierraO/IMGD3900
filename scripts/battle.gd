@@ -15,13 +15,14 @@ signal textbox_closed
 @onready var enemy_health_bar = $EnemyCenterContainer/EnemyContainer/HealthBar
 @onready var player_health_bar = $MarginContainer/PlayerInfo/VBoxContainer/HealthBar
 @onready var player_mana_bar = $MarginContainer/PlayerInfo/ManaBar
+@onready var player_stamina_bar: ProgressBar = $MarginContainer/PlayerInfo/StaminaBar
 @onready var attack = $ActionsPanel/MarginContainer/Actions/MarginContainer/HBoxContainer/Attack
 @onready var animation_player = $AnimationPlayer
 
 ## Player and enemy stats.
 ## For the battle, base stats include equipment buffs but not potion buffs.
 var current_player_stats = {
-		"hp": 0, "max_hp": 0, "mana": 10,
+		"hp": 0, "max_hp": 0, "mana": 10, "stamina": 10,
 		"base_atk": 0, "atk": 0,
 		"base_mag": 0, "mag": 0,
 		"base_def": 0, "def": 0,
@@ -46,6 +47,7 @@ func _ready():
 	%Enemy.texture = enemy.texture
 	update_player_progress_bar(PlayerState.player_stats["hp"], false)
 	update_progress_bar(player_mana_bar, "Mana", 10, 10, false)
+	update_progress_bar(player_stamina_bar, "Stamina", 10, 10, false)
 	update_enemy_progress_bar(enemy.health, false)
 	update_spells()
 	update_inventory()
@@ -125,9 +127,10 @@ func update_all_progress_bars(player_hp=current_player_stats["hp"], enemy_hp=cur
 	update_player_progress_bar(player_hp)
 	update_enemy_progress_bar(enemy_hp)
 	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
+	update_progress_bar(player_stamina_bar, "Stamina", current_player_stats["stamina"], 10)
 
 
-func enemy_turn():	
+func enemy_turn():
 	var move = pick_enemy_move()
 	
 	# Normal attack
@@ -142,6 +145,8 @@ func enemy_turn():
 	
 	current_player_stats["mana"] = min(10, current_player_stats["mana"] + 1)
 	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10, false)
+	current_player_stats["stamina"] = min(10, current_player_stats["stamina"] + 1)
+	update_progress_bar(player_mana_bar, "Stamina", current_player_stats["stamina"], 10, false)
 	
 	await apply_passive_damage()
 	actions.show()
