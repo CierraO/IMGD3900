@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://beayxgfkk3h5v"]
+[gd_scene load_steps=49 format=3 uid="uid://beayxgfkk3h5v"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_id4ev"]
 [ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skeleton.tres" id="2_vqcng"]
@@ -6,14 +6,17 @@
 [ext_resource type="FontFile" uid="uid://c21mggakav4fu" path="res://fonts/Kenney Pixel.ttf" id="4_p0f5x"]
 [ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="4_x0toj"]
 [ext_resource type="Texture2D" uid="uid://bpbu8eebw2h7y" path="res://assets/melee-attack.png" id="5_8rc5m"]
+[ext_resource type="Texture2D" uid="uid://bwwklo81h8wn0" path="res://assets/parry.png" id="6_6qxmr"]
 [ext_resource type="Texture2D" uid="uid://daqlip0slws7d" path="res://assets/magic-attack.png" id="6_rcjf7"]
 [ext_resource type="Texture2D" uid="uid://drudr1oagdm3q" path="res://assets/health-bar.png" id="6_rspfa"]
 [ext_resource type="StyleBox" uid="uid://dw6yxedkecnq6" path="res://resources/panel.tres" id="7_6vsqg"]
 [ext_resource type="Texture2D" uid="uid://hyrkada5dkpt" path="res://assets/fireball.png" id="7_38xin"]
 [ext_resource type="Texture2D" uid="uid://c7yf6svrfm18m" path="res://assets/attack-icon.png" id="7_67na4"]
 [ext_resource type="Theme" uid="uid://dsldiw4rqrjxb" path="res://resources/theme.tres" id="7_bqs2w"]
+[ext_resource type="Texture2D" uid="uid://cp7l2gxetjqvf" path="res://assets/reckless-attack.png" id="7_e6toc"]
 [ext_resource type="Texture2D" uid="uid://htddvnqe8uhx" path="res://assets/frost-bolt.png" id="8_c37q2"]
 [ext_resource type="Texture2D" uid="uid://dkxovs1ky71g2" path="res://assets/flee-icon.png" id="8_tm0nu"]
+[ext_resource type="Texture2D" uid="uid://bqplt6vtn3x4k" path="res://assets/full-block.png" id="8_yxw3g"]
 [ext_resource type="Texture2D" uid="uid://cpndhw11qnwt8" path="res://assets/toxic-cloud.png" id="9_6b8rs"]
 [ext_resource type="Texture2D" uid="uid://7pq8n82dft2m" path="res://assets/special-icon.png" id="9_u5ego"]
 [ext_resource type="Texture2D" uid="uid://c8dgf8gufcd2n" path="res://assets/bag-icon.png" id="10_uccvl"]
@@ -253,6 +256,114 @@ tracks/17/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("ParryAttack:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("ParryAttack:frame")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("ParryAttack:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("RecklessAttack:visible")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("RecklessAttack:frame")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("RecklessAttack:modulate")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("FullBlockAttack:visible")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("FullBlockAttack:frame")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("FullBlockAttack:modulate")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_xndoi"]
 resource_name = "defeat"
@@ -297,6 +408,116 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_adtvy"]
+resource_name = "fireball_attack"
+length = 0.5667
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0845868,
+"stream": ExtResource("15_vtudw")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FireballAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FireballAttack:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FireballAttack:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.333333, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gf1kh"]
+resource_name = "frost_bolt_attack"
+length = 0.5667
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0845868,
+"stream": ExtResource("15_vtudw")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FrostBoltAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FrostBoltAttack:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FrostBoltAttack:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.333333, 0.566667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -486,9 +707,9 @@ tracks/3/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_adtvy"]
-resource_name = "fireball_attack"
-length = 0.5667
+[sub_resource type="Animation" id="Animation_bwos7"]
+resource_name = "parry_attack"
+length = 0.6
 tracks/0/type = "audio"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -497,17 +718,17 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0845868,
-"stream": ExtResource("15_vtudw")
+"end_offset": 0.135374,
+"start_offset": 0.0,
+"stream": ExtResource("13_vdble")
 }],
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0.1)
 }
 tracks/0/use_blend = true
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("FireballAttack:visible")
+tracks/1/path = NodePath("ParryAttack:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -519,31 +740,86 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("FireballAttack:frame")
+tracks/2/path = NodePath("ParryAttack:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333, 0.266667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.166667, 0.266667, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4]
+"values": [0, 1, 2, 3]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("FireballAttack:modulate")
+tracks/3/path = NodePath("ParryAttack:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.333333, 0.566667),
+"times": PackedFloat32Array(0, 0.0666667, 0.533333, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xovj0"]
+resource_name = "reckless_attack"
+length = 0.34
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.135374,
+"start_offset": 0.0,
+"stream": ExtResource("13_vdble")
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RecklessAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RecklessAttack:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RecklessAttack:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.266667, 0.333333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_gf1kh"]
-resource_name = "frost_bolt_attack"
-length = 0.5667
+[sub_resource type="Animation" id="Animation_4b0lk"]
+resource_name = "full_block_attack"
+length = 0.7
 tracks/0/type = "audio"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -552,9 +828,9 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0845868,
-"stream": ExtResource("15_vtudw")
+"end_offset": 0.135374,
+"start_offset": 0.0,
+"stream": ExtResource("13_vdble")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -562,7 +838,7 @@ tracks/0/use_blend = true
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("FrostBoltAttack:visible")
+tracks/1/path = NodePath("FullBlockAttack:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -574,26 +850,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("FrostBoltAttack:frame")
+tracks/2/path = NodePath("FullBlockAttack:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333, 0.266667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4]
+"values": [0, 1, 2, 3]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("FrostBoltAttack:modulate")
+tracks/3/path = NodePath("FullBlockAttack:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.333333, 0.566667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.533333, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v0eu2"]
@@ -604,9 +880,12 @@ _data = {
 "enemy_died": SubResource("Animation_mnkwu"),
 "fireball_attack": SubResource("Animation_adtvy"),
 "frost_bolt_attack": SubResource("Animation_gf1kh"),
+"full_block_attack": SubResource("Animation_4b0lk"),
 "magic_attack": SubResource("Animation_pmg6m"),
 "melee_attack": SubResource("Animation_5fkb0"),
+"parry_attack": SubResource("Animation_bwos7"),
 "player_dmg": SubResource("Animation_r5k3u"),
+"reckless_attack": SubResource("Animation_xovj0"),
 "toxic_cloud_attack": SubResource("Animation_ybb1l")
 }
 
@@ -708,6 +987,28 @@ scale = Vector2(4, 4)
 texture = ExtResource("5_8rc5m")
 hframes = 5
 
+[node name="ParryAttack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(476, 264)
+scale = Vector2(4, 4)
+texture = ExtResource("6_6qxmr")
+hframes = 4
+
+[node name="RecklessAttack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(476, 264)
+scale = Vector2(4, 4)
+texture = ExtResource("7_e6toc")
+hframes = 4
+
+[node name="FullBlockAttack" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+position = Vector2(479, 264)
+scale = Vector2(4, 4)
+texture = ExtResource("8_yxw3g")
+hframes = 4
+
 [node name="MagicAttack" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(480, 264)
@@ -770,6 +1071,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 13
 
 [node name="Actions" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
@@ -840,6 +1142,66 @@ expand_icon = true
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Attacks" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="Back" type="Button" parent="ActionsPanel/MarginContainer/Attacks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+focus_neighbor_right = NodePath("../AttackItemList")
+theme = ExtResource("7_bqs2w")
+icon = ExtResource("19_f0lgg")
+expand_icon = true
+
+[node name="Spacer2" type="HBoxContainer" parent="ActionsPanel/MarginContainer/Attacks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="AttackItemList" type="ItemList" parent="ActionsPanel/MarginContainer/Attacks"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
+focus_neighbor_left = NodePath("../Back")
+theme_override_fonts/font = ExtResource("4_p0f5x")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_am68v")
+
+[node name="AttackPanel" type="Panel" parent="ActionsPanel/MarginContainer/Attacks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
+theme_override_styles/panel = SubResource("StyleBoxFlat_6vrkc")
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionsPanel/MarginContainer/Attacks/AttackPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="AttackTextbox" type="RichTextLabel" parent="ActionsPanel/MarginContainer/Attacks/AttackPanel/MarginContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_p0f5x")
+theme_override_fonts/mono_font = ExtResource("4_p0f5x")
+theme_override_fonts/italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_italics_font = ExtResource("4_p0f5x")
+theme_override_fonts/bold_font = ExtResource("4_p0f5x")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+scroll_active = false
+
 [node name="Spells" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
 visible = false
 layout_mode = 2
@@ -902,6 +1264,7 @@ bbcode_enabled = true
 scroll_active = false
 
 [node name="Inventory" type="HBoxContainer" parent="ActionsPanel/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 
@@ -1082,10 +1445,43 @@ text = "Mana"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="StaminaBar" type="ProgressBar" parent="MarginContainer/PlayerInfo"]
+custom_minimum_size = Vector2(300, 28)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxTexture_nw13x")
+theme_override_styles/fill = SubResource("StyleBoxTexture_sqlby")
+value = 70.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MarginContainer/PlayerInfo/StaminaBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_p0f5x")
+theme_override_font_sizes/font_size = 25
+text = "Stamina"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/MarginContainer/HBoxContainer/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/MarginContainer/HBoxContainer/Magic" to="." method="_on_magic_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/MarginContainer/HBoxContainer/Inventory" to="." method="_on_inventory_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/MarginContainer/HBoxContainer/Escape" to="." method="_on_run_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Attacks/Back" to="." method="_on_back_pressed"]
+[connection signal="focus_entered" from="ActionsPanel/MarginContainer/Attacks/AttackItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%AttackItemList")]]
+[connection signal="focus_exited" from="ActionsPanel/MarginContainer/Attacks/AttackItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%AttackItemList"), NodePath("%AttackTextbox")]]
+[connection signal="item_activated" from="ActionsPanel/MarginContainer/Attacks/AttackItemList" to="." method="_on_attack_item_list_item_activated"]
+[connection signal="item_selected" from="ActionsPanel/MarginContainer/Attacks/AttackItemList" to="." method="_on_attack_item_list_item_selected"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Spells/Back" to="." method="_on_back_pressed"]
 [connection signal="focus_entered" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_item_list_focus_entered" binds= [NodePath("%SpellItemList")]]
 [connection signal="focus_exited" from="ActionsPanel/MarginContainer/Spells/SpellItemList" to="." method="_on_item_list_focus_exited" binds= [NodePath("%SpellItemList"), NodePath("%SpellTextbox")]]
