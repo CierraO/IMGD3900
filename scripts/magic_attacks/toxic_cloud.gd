@@ -15,7 +15,7 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 	battle.update_all_progress_bars()
 	
 	if (self_stats == battle.current_player_stats):
-		battle.animation_player.play("magic_attack")
+		battle.animation_player.play("toxic_cloud_attack")
 		await(battle.animation_player.animation_finished)
 		if dmg > 0:
 			battle.animation_player.play("enemy_damaged")

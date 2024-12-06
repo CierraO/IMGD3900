@@ -133,6 +133,7 @@ func enemy_turn():
 	# Normal attack
 	if (move < 0):
 		await enemy_attack()
+		current_player_stats["next_dmg_taken_modifier"] = 1
 	# Magic attack
 	else:
 		var m_atk = enemy.magic_attacks[move].new()
