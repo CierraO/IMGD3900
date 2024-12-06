@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_id4ev"]
 [ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skeleton.tres" id="2_vqcng"]
-[ext_resource type="Texture2D" uid="uid://otu5f1jl8lrh" path="res://assets/placeholderBattleBG.png" id="3_jibwr"]
+[ext_resource type="Texture2D" uid="uid://xlr7ugm6waue" path="res://assets/combat-background.png" id="3_hcu7o"]
 [ext_resource type="FontFile" uid="uid://c21mggakav4fu" path="res://fonts/Kenney Pixel.ttf" id="4_p0f5x"]
 [ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="4_x0toj"]
 [ext_resource type="Texture2D" uid="uid://bpbu8eebw2h7y" path="res://assets/melee-attack.png" id="5_8rc5m"]
@@ -943,13 +943,14 @@ enemy = ExtResource("2_vqcng")
 metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.827451, 0.764706, 0.827451, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_jibwr")
+texture = ExtResource("3_hcu7o")
 metadata/_edit_lock_ = true
 
 [node name="EnemyCenterContainer" type="CenterContainer" parent="."]

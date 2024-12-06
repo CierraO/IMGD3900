@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8benhjr4gbex"]
 
-[ext_resource type="Texture2D" uid="uid://otu5f1jl8lrh" path="res://assets/placeholderBattleBG.png" id="1_bdjsh"]
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_dkdl6"]
+[ext_resource type="Texture2D" uid="uid://xlr7ugm6waue" path="res://assets/combat-background.png" id="2_dmiev"]
 [ext_resource type="Theme" uid="uid://dsldiw4rqrjxb" path="res://resources/theme.tres" id="2_y7oua"]
 [ext_resource type="Texture2D" uid="uid://bjn7dwhh3i4as" path="res://assets/start-button.png" id="5_n50da"]
 [ext_resource type="Texture2D" uid="uid://d2p0vutblhi8f" path="res://assets/exit-button.png" id="6_bwd1m"]
@@ -12,7 +12,7 @@ script = ExtResource("1_dkdl6")
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 960.0
 offset_bottom = 540.0
-texture = ExtResource("1_bdjsh")
+texture = ExtResource("2_dmiev")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -30,6 +30,7 @@ theme_override_constants/separation = 8
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_y7oua")
+theme_override_colors/font_color = Color(0.513726, 0.47451, 0.517647, 1)
 theme_override_font_sizes/font_size = 96
 text = "Game Title"
 horizontal_alignment = 1
