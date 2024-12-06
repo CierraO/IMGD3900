@@ -6,6 +6,9 @@ signal textbox_closed
 @export var enemy: Resource
 
 @onready var actions: HBoxContainer = $ActionsPanel/MarginContainer/Actions
+@onready var attacks: HBoxContainer = $ActionsPanel/MarginContainer/Attacks
+@onready var attack_item_list: ItemList = %AttackItemList
+@onready var attack_textbox: RichTextLabel = %AttackTextbox
 @onready var spells: HBoxContainer = $ActionsPanel/MarginContainer/Spells
 @onready var spell_item_list: ItemList = %SpellItemList
 @onready var spell_textbox: RichTextLabel = %SpellTextbox
@@ -49,6 +52,7 @@ func _ready():
 	update_progress_bar(player_mana_bar, "Mana", 10, 10, false)
 	update_progress_bar(player_stamina_bar, "Stamina", 10, 10, false)
 	update_enemy_progress_bar(enemy.health, false)
+	update_attacks()
 	update_spells()
 	update_inventory()
 	inv_item_list.get_v_scroll_bar().hide()
@@ -75,6 +79,7 @@ func _ready():
 	
 	%Textbox.hide()
 	actions.hide()
+	attacks.hide()
 	spells.hide()
 	inventory.hide()
 	
@@ -146,7 +151,7 @@ func enemy_turn():
 	current_player_stats["mana"] = min(10, current_player_stats["mana"] + 1)
 	update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10, false)
 	current_player_stats["stamina"] = min(10, current_player_stats["stamina"] + 1)
-	update_progress_bar(player_mana_bar, "Stamina", current_player_stats["stamina"], 10, false)
+	update_progress_bar(player_stamina_bar, "Stamina", current_player_stats["stamina"], 10, false)
 	
 	await apply_passive_damage()
 	actions.show()
@@ -197,27 +202,9 @@ func _on_run_pressed():
 
 
 func _on_attack_pressed():
-	display_text("You attack.")
-	await(textbox_closed)
-	
-	var dmg = max(0, current_player_stats["atk"] - current_enemy_stats["def"]) + (randi() % 3)
-	
-	if dmg > 0:
-		current_enemy_stats["hp"] = max(0, current_enemy_stats["hp"] - dmg)
-		update_enemy_progress_bar(current_enemy_stats["hp"])
-		
-		animation_player.play("melee_attack")
-		await(animation_player.animation_finished)
-		animation_player.play("enemy_damaged")
-		display_text("%s takes %d damage." % [enemy.name, dmg])
-		await(textbox_closed)
-		
-		await check_if_enemy_died()
-	else:
-		display_text("Your attack whiffed.")
-		await(textbox_closed)
-	
-	enemy_turn()
+	actions.hide()
+	attacks.show()
+	attack_item_list.grab_focus()
 
 
 func check_if_enemy_died():
@@ -311,6 +298,7 @@ func _on_inventory_pressed() -> void:
 func _on_back_pressed() -> void:
 	spell_textbox.text = ""
 	inv_textbox.text = ""
+	attacks.hide()
 	spells.hide()
 	inventory.hide()
 	actions.show()
@@ -331,6 +319,12 @@ func _on_inv_item_list_item_activated(index: int) -> void:
 	update_player_progress_bar()
 	
 	enemy_turn()
+
+
+func update_attacks():
+	attack_item_list.clear()
+	for attack in PlayerState.attacks_collected:
+		attack_item_list.add_item(PlayerState.ATTACK_MAPPINGS[attack]["name"])
 
 
 func update_spells():
@@ -375,4 +369,34 @@ func _on_spell_item_list_item_selected(index: int) -> void:
 	var m_atk = spell_dict["script"].new()
 	var desc = m_atk.call("get_description") + " Mana: %d." % spell_dict["mana_cost"]
 	spell_textbox.text = desc
+	m_atk.queue_free()
+
+
+func _on_attack_item_list_item_activated(index: int) -> void:
+	await get_tree().create_timer(0.1).timeout
+	actions.hide()
+	attacks.hide()
+	inv_textbox.text = ""
+	
+	var atk_dict = PlayerState.ATTACK_MAPPINGS[PlayerState.attacks_collected[index]]
+	var stamina_cost = atk_dict["stamina_cost"]
+	if (current_player_stats["stamina"] >= stamina_cost):
+		current_player_stats["stamina"] -= stamina_cost
+		update_progress_bar(player_stamina_bar, "Stamina", current_player_stats["stamina"], 10)
+		var m_atk = atk_dict["script"].new()
+		current_enemy_stats["next_dmg_taken_modifier"] = await m_atk.call("use", current_enemy_stats, current_player_stats, self)
+		m_atk.queue_free()
+		enemy_turn()
+	else:
+		display_text("You don't have enough stamina!")
+		await(textbox_closed)
+		actions.show()
+		attack.grab_focus()
+
+
+func _on_attack_item_list_item_selected(index: int) -> void:
+	var atk_dict = PlayerState.ATTACK_MAPPINGS[PlayerState.attacks_collected[index]]
+	var m_atk = atk_dict["script"].new()
+	var desc = m_atk.call("get_description") + " Stamina: %d." % atk_dict["stamina_cost"]
+	attack_textbox.text = desc
 	m_atk.queue_free()

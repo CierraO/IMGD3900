@@ -2,6 +2,10 @@ extends "res://scripts/magic_attacks/base_stat_affector.gd"
 
 
 func use(opponent_stats=null, self_stats=null, battle=null):
+	if (self_stats == battle.current_player_stats):
+		battle.animation_player.play("magic_attack")
+		await(battle.animation_player.animation_finished)
+	
 	battle.display_text("You form a protective barrier around yourself."
 			if (self_stats == battle.current_player_stats) else "%s forms a protective barrier." % battle.enemy.name)
 	await(battle.textbox_closed)
