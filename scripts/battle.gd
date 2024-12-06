@@ -255,10 +255,13 @@ func _on_spell_item_list_item_activated(index: int) -> void:
 	actions.hide()
 	spells.hide()
 	inv_textbox.text = ""
-	if (current_player_stats["mana"] > 4):
-		current_player_stats["mana"] -= 4
+	
+	var spell_dict = PlayerState.MAGIC_ATTACK_MAPPINGS[PlayerState.magic_attacks_collected[index]]
+	var mana_cost = spell_dict["mana_cost"]
+	if (current_player_stats["mana"] >= mana_cost):
+		current_player_stats["mana"] -= mana_cost
 		update_progress_bar(player_mana_bar, "Mana", current_player_stats["mana"], 10)
-		var m_atk = PlayerState.magic_attacks[spell_item_list.get_item_text(index)].new()
+		var m_atk = spell_dict["script"].new()
 		m_atk.call("use", current_enemy_stats, current_player_stats, self)
 		await(m_atk.completed_use)
 		m_atk.queue_free()
@@ -304,8 +307,8 @@ func _on_inv_item_list_item_activated(index: int) -> void:
 
 func update_spells():
 	spell_item_list.clear()
-	for spell in PlayerState.magic_attacks.keys():
-		spell_item_list.add_item(spell)
+	for spell in PlayerState.magic_attacks_collected:
+		spell_item_list.add_item(PlayerState.MAGIC_ATTACK_MAPPINGS[spell]["name"])
 
 
 func update_inventory():
@@ -340,7 +343,8 @@ func _hide_scroll_bar() -> void:
 
 
 func _on_spell_item_list_item_selected(index: int) -> void:
-	var m_atk = PlayerState.magic_attacks[spell_item_list.get_item_text(index)].new()
+	var spell_dict = PlayerState.MAGIC_ATTACK_MAPPINGS[PlayerState.magic_attacks_collected[index]]
+	var m_atk = spell_dict["script"].new()
 	var desc = m_atk.call("get_description")
 	spell_textbox.text = desc
 	m_atk.queue_free()

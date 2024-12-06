@@ -14,7 +14,19 @@ var player_stats = {
 	"base_def": 2, "def": 2,
 	}
 
-var magic_attacks = {
-	"Basic Magic Attack": preload("res://scripts/magic_attacks/basic.gd"),
-	"Lower Enemy Defense": preload("res://scripts/magic_attacks/lower_enemy_def.gd"),
-}
+
+""" Magic attacks """
+## Magic attack IDs
+enum MagicAttacks {BASE_MAGIC_ATK, LOWER_ENEMY_DEF}
+## Magic attack data, where each attack dict's index is its ID
+var MAGIC_ATTACK_MAPPINGS = [
+	{"name": "Basic Magic Attack",
+	"script": preload("res://scripts/magic_attacks/basic.gd"),
+	"mana_cost": 4},
+	
+	{"name": "Lower Enemy Defense",
+	"script": preload("res://scripts/magic_attacks/lower_enemy_def.gd"),
+	"mana_cost": 6},
+]
+## List of magic attack IDs
+var magic_attacks_collected = [MagicAttacks.BASE_MAGIC_ATK, MagicAttacks.LOWER_ENEMY_DEF]
