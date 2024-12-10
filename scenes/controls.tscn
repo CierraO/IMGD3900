@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckjjpj0ip3hj7"]
+
+[ext_resource type="Script" path="res://scripts/controls.gd" id="1_3c71y"]
+[ext_resource type="Texture2D" uid="uid://xlr7ugm6waue" path="res://assets/combat-background.png" id="1_jrhdy"]
+[ext_resource type="Theme" uid="uid://dsldiw4rqrjxb" path="res://resources/theme.tres" id="2_kqc6w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdkve"]
+bg_color = Color(0.603922, 0.529412, 0.603922, 1)
+
+[node name="Controls" type="CanvasLayer"]
+script = ExtResource("1_3c71y")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 960.0
+offset_bottom = 540.0
+texture = ExtResource("1_jrhdy")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 100
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pdkve")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_kqc6w")
+theme_override_colors/font_color = Color(0.180392, 0.207843, 0.196078, 1)
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+position = Vector2(5, 59)
+points = PackedVector2Array(0, -2, 630, -2)
+width = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_kqc6w")
+bbcode_enabled = true
+text = "[center][color=2e3532]MENUS[/color]
+Navigation: Arrow Keys
+
+Select: Space/Enter
+
+Continue: Enter
+[/center]
+"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_kqc6w")
+bbcode_enabled = true
+text = "[center][color=2e3532]GAME WORLD[/color]
+Move Up: W
+Move Left: A
+Move Down: S
+Move Right: D
+
+Interact: Space
+
+Inventory: E
+[/center]"
