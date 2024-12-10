@@ -30,3 +30,5 @@ Button/styles/hover = SubResource("StyleBoxFlat_gey0t")
 Button/styles/normal = SubResource("StyleBoxFlat_iwqvx")
 Button/styles/pressed = SubResource("StyleBoxFlat_mwpck")
 Label/fonts/font = ExtResource("2_7hnql")
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/normal_font = ExtResource("2_7hnql")
