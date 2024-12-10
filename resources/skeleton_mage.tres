@@ -9,9 +9,9 @@
 
 [resource]
 script = ExtResource("1_m8x3v")
-name = "Magic Enemy"
+name = "Skeleton Mage"
 texture = ExtResource("2_urxhi")
-encounter_text = "A Magic Enemy appears!"
+encounter_text = "A Skeleton Mage appears!"
 health = 20
 mag = 8
 atk = 0

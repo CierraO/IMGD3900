@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://da2oornpmotxi"]
+
+[ext_resource type="Script" path="res://scripts/magic_attacks/basic.gd" id="1_0mapm"]
+[ext_resource type="Script" path="res://scripts/magic_attacks/mana_bolt.gd" id="2_7o6sm"]
+[ext_resource type="Script" path="res://scripts/magic_attacks/fireball.gd" id="3_u3gox"]
+[ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="4_tniwt"]
+[ext_resource type="Texture2D" uid="uid://cskgh0qigct1v" path="res://assets/golem.png" id="5_1dtqu"]
+
+[resource]
+script = ExtResource("4_tniwt")
+name = "Golem"
+texture = ExtResource("5_1dtqu")
+encounter_text = "A Golem appears!"
+health = 125
+mag = 13
+atk = 0
+def = 20
+attacks = Array[Resource]([ExtResource("1_0mapm"), ExtResource("2_7o6sm"), ExtResource("3_u3gox")])
