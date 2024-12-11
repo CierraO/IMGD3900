@@ -194,22 +194,13 @@ func check_if_enemy_died():
 		animation_player.play("enemy_died")
 		await(animation_player.animation_finished)
 		
-		# Earned skills/equipment
+		# Earned skills
 		if ((PlayerState.times_used_melee / 5) + 3 > PlayerState.attacks_collected.size()
 				and PlayerState.attacks_collected.size() < PlayerState.ATTACK_MAPPINGS.size()):
 			display_text("After honing your melee skills, you earned a new attack: %s!"
 					% PlayerState.ATTACK_MAPPINGS[PlayerState.attacks_collected.size()]["name"])
 			await textbox_closed
 			PlayerState.attacks_collected.append(PlayerState.attacks_collected.size())
-			
-			if ((PlayerState.times_used_melee / 5) % 2 == 0
-					and Inventory.weapons_collected.size() < Inventory.WEAPON_MAPPINGS.size()):
-				display_text("You earned a new equipment set!")
-				await textbox_closed
-				Inventory.collect_equipment("weapon", Inventory.weapons_collected.size())
-				Inventory.collect_equipment("helmet", Inventory.helmets_collected.size())
-				Inventory.collect_equipment("chestpiece", Inventory.chestpieces_collected.size())
-				Inventory.collect_equipment("boot", Inventory.boots_collected.size())
 		
 		if ((PlayerState.times_used_magic / 5) + 3 > PlayerState.magic_attacks_collected.size()
 				and PlayerState.magic_attacks_collected.size() < PlayerState.MAGIC_ATTACK_MAPPINGS.size()):
@@ -217,22 +208,24 @@ func check_if_enemy_died():
 					 % PlayerState.MAGIC_ATTACK_MAPPINGS[PlayerState.magic_attacks_collected.size()]["name"])
 			await textbox_closed
 			PlayerState.magic_attacks_collected.append(PlayerState.magic_attacks_collected.size())
-			
-			if ((PlayerState.times_used_magic / 5) % 2 == 0
-					and Inventory.weapons_collected.size() < Inventory.WEAPON_MAPPINGS.size()):
-				display_text("You earned a new equipment set!")
-				await textbox_closed
-				Inventory.collect_equipment("weapon", Inventory.weapons_collected.size())
-				Inventory.collect_equipment("helmet", Inventory.helmets_collected.size())
-				Inventory.collect_equipment("chestpiece", Inventory.chestpieces_collected.size())
-				Inventory.collect_equipment("boot", Inventory.boots_collected.size())
 		
-		# Enemy drops
+		# Enemy item/equipment drops
 		var drop = randi_range(-2, Inventory.ITEMS.size() - 1)
 		if drop >= 0:
 			display_text("%s dropped %s!" % [enemy.name, Inventory.ITEM_MAPPINGS[drop]["name"]])
 			await(textbox_closed)
 			Inventory.add_inventory_item(drop)
+			
+		drop = randi_range(1, 2)
+		if drop == 1:
+			var rand_equip = Inventory.get_uncollected_equipment().pick_random()
+			if rand_equip != null:
+				var EQUIP_MAPPINGS = Inventory.get(rand_equip[0].to_upper() + "_MAPPINGS")
+
+				display_text("%s dropped %s!" % [enemy.name, EQUIP_MAPPINGS[rand_equip[1]]["name"]])
+				await textbox_closed
+				Inventory.collect_equipment(rand_equip[0], rand_equip[1])
+			
 		leave_battle()
 
 

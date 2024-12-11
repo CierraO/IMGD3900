@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://dp0libwk4mq0r"]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://dp0libwk4mq0r"]
 
 [ext_resource type="Script" path="res://scripts/magic_attacks/basic.gd" id="1_puo0f"]
 [ext_resource type="Script" path="res://scripts/magic_attacks/mana_bolt.gd" id="2_6uq3x"]
 [ext_resource type="Script" path="res://scripts/magic_attacks/fireball.gd" id="3_xtdn4"]
+[ext_resource type="Resource" uid="uid://da2oornpmotxi" path="res://resources/golem3.tres" id="4_n86hu"]
 [ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="4_nd0i4"]
 [ext_resource type="Texture2D" uid="uid://cskgh0qigct1v" path="res://assets/golem.png" id="5_53ime"]
 
@@ -16,3 +17,4 @@ mag = 8
 atk = 0
 def = 15
 attacks = Array[Resource]([ExtResource("1_puo0f"), ExtResource("2_6uq3x"), ExtResource("3_xtdn4")])
+level_up = ExtResource("4_n86hu")

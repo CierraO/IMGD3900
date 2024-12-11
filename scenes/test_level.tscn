@@ -156,34 +156,37 @@ texture = ExtResource("5_pmpjm")
 [node name="Golem2" parent="." instance=ExtResource("3_i78y7")]
 position = Vector2(1042, 84.5)
 enemy = ExtResource("5_4xm27")
-respawns = false
 
 [node name="Sprite2D" parent="Golem2" index="1"]
 texture = ExtResource("5_pmpjm")
 
 [node name="MagicEnemy2" parent="." instance=ExtResource("3_i78y7")]
-modulate = Color(1, 0, 1, 1)
 position = Vector2(934.5, 195.5)
 enemy = ExtResource("5_v2dri")
-respawns = false
+
+[node name="Sprite2D" parent="MagicEnemy2" index="1"]
+modulate = Color(1, 0, 1, 1)
 
 [node name="MagicEnemy" parent="." instance=ExtResource("3_i78y7")]
-modulate = Color(1, 0, 1, 1)
 position = Vector2(831.5, 76)
 enemy = ExtResource("5_v2dri")
-respawns = false
+
+[node name="Sprite2D" parent="MagicEnemy" index="1"]
+modulate = Color(1, 0, 1, 1)
 
 [node name="MagicEnemy3" parent="." instance=ExtResource("3_i78y7")]
-modulate = Color(1, 0, 1, 1)
 position = Vector2(732, 184)
 enemy = ExtResource("5_v2dri")
-respawns = false
+
+[node name="Sprite2D" parent="MagicEnemy3" index="1"]
+modulate = Color(1, 0, 1, 1)
 
 [node name="MagicEnemy4" parent="." instance=ExtResource("3_i78y7")]
-modulate = Color(1, 0, 1, 1)
 position = Vector2(660.5, 56.5)
 enemy = ExtResource("5_v2dri")
-respawns = false
+
+[node name="Sprite2D" parent="MagicEnemy4" index="1"]
+modulate = Color(1, 0, 1, 1)
 
 [node name="Player" parent="." instance=ExtResource("3_w81om")]
 position = Vector2(45, 183)
@@ -237,4 +240,8 @@ shape = SubResource("RectangleShape2D_6tqg3")
 
 [editable path="Golem"]
 [editable path="Golem2"]
+[editable path="MagicEnemy2"]
+[editable path="MagicEnemy"]
+[editable path="MagicEnemy3"]
+[editable path="MagicEnemy4"]
 [editable path="Player"]

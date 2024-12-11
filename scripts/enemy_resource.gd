@@ -8,3 +8,4 @@ extends Resource
 @export var atk: int = 3
 @export var def: int = 4
 @export var attacks: Array[Resource] = []
+@export var level_up: Resource
