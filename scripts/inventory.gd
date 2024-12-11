@@ -15,6 +15,9 @@ extends CanvasLayer
 @onready var resume: Button = %Resume
 
 
+signal collected_equipment
+
+
 """ Inventory items """
 ## Item IDs
 enum ITEMS {HEALTH_POTION, GREATER_HEALTH_POTION, GRANDMAS_COOKIES, ARMORSKIN_POTION, STALE_BREAD}
@@ -119,14 +122,14 @@ enum CHESTPIECES {WITCH_CLOAK, KNIGHT_PLATE, THIEF_CLOAK}
 var CHESTPIECE_MAPPINGS = [
 	{"name": "Witch's Cloak",
 	"icon": preload("res://assets/witch-cloak.png"),
-	"hp": 1,
+	"hp": 10,
 	"atk": 0,
 	"mag": 3,
 	"def": 2},
 	
 	{"name": "Knight's Chestplate",
 	"icon": preload("res://assets/chest-item.png"),
-	"hp": 2,
+	"hp": 20,
 	"atk": 0,
 	"mag": 0,
 	"def": 5},
@@ -195,6 +198,7 @@ func collect_equipment(type: String, equip_id: int):
 	
 	if get((type + "s").to_upper()).values().has(equip_id):
 		get(type + "s_collected").append(equip_id)
+		collected_equipment.emit()
 	else:
 		printerr("collect_equipment(): %s doesn't exist!" % type)
 
@@ -272,6 +276,37 @@ func add_inventory_item(item_id: ITEMS):
 func remove_inventory_item_at_index(index: int):
 	_inventory.remove_at(index)
 	inv_item_list.remove_item(index)
+
+
+## Return an array of all equipment of all types,
+## where each element is in the form [equipment_type: String, ID: int]
+func get_all_equipment():
+	var all_equipment = WEAPONS.values().map(func(x): return ["weapon", x])
+	all_equipment.append_array(HELMETS.values().map(func(x): return ["helmet", x]))
+	all_equipment.append_array(CHESTPIECES.values().map(func(x): return ["chestpiece", x]))
+	all_equipment.append_array(BOOTS.values().map(func(x): return ["boot", x]))
+	
+	return all_equipment
+
+
+## Return an array of all collected equipment of all types,
+## where each element is in the form [equipment_type: String, ID: int]
+func get_all_collected_equipment():
+	var all_collected_equipment = weapons_collected.map(func(x): return ["weapon", x])
+	all_collected_equipment.append_array(
+			helmets_collected.map(func(x): return ["helmet", x]))
+	all_collected_equipment.append_array(
+			chestpieces_collected.map(func(x): return ["chestpiece", x]))
+	all_collected_equipment.append_array(
+			boots_collected.map(func(x): return ["boot", x]))
+	
+	return all_collected_equipment
+
+
+## Return an array of all equipment of all types that hasn't yet been collected,
+## where each element is in the form [equipment_type: String, ID: int]
+func get_uncollected_equipment():
+	return get_all_equipment().filter(func(x): return not get_all_collected_equipment().has(x))
 
 
 ## Updates the player's stats to remove this equipment's modifiers.

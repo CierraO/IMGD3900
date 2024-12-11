@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bv2jl6h8c5jwo"]
+
+[ext_resource type="Script" path="res://scripts/physical_attacks/basic.gd" id="1_ifnsr"]
+[ext_resource type="Resource" uid="uid://bgqcmmk4a5he3" path="res://resources/skeleton3.tres" id="2_8tsy4"]
+[ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="2_q4e4k"]
+[ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="3_kovhd"]
+
+[resource]
+script = ExtResource("2_q4e4k")
+name = "Skeleton"
+texture = ExtResource("3_kovhd")
+encounter_text = "A Skeleton appears!"
+health = 50
+mag = 0
+atk = 18
+def = 6
+attacks = Array[Resource]([ExtResource("1_ifnsr")])
+level_up = ExtResource("2_8tsy4")

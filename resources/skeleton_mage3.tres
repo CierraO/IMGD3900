@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://bp7movi70r11o"]
+
+[ext_resource type="Script" path="res://scripts/magic_attacks/basic.gd" id="1_4n3nr"]
+[ext_resource type="Script" path="res://scripts/magic_attacks/barrier.gd" id="2_s2i0p"]
+[ext_resource type="Script" path="res://scripts/magic_attacks/toxic_cloud.gd" id="3_tqc3i"]
+[ext_resource type="Script" path="res://scripts/magic_attacks/arcane_charge.gd" id="4_2fl2p"]
+[ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="5_pwgbd"]
+[ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="6_04npd"]
+
+[resource]
+script = ExtResource("5_pwgbd")
+name = "Skeleton Mage"
+texture = ExtResource("6_04npd")
+encounter_text = "A Skeleton Mage appears!"
+health = 80
+mag = 21
+atk = 0
+def = 8
+attacks = Array[Resource]([ExtResource("1_4n3nr"), ExtResource("2_s2i0p"), ExtResource("3_tqc3i"), ExtResource("4_2fl2p")])
