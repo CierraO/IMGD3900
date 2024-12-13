@@ -102,7 +102,7 @@ func collect_attack(attack):
 
 
 func collect_all_attacks():
-	for atk in PlayerState.Attacks:
+	for atk in PlayerState.Attacks.values():
 		if not PlayerState.attacks_collected.has(atk):
 			PlayerState.attacks_collected.append(atk)
 
@@ -122,7 +122,7 @@ func collect_spell(attack):
 
 
 func collect_all_spells():
-	for atk in PlayerState.MagicAttacks:
+	for atk in PlayerState.MagicAttacks.values():
 		if not PlayerState.magic_attacks_collected.has(atk):
 			PlayerState.magic_attacks_collected.append(atk)
 
