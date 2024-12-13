@@ -61,7 +61,7 @@ func _increase_stats():
 	var num_equipment = Inventory.get_all_equipment().size()
 	
 	if ((level == 1 and all_collected_equipment.size() == num_equipment - num_equipment_types)
-			or (level == 2 and all_collected_equipment.size() == num_equipment)):
+			or (level < 3 and all_collected_equipment.size() == num_equipment)):
 		if enemy.level_up:
 			enemy = enemy.level_up
 			level += 1

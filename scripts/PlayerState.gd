@@ -90,3 +90,10 @@ var MAGIC_ATTACK_MAPPINGS = [
 ]
 ## List of magic attack IDs
 var magic_attacks_collected = [MagicAttacks.BASIC_MAGIC_ATK, MagicAttacks.TOXIC_CLOUD, MagicAttacks.BARRIER]
+
+
+# Return an array of property-value pairs, using every property in this script.
+# Each item is a String formatted like so: "state: value"
+func get_states():
+	var properties = get_script().get_script_property_list().map(func(x): return x.name)
+	return properties.filter(func(x): return not x.ends_with(".gd")).map(func(x): return x + ": " + str(get(x)))

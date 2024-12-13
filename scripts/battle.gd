@@ -235,6 +235,7 @@ func check_if_player_died():
 		await(animation_player.animation_finished)
 		display_text("You have been defeated.")
 		await (textbox_closed)
+		PlayerState.state = PlayerState.State.MOVING
 		SceneManager.change_scene(SceneManager.GAME_OVER)
 
 

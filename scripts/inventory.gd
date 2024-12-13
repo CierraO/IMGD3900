@@ -183,7 +183,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if (event.is_action_pressed("ui_menu")
+	if (event.is_action_pressed("inventory")
 			and PlayerState.state != PlayerState.State.BATTLING):
 		set_visible(!visible)
 

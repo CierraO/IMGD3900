@@ -11,7 +11,7 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 	battle.update_all_progress_bars()
 	
 	if (self_stats == battle.current_player_stats):
-		battle.animation_player.play("melee_attack")
+		battle.animation_player.play("critical_strike_attack")
 		await(battle.animation_player.animation_finished)
 		
 		if (dmg > 0):

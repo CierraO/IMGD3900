@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=3 uid="uid://phjkwrfmtx56"]
+
+[ext_resource type="Script" path="res://scripts/console.gd" id="1_m625o"]
+[ext_resource type="Script" path="res://scripts/debug_view.gd" id="2_j4mtf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eo0so"]
+bg_color = Color(0.25098, 0.25098, 0.25098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adlar"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_15m2k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4yi2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_op78g"]
+
+[node name="Debug" type="Node"]
+
+[node name="Console" type="Window" parent="."]
+title = "Dev Console"
+initial_position = 2
+size = Vector2i(600, 400)
+visible = false
+transient = true
+script = ExtResource("1_m625o")
+
+[node name="Panel" type="Panel" parent="Console"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_eo0so")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Console"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Output" type="TextEdit" parent="Console/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+editable = false
+
+[node name="Panel" type="PanelContainer" parent="Console/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_adlar")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Console/VBoxContainer/Panel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Console/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = " > "
+
+[node name="Input" type="LineEdit" parent="Console/VBoxContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_15m2k")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_q4yi2")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_op78g")
+caret_blink = true
+caret_mid_grapheme = true
+
+[node name="DebugView" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("2_j4mtf")
+
+[node name="Control" type="Control" parent="DebugView"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -646.0
+offset_bottom = 1078.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugView"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -530.0
+offset_bottom = 1079.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DebugView/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 13
+bbcode_enabled = true
+
+[connection signal="close_requested" from="Console" to="Console" method="_on_close_requested"]
