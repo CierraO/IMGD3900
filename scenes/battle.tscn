@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://beayxgfkk3h5v"]
+[gd_scene load_steps=61 format=3 uid="uid://beayxgfkk3h5v"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_id4ev"]
 [ext_resource type="Resource" uid="uid://ct1tp5l3wbu1g" path="res://resources/skeleton.tres" id="2_vqcng"]
@@ -7,19 +7,25 @@
 [ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="4_x0toj"]
 [ext_resource type="Texture2D" uid="uid://bpbu8eebw2h7y" path="res://assets/melee-attack.png" id="5_8rc5m"]
 [ext_resource type="Texture2D" uid="uid://bwwklo81h8wn0" path="res://assets/parry.png" id="6_6qxmr"]
+[ext_resource type="Texture2D" uid="uid://cmoyc3bwk1362" path="res://assets/cleave.png" id="6_b5iib"]
 [ext_resource type="Texture2D" uid="uid://daqlip0slws7d" path="res://assets/magic-attack.png" id="6_rcjf7"]
 [ext_resource type="Texture2D" uid="uid://drudr1oagdm3q" path="res://assets/health-bar.png" id="6_rspfa"]
 [ext_resource type="StyleBox" uid="uid://dw6yxedkecnq6" path="res://resources/panel.tres" id="7_6vsqg"]
 [ext_resource type="Texture2D" uid="uid://hyrkada5dkpt" path="res://assets/fireball.png" id="7_38xin"]
 [ext_resource type="Texture2D" uid="uid://c7yf6svrfm18m" path="res://assets/attack-icon.png" id="7_67na4"]
 [ext_resource type="Theme" uid="uid://dsldiw4rqrjxb" path="res://resources/theme.tres" id="7_bqs2w"]
-[ext_resource type="Texture2D" uid="uid://cp7l2gxetjqvf" path="res://assets/reckless-attack.png" id="7_e6toc"]
+[ext_resource type="Texture2D" uid="uid://cxauu02fyynjr" path="res://assets/reckless-attack.png" id="7_e6toc"]
 [ext_resource type="Texture2D" uid="uid://htddvnqe8uhx" path="res://assets/frost-bolt.png" id="8_c37q2"]
 [ext_resource type="Texture2D" uid="uid://dkxovs1ky71g2" path="res://assets/flee-icon.png" id="8_tm0nu"]
+[ext_resource type="Texture2D" uid="uid://cylx6qd0r4mdc" path="res://assets/pierce.png" id="8_y6hop"]
 [ext_resource type="Texture2D" uid="uid://bqplt6vtn3x4k" path="res://assets/full-block.png" id="8_yxw3g"]
 [ext_resource type="Texture2D" uid="uid://cpndhw11qnwt8" path="res://assets/toxic-cloud.png" id="9_6b8rs"]
 [ext_resource type="Texture2D" uid="uid://7pq8n82dft2m" path="res://assets/special-icon.png" id="9_u5ego"]
+[ext_resource type="Texture2D" uid="uid://qcv4j253wmh6" path="res://assets/critical_strike.png" id="10_d4sop"]
 [ext_resource type="Texture2D" uid="uid://c8dgf8gufcd2n" path="res://assets/bag-icon.png" id="10_uccvl"]
+[ext_resource type="Texture2D" uid="uid://de2og0kv2ugcg" path="res://assets/arcane-charge.png" id="11_01dld"]
+[ext_resource type="Texture2D" uid="uid://cg4f5ac8rlapi" path="res://assets/mana-bolt.png" id="12_dtqda"]
+[ext_resource type="Texture2D" uid="uid://cqce3ulc2ogb3" path="res://assets/barrier.png" id="13_a7tkb"]
 [ext_resource type="AudioStream" uid="uid://l4sy7526bldl" path="res://audio/Physical-Attack-Sound-Effect.mp3" id="13_vdble"]
 [ext_resource type="AudioStream" uid="uid://bhs5yu2yhg5hr" path="res://audio/Enemy-Physical-Attack-Sound-Effect-PH.mp3" id="14_gy17m"]
 [ext_resource type="AudioStream" uid="uid://c04u77sudo84j" path="res://audio/Magic-Attack-Sound-Effect.mp3" id="15_vtudw"]
@@ -363,6 +369,210 @@ tracks/26/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/27/type = "value"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("ManaBoltAttack:visible")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("ManaBoltAttack:frame")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/29/type = "value"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("ManaBoltAttack:modulate")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/30/type = "value"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("CleaveAttack:visible")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/31/type = "value"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("CleaveAttack:frame")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("ArcaneChargeAttack:visible")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/33/type = "value"
+tracks/33/imported = false
+tracks/33/enabled = true
+tracks/33/path = NodePath("ArcaneChargeAttack:frame")
+tracks/33/interp = 1
+tracks/33/loop_wrap = true
+tracks/33/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/34/type = "value"
+tracks/34/imported = false
+tracks/34/enabled = true
+tracks/34/path = NodePath("ArcaneChargeAttack:modulate")
+tracks/34/interp = 1
+tracks/34/loop_wrap = true
+tracks/34/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/35/type = "value"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("PierceAttack:visible")
+tracks/35/interp = 1
+tracks/35/loop_wrap = true
+tracks/35/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/36/type = "value"
+tracks/36/imported = false
+tracks/36/enabled = true
+tracks/36/path = NodePath("PierceAttack:modulate")
+tracks/36/interp = 1
+tracks/36/loop_wrap = true
+tracks/36/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/37/type = "value"
+tracks/37/imported = false
+tracks/37/enabled = true
+tracks/37/path = NodePath("PierceAttack:frame")
+tracks/37/interp = 1
+tracks/37/loop_wrap = true
+tracks/37/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/38/type = "value"
+tracks/38/imported = false
+tracks/38/enabled = true
+tracks/38/path = NodePath("CriticalStrikeAttack:visible")
+tracks/38/interp = 1
+tracks/38/loop_wrap = true
+tracks/38/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/39/type = "value"
+tracks/39/imported = false
+tracks/39/enabled = true
+tracks/39/path = NodePath("CriticalStrikeAttack:frame")
+tracks/39/interp = 1
+tracks/39/loop_wrap = true
+tracks/39/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/40/type = "value"
+tracks/40/imported = false
+tracks/40/enabled = true
+tracks/40/path = NodePath("CriticalStrikeAttack:modulate")
+tracks/40/interp = 1
+tracks/40/loop_wrap = true
+tracks/40/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/41/type = "value"
+tracks/41/imported = false
+tracks/41/enabled = true
+tracks/41/path = NodePath("BarrierAttack:visible")
+tracks/41/interp = 1
+tracks/41/loop_wrap = true
+tracks/41/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/42/type = "value"
+tracks/42/imported = false
+tracks/42/enabled = true
+tracks/42/path = NodePath("BarrierAttack:modulate")
+tracks/42/interp = 1
+tracks/42/loop_wrap = true
+tracks/42/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/43/type = "value"
+tracks/43/imported = false
+tracks/43/enabled = true
+tracks/43/path = NodePath("BarrierAttack:frame")
+tracks/43/interp = 1
+tracks/43/loop_wrap = true
+tracks/43/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_xndoi"]
@@ -799,10 +1009,10 @@ tracks/2/path = NodePath("RecklessAttack:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.166667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3]
+"values": [0, 1, 2, 3, 4]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -872,9 +1082,331 @@ tracks/3/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_n7lnj"]
+resource_name = "mana_bolt_attack"
+length = 0.5667
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0845868,
+"stream": ExtResource("15_vtudw")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ManaBoltAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ManaBoltAttack:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.266667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ManaBoltAttack:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.366667, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2sqr8"]
+resource_name = "cleave_attack"
+length = 0.3667
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.135374,
+"start_offset": 0.0,
+"stream": ExtResource("13_vdble")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CleaveAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.366667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CleaveAttack:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_4vjiu"]
+resource_name = "arcane_charge_attack"
+length = 0.5667
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0845868,
+"stream": ExtResource("15_vtudw")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArcaneChargeAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ArcaneChargeAttack:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ArcaneChargeAttack:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x2hr7"]
+resource_name = "pierce_attack"
+length = 0.4
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.135374,
+"start_offset": 0.0,
+"stream": ExtResource("13_vdble")
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PierceAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PierceAttack:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PierceAttack:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166667, 0.233333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_s5ik5"]
+resource_name = "critical_strike_attack"
+length = 0.34
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.135374,
+"start_offset": 0.0,
+"stream": ExtResource("13_vdble")
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CriticalStrikeAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CriticalStrikeAttack:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CriticalStrikeAttack:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.266667, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_j8cnx"]
+resource_name = "barrier_attack"
+length = 0.64
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0845868,
+"stream": ExtResource("15_vtudw")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BarrierAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BarrierAttack:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.433333, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BarrierAttack:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.233333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v0eu2"]
 _data = {
 "RESET": SubResource("Animation_803hh"),
+"arcane_charge_attack": SubResource("Animation_4vjiu"),
+"barrier_attack": SubResource("Animation_j8cnx"),
+"cleave_attack": SubResource("Animation_2sqr8"),
+"critical_strike_attack": SubResource("Animation_s5ik5"),
 "defeat": SubResource("Animation_xndoi"),
 "enemy_damaged": SubResource("Animation_0ckph"),
 "enemy_died": SubResource("Animation_mnkwu"),
@@ -882,8 +1414,10 @@ _data = {
 "frost_bolt_attack": SubResource("Animation_gf1kh"),
 "full_block_attack": SubResource("Animation_4b0lk"),
 "magic_attack": SubResource("Animation_pmg6m"),
+"mana_bolt_attack": SubResource("Animation_n7lnj"),
 "melee_attack": SubResource("Animation_5fkb0"),
 "parry_attack": SubResource("Animation_bwos7"),
+"pierce_attack": SubResource("Animation_x2hr7"),
 "player_dmg": SubResource("Animation_r5k3u"),
 "reckless_attack": SubResource("Animation_xovj0"),
 "toxic_cloud_attack": SubResource("Animation_ybb1l")
@@ -988,6 +1522,13 @@ scale = Vector2(4, 4)
 texture = ExtResource("5_8rc5m")
 hframes = 5
 
+[node name="CleaveAttack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(476, 264)
+scale = Vector2(4, 4)
+texture = ExtResource("6_b5iib")
+hframes = 5
+
 [node name="ParryAttack" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(476, 264)
@@ -995,12 +1536,26 @@ scale = Vector2(4, 4)
 texture = ExtResource("6_6qxmr")
 hframes = 4
 
+[node name="PierceAttack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(476, 275)
+scale = Vector2(4, 4)
+texture = ExtResource("8_y6hop")
+hframes = 5
+
 [node name="RecklessAttack" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(476, 264)
+position = Vector2(479, 264)
 scale = Vector2(4, 4)
 texture = ExtResource("7_e6toc")
-hframes = 4
+hframes = 5
+
+[node name="CriticalStrikeAttack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(479, 264)
+scale = Vector2(4, 4)
+texture = ExtResource("10_d4sop")
+hframes = 5
 
 [node name="FullBlockAttack" type="Sprite2D" parent="."]
 visible = false
@@ -1017,6 +1572,20 @@ scale = Vector2(4, 4)
 texture = ExtResource("6_rcjf7")
 hframes = 5
 
+[node name="BarrierAttack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(480, 264)
+scale = Vector2(4, 4)
+texture = ExtResource("13_a7tkb")
+hframes = 5
+
+[node name="ArcaneChargeAttack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(480, 264)
+scale = Vector2(4, 4)
+texture = ExtResource("11_01dld")
+hframes = 4
+
 [node name="FireballAttack" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(480, 264)
@@ -1029,6 +1598,13 @@ visible = false
 position = Vector2(480, 264)
 scale = Vector2(4, 4)
 texture = ExtResource("8_c37q2")
+hframes = 5
+
+[node name="ManaBoltAttack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(480, 264)
+scale = Vector2(4, 4)
+texture = ExtResource("12_dtqda")
 hframes = 5
 
 [node name="ToxicCloudAttack" type="Sprite2D" parent="."]
