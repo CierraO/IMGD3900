@@ -16,7 +16,7 @@ func _ready():
 
 # Called during the processing step of the main loop.
 func _process(delta):
-	if Input.is_action_just_pressed("dev_console_toggle") and PlayerState.state == PlayerState.State.MOVING:
+	if Input.is_action_just_pressed("dev_console_toggle"):
 		_toggle()
 
 
@@ -29,6 +29,9 @@ func _input(event):
 
 # Toggle the dev console.
 func _toggle():
+	if not PlayerState.state == PlayerState.State.MOVING and !visible:
+		return
+	
 	input.text = ""
 	visible = !visible
 	PlayerState.state = PlayerState.State.IN_MENU if visible else PlayerState.State.MOVING
@@ -132,6 +135,8 @@ func collect_equipment(type, variation):
 	if type < 0 or type >= Inventory.equipment_types.size():
 		return "ERROR: Invalid equipment type."
 	
+	Inventory.collected_equipment.emit()
+	
 	match type:
 		0:
 			if Inventory.weapons_collected.has(variation):
@@ -168,6 +173,7 @@ func collect_all_equipment():
 	Inventory.helmets_collected = [0, 1, 2]
 	Inventory.chestpieces_collected = [0, 1, 2]
 	Inventory.boots_collected = [0, 1, 2]
+	Inventory.collected_equipment.emit()
 
 
 func clear_equipment():
