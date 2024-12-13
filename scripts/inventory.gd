@@ -41,12 +41,12 @@ var ITEM_MAPPINGS = [
 	{"name": "Armorskin Potion",
 	"icon": preload("res://assets/armorskin-potion.png"),
 	"script": preload("res://scripts/items/armorskin_potion.gd"),
-	"desc": "Increases defense by 50% of base defense."},
+	"desc": "Increases defense by 50% of base defense (in battle only)."},
 	
 	{"name": "Stale Bread",
 	"icon": preload("res://assets/stale-bread.png"),
 	"script": preload("res://scripts/items/stale_bread.gd"),
-	"desc": "Increases defense by 100% of base defense."},
+	"desc": "Increases defense by 100% of base defense (in battle only)."},
 ]
 ## List of item IDs
 var _inventory = [ITEMS.HEALTH_POTION]
@@ -337,13 +337,14 @@ func _on_inv_item_list_item_selected(index: int) -> void:
 
 func _on_inv_item_list_item_activated(index: int) -> void:
 	var m_item = ITEM_MAPPINGS[_inventory[index]]["script"].new()
-	m_item.call("use")
-	m_item.queue_free()
-	remove_inventory_item_at_index(index)
-	_update_health_bar()
-	if (inv_item_list.get_item_count() == 0):
-		inv_textbox.text = ""
-		armor_types_item_list.grab_focus()
+	var used = m_item.call("use")
+	if used:
+		m_item.queue_free()
+		remove_inventory_item_at_index(index)
+		_update_health_bar()
+		if (inv_item_list.get_item_count() == 0):
+			inv_textbox.text = ""
+			armor_types_item_list.grab_focus()
 
 
 func _on_inv_item_list_focus_entered() -> void:

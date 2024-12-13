@@ -15,3 +15,4 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 		PlayerState.player_stats["hp"] = PlayerState.player_stats["max_hp"]
 		
 	completed_use.emit()
+	return 1

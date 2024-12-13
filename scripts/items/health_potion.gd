@@ -20,3 +20,4 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 	
 	
 	completed_use.emit()
+	return 1
