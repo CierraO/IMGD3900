@@ -16,6 +16,7 @@ extends CanvasLayer
 
 
 signal collected_equipment
+signal equipped_equipment
 
 
 """ Inventory items """
@@ -229,6 +230,8 @@ func equip(type: String, collected_equipment: int):
 	
 	var equipment_dict = EQUIP_MAPPINGS[equipped]
 	_add_equipment_modifiers(equipment_dict)
+	
+	equipped_equipment.emit()
 
 
 ## Get the dictionary of the currently equipped item of the given type.

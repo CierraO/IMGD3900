@@ -13,6 +13,7 @@ var disabled = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Inventory.collected_equipment.connect(_increase_stats)
+	Inventory.equipped_equipment.connect(_increase_stats)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -64,7 +65,7 @@ func _increase_stats():
 	var num_equipment_types = Inventory.equipment_types.size()
 	var num_equipment = Inventory.get_all_equipment().size()
 	
-	if ((level == 1 and all_collected_equipment.size() == num_equipment - num_equipment_types)
+	if ((level == 1 and PlayerState.player_stats["atk"] >= 11)
 			or (level < 3 and all_collected_equipment.size() == num_equipment)):
 		if enemy.level_up:
 			enemy = enemy.level_up
