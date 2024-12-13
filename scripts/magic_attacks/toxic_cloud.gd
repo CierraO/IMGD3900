@@ -7,7 +7,7 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 	
 	# Calculate passive damage
 	var dmg = max(1, self_stats["mag"] * 0.3)
-	opponent_stats["passive_dmg_taken"] = dmg
+	opponent_stats["passive_dmg_taken"] += dmg
 	
 	# Apply damage modifier
 	dmg = dmg * opponent_stats["next_dmg_taken_modifier"]

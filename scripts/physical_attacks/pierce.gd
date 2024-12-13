@@ -6,7 +6,8 @@ func use(opponent_stats=null, self_stats=null, battle=null):
 	await(battle.textbox_closed)
 	
 	var dmg = max(0, self_stats["atk"]) + (randi() % 2)
-	dmg = dmg * opponent_stats["next_dmg_taken_modifier"]
+	if opponent_stats["next_dmg_taken_modifier"] > 1:
+		dmg = dmg * opponent_stats["next_dmg_taken_modifier"]
 	opponent_stats["hp"] = max(0, opponent_stats["hp"] - dmg)
 	battle.update_all_progress_bars()
 	
