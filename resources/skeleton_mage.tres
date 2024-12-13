@@ -6,12 +6,12 @@
 [ext_resource type="Script" path="res://scripts/magic_attacks/arcane_charge.gd" id="4_60io8"]
 [ext_resource type="Resource" uid="uid://byh263j3irlhd" path="res://resources/skeleton_mage2.tres" id="5_evjpd"]
 [ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="6_ynr6r"]
-[ext_resource type="Texture2D" uid="uid://o2ywklub7bta" path="res://assets/skull-enemy.png" id="7_qewc2"]
+[ext_resource type="Texture2D" uid="uid://ckv6hcjorvc8s" path="res://assets/skeleton-mage.png" id="7_aiuij"]
 
 [resource]
 script = ExtResource("6_ynr6r")
 name = "Skeleton Mage"
-texture = ExtResource("7_qewc2")
+texture = ExtResource("7_aiuij")
 encounter_text = "A Skeleton Mage appears!"
 health = 20
 mag = 8
