@@ -6,4 +6,8 @@ extends Area2D
 
 
 func action() -> void:
-	DialogueManager.show_dialogue_balloon(dialogue_resource, dialogue_start)
+	if PlayerState.state == PlayerState.State.MOVING:
+		PlayerState.state = PlayerState.State.IN_MENU
+		DialogueManager.show_dialogue_balloon(dialogue_resource, dialogue_start)
+		await DialogueManager.dialogue_ended
+		PlayerState.state = PlayerState.State.MOVING
