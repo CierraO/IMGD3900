@@ -7,6 +7,7 @@ extends Area2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var level = 1
+var disabled = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,37 +21,40 @@ func _process(delta):
 
 
 func _on_body_entered(body):
-	# Prevent player from receiving movement input during battle
-	PlayerState.state = PlayerState.State.BATTLING
-	
-	# Encounter animation
-	animation_player.play("encounter")
-	await(animation_player.animation_finished)
-	
-	# Prepare a battle node and add it to the scene
-	var battle: Node = load("res://scenes/battle.tscn").instantiate()
-	battle.set_enemy(enemy)
-	get_tree().current_scene.get_node("CanvasLayer").add_child(battle)
-	
-	# When the battle is over, destroy it and return movement controls to the player
-	await(battle.battle_finished)
-	PlayerState.state = PlayerState.State.MOVING
-	
-	remove_from_scene()
+	if not disabled:
+		# Prevent player from receiving movement input during battle
+		PlayerState.state = PlayerState.State.BATTLING
+		
+		# Encounter animation
+		animation_player.play("encounter")
+		await(animation_player.animation_finished)
+		
+		# Prepare a battle node and add it to the scene
+		var battle: Node = load("res://scenes/battle.tscn").instantiate()
+		battle.set_enemy(enemy)
+		get_tree().current_scene.get_node("CanvasLayer").add_child(battle)
+		
+		# When the battle is over, destroy it and return movement controls to the player
+		await(battle.battle_finished)
+		PlayerState.state = PlayerState.State.MOVING
+		
+		remove_from_scene()
 
 func remove_from_scene():
+	disabled = true
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "modulate", Color(1, 1, 1, 0), 0.5)
 	await (tween.finished)
 	
 	if respawns:
-		$CollisionShape2D.disabled = true
 		await (get_tree().create_timer(3).timeout)
+		if has_overlapping_bodies():
+			await body_exited
 		
 		tween = create_tween()
 		tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.5)
 		await (tween.finished)
-		$CollisionShape2D.disabled = false
+		disabled = false
 	else:
 		queue_free()
 
