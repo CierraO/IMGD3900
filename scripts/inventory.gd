@@ -386,7 +386,7 @@ func _on_armor_types_item_list_item_selected(index: int) -> void:
 	if equipped != -1:
 		var equip_collected = get(equip_type + "s_collected")
 		var index_of_equipped = equip_collected.find(equipped)
-		armor_item_list.set_item_custom_bg_color(index_of_equipped, Color(1, 1, 1, 1))
+		armor_item_list.set_item_custom_bg_color(index_of_equipped, Color("857786"))
 	_reset_labels_to_default()
 
 
@@ -429,7 +429,7 @@ func _on_armor_item_list_item_selected(index: int) -> void:
 func _on_armor_item_list_item_activated(index: int) -> void:
 	# Show item as selected
 	_reset_armor_item_list_item_colors()
-	armor_item_list.set_item_custom_bg_color(index, Color(1, 1, 1, 1))
+	armor_item_list.set_item_custom_bg_color(index, Color("857786"))
 	
 	# Equip the item
 	var equip_type = equipment_types[armor_types_item_list.get_selected_items()[0]]
